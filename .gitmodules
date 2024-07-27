@@ -1,0 +1,6 @@
+[submodule "services/FixRemont-Back-End"]
+	path = services/FixRemont-Back-End
+	url = https://github.com/fix-remont/FixRemont-Back-End
+[submodule "services/FixRemont-Front-End"]
+	path = services/FixRemont-Front-End
+	url = https://github.com/fix-remont/FixRemont-Front-End.git
