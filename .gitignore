@@ -2,3 +2,13 @@
 .vscode
 ansible_from_rails
 frontend/.vscode
+/.venv
+.venv
+/.venv/
+/.idea
+.idea
+__pycache__
+backend/.venv
+backend/.venv/
+backend/.idea
+backend/__pycache__

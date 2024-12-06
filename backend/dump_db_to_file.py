@@ -1,5 +1,8 @@
 import os
 import subprocess
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def dump_db_to_file(db_name, db_user, db_password, db_host, db_port, file_path):
@@ -8,4 +11,10 @@ def dump_db_to_file(db_name, db_user, db_password, db_host, db_port, file_path):
     subprocess.run(command, shell=True)
 
 
-dump_db_to_file('postgres', 'postgres', 'fixremontadmin', 'localhost', '5432', 'dump.sql')
+db_name = os.getenv('DB_NAME')
+db_user = os.getenv('DB_USERNAME')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST', 'localhost')
+db_port = os.getenv('DB_PORT', '5432')
+
+dump_db_to_file(db_name, db_user, db_password, db_host, db_port, 'dump.sql')
