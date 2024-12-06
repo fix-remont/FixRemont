@@ -1,0 +1,5 @@
+export const hrefLogo = '/'
+export const hrefTg = '#'
+export const hrefWatsapp = '#'
+export const hrefPhone = 'tel:+7-966-250-77-99'
+export const labelPhone = '+7 (966) 250-77-99'

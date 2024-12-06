@@ -1,0 +1,46 @@
+############### повторяющаяся шапка
+- name: Read .env file and create user
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: set variables from .env to facts
+      ansible.builtin.include_tasks: tasks/set__env_vars__from_.env.yml
+
+- name: Use parsed .env variables on remote host
+  hosts: remote-staging-user
+  # gather_facts: false
+  become: true
+  vars:
+    ansistrano_deploy_to: "/home/{{ remote_env_vars['ENV_MODE'] }}/fixremont/frontend"
+  tasks:
+    - name: Pass variables to remote host
+      set_fact:
+        remote_env_vars: "{{ hostvars['localhost']['env_vars'] }}"
+    ###################################
+
+    - name: ansistrano deploy
+      ansible.builtin.import_role:
+        name: ansistrano.deploy
+      vars:
+        ansistrano_deploy_from: '{{ playbook_dir }}/../frontend'
+        ansistrano_deploy_via: rsync
+        ansistrano_rsync_extra_params: '--exclude=.vscode --exclude=.nuxt --exclude=.output --exclude=node_modules  --exclude=.build'
+
+    - name: install pnpm dependencies
+      ansible.builtin.command:
+        cmd: pnpm install
+        chdir: '{{ ansistrano_deploy_to }}/current/frontend'
+      become: true
+
+    - name: make build
+      ansible.builtin.command:
+        cmd: pnpm build
+        chdir: '{{ ansistrano_deploy_to }}/current/frontend'
+      become: true
+
+    - name: start/restart pm2 frontend process
+      ansible.builtin.command:
+        cmd: pm2 start frontend
+        chdir: "/home/{{ remote_env_vars['ENV_MODE'] }}/fixremont"
+      become: true
+      become_user: "{{ remote_env_vars['ENV_MODE'] }}"

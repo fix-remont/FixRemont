@@ -1,0 +1,6 @@
+roles:
+  - name: geerlingguy.nodejs
+  - name: geerlingguy.nginx
+  - name: ansistrano.deploy
+  - name: ansistrano.rollback
+  - name: mdklatt.python3

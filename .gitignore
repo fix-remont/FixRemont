@@ -1,0 +1,4 @@
+.env
+.vscode
+ansible_from_rails
+frontend/.vscode

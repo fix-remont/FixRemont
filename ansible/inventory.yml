@@ -1,0 +1,29 @@
+all:
+  vars:
+    env_vars: {}
+    required_vars_from_env:
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+      - FRONTEND_PORT
+      - BACKEND_PORT
+      - ENV_MODE
+    remote_app_path: /home/staging/fixremont
+    local_app_path: /home/g/projects/fix-remont
+  children:
+    localhost:
+      hosts:
+        localhost:
+          ansible_connection: local
+
+    remote-staging:
+      hosts:
+        remote-staging-admin:
+          ansible_host: 158.160.138.32
+          ansible_port: 22
+          ansible_user: admin
+
+        remote-staging-user:
+          ansible_host: 158.160.138.32
+          ansible_port: 22
+          ansible_user: staging

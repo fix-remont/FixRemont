@@ -1,0 +1,39 @@
+:root {
+	--px-3xl: 0 55px;
+	--px-lg: 0 36px;
+	--px-sm: 0 22px;
+
+	--c-black: #161616;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: #fafafa;
+	font-family: Inter;
+}
+
+a {
+	text-decoration: none;
+	/* color: var(--c-black); */
+}
+
+#app {
+	max-width: 1920px;
+	min-height: 100dvh;
+	margin-left: auto;
+	margin-right: auto;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.hover {
+	cursor: pointer;
+	&:hover {
+		opacity: 0.8;
+	}
+}
