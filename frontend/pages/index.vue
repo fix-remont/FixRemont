@@ -1,16 +1,17 @@
 <script setup lang="ts">
-const layout = 'main'
+import Block_1 from '~/components/1_wigets/home/block_1.vue'
+import Block_2 from '~/components/1_wigets/home/block_2.vue'
+import Block_3 from '~/components/1_wigets/home/block_3.vue'
+import Block_4 from '~/components/1_wigets/home/block_4.vue'
 </script>
 
 <template>
-	<NuxtLayout name="main">
-		<h1><b>Page: index</b></h1>
-		<h1><b>Page: index</b></h1>
-		<h1><b>Page: index</b></h1>
-		<h1><b>Page: index</b></h1>
-		<h1><b>Page: index</b></h1>
-		<h1><b>Page: index</b></h1>
-	</NuxtLayout>
+	<!-- <NuxtLayout> -->
+	<!-- <Block_1 /> -->
+	<!-- <Block_2 /> -->
+	<Block_3 />
+	<!-- <Block_4 /> -->
+	<!-- </NuxtLayout> -->
 </template>
 
 <style scoped></style>

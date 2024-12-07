@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/css/contacts'
+import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/css/variables'
 </script>
 
 <template>
-	<header class="box">
+	<header :class="['box', 'margin-glob']">
 		<div class="left-part">
 			<NuxtLink :to="hrefLogo">
 				<img src="/icons/logo-for-white.svg" :class="['hover', 'logo']" alt="logo" />
@@ -66,23 +66,10 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/c
 	display: flex;
 	gap: 20px;
 	justify-content: space-between;
-	margin: var(--px-3xl);
 	margin-top: 30px;
-
-	@media (max-width: 1240px) {
-		margin: var(--px-lg);
-		margin-top: 20px;
-	}
-
-	@media (max-width: 640px) {
-		margin: var(--px-sm);
-		margin-top: 12px;
-	}
-
+	margin-bottom: 30px;
 	@media (max-width: 640px) {
 		height: 52px;
-		font-size: 10px;
-		gap: 10px;
 	}
 }
 

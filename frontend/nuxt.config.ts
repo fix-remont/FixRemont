@@ -1,18 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	compatibilityDate: "2024-11-01",
+	compatibilityDate: '2024-11-01',
 	devtools: { enabled: false },
-	css: ["~/assets/css/global.css"],
-
+	css: ['~/assets/css/global.css'],
+	app: {
+		head: {
+			title: 'fix-remont',
+		},
+	},
 	postcss: {
 		plugins: {
-			"postcss-mixins": {},
-			"postcss-simple-vars": {},
-			"postcss-nested": {},
+			'postcss-mixins': {},
+			'postcss-simple-vars': {},
+			'postcss-nested': {},
 		},
 	},
 
-	modules: ["@nuxtjs/google-fonts", "@nuxt/ui"],
+	modules: ['@nuxtjs/google-fonts', '@nuxt/ui'],
 	googleFonts: {
 		download: true,
 		families: {
