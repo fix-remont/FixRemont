@@ -6,6 +6,8 @@ from typing import Any, List
 import random
 import string
 import enum
+from dotenv import load_dotenv
+import os
 
 Base = declarative_base()
 pwd_context = CryptContext(schemes=["bcrypt", "argon2", "pbkdf2_sha256"], deprecated="auto")
@@ -150,7 +152,6 @@ class User(Base):
     contracts = relationship("Contract", back_populates="client")
     notifications = relationship("Notification", back_populates="user")
     avatar = Column(String)
-
 
     # avatar = bytea (image) DONE
 
@@ -303,5 +304,15 @@ class FlatAdditionalOption(Base):
     additional_option_id = Column(Integer, ForeignKey('additional_options.id'), primary_key=True)
 
 
-engine = create_engine("postgresql+psycopg2://postgres:fixremontadmin@localhost:5432/postgres")
+load_dotenv()
+
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USERNAME')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_PORT = os.getenv('DB_PORT', '5432')
+
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+engine = create_engine(DATABASE_URL)
 Base.metadata.create_all(engine)
