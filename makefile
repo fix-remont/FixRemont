@@ -17,3 +17,6 @@ set_environment:
 
 deploy_frontend:
 	ansible-playbook -i $(inventory_path) $(playbook_deploy_frontend_path) --ask-become-pass
+
+pn:
+	cd frontend; pnpm dev

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { width } = useViewport()
 import ArrowHover from '~/components/5_shared/arrow_hover.vue'
-import ToolsImgBlock from '~/components/1_wigets/home/tools_img_block.vue'
+import ToolsImgBlock from '~/components/home/tools_img_block.vue'
 import { hrefBecomePartner, hrefCalculater } from '~/assets/css/variables'
 
 const slides = [
@@ -40,9 +40,7 @@ const slides = [
 		</div>
 		<div :class="['third']">
 			<UCarousel :ui="{ item: 'w-[280px]', container: 'gap-2' }" v-if="width < 1000" v-slot="{ item }" :items="slides">
-				<div
-					:class="['item', { item__hovered: !item.hovered.value }]"
-					@click="() => (item.hovered.value = true)"
+				<div :class="['item', { item__hovered: !item.hovered.value }]" @click="() => (item.hovered.value = true)"
 					@mouseover="() => (item.hovered.value = true)"
 					@mouseout="() => (item.hovered.value = width < 640 ? true : false)">
 					<span :class="['title']">{{ item.title }}</span>
@@ -54,12 +52,8 @@ const slides = [
 				</div>
 			</UCarousel>
 			<div v-else :class="['static-slides']">
-				<div
-					v-for="item of slides"
-					:key="item.title"
-					:class="['item', { item__hovered: !item.hovered.value }]"
-					@click="() => (item.hovered.value = true)"
-					@mouseover="() => (item.hovered.value = true)"
+				<div v-for="item of slides" :key="item.title" :class="['item', { item__hovered: !item.hovered.value }]"
+					@click="() => (item.hovered.value = true)" @mouseover="() => (item.hovered.value = true)"
 					@mouseout="() => (item.hovered.value = false)">
 					<span :class="['title']">{{ item.title }}</span>
 					<span :class="['text']">{{ item.text }}</span>
@@ -75,12 +69,14 @@ const slides = [
 
 <style scoped lang="postcss">
 $radius: 35px;
+
 .box {
 	display: grid;
 	gap: 20px;
 	grid-template-columns: auto 890px;
 	grid-template-rows: 550px auto;
 	grid-template-areas: 'first second' 'first third';
+
 	@media (max-width: 1500px) {
 		display: flex;
 		flex-direction: column;
@@ -118,11 +114,13 @@ $radius: 35px;
 				font-size: 20px;
 				margin-bottom: 30px;
 			}
+
 			@media (max-width: 800px) {
 				line-height: 16px;
 				font-size: 16px;
 			}
 		}
+
 		.buttons {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
@@ -133,6 +131,7 @@ $radius: 35px;
 				grid-template-rows: auto auto;
 				font-size: 16px;
 			}
+
 			.btn {
 				border-radius: 60px;
 				padding: 20px;
@@ -140,6 +139,7 @@ $radius: 35px;
 				border: 2px solid var(--c-orange);
 				font-size: 20px;
 				text-align: center;
+
 				@media (max-width: 1500px) {
 					padding: 10px;
 					font-size: 16px;
@@ -149,14 +149,17 @@ $radius: 35px;
 			.btn-calculator {
 				background-color: var(--c-orange);
 			}
+
 			.btn-to-partner {
 				border-color: white;
 			}
 		}
 	}
 }
+
 .third {
 	grid-area: third;
+
 	.static-slides {
 		width: 890px;
 		display: grid;
@@ -164,6 +167,7 @@ $radius: 35px;
 		gap: 20px;
 		height: 100%;
 		flex-grow: 1;
+
 		@media (max-width: 1500px) {
 			width: 100%;
 			gap: 0;
@@ -171,6 +175,7 @@ $radius: 35px;
 			justify-content: space-between;
 		}
 	}
+
 	.item {
 		position: relative;
 		display: flex;
@@ -184,6 +189,7 @@ $radius: 35px;
 		@media (max-width: 1500px) {
 			width: 280px;
 		}
+
 		/* @media (max-width: 1000px) {
 			width: initial;
 		} */
@@ -195,6 +201,7 @@ $radius: 35px;
 			line-height: 32px;
 			transition: all 1s linear;
 		}
+
 		.text {
 			width: 180px;
 			font-size: 16px;
@@ -209,18 +216,21 @@ $radius: 35px;
 			width: 100%;
 			height: 100%;
 		}
+
 		.wrap-arrow {
 			position: absolute;
 			right: 25px;
 			bottom: 25px;
 		}
 	}
+
 	.item__hovered {
 		background-color: #efefef;
 
 		.title {
 			color: var(--c-black);
 		}
+
 		.text {
 			color: #efefef;
 		}
