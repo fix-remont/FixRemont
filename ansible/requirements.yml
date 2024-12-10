@@ -4,3 +4,4 @@ roles:
   - name: ansistrano.deploy
   - name: ansistrano.rollback
   - name: mdklatt.python3
+  - name: geerlingguy.postgresql

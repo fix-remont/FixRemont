@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { hrefCalculater } from '~/assets/css/variables'
 
 const items = [
 	{ label: 'Базовый', img: '/images/home/package-comfort.png', selected: false },
@@ -8,36 +9,43 @@ const items = [
 	{ label: 'Бизнес', img: '/images/home/package-comfort.png', selected: false },
 ]
 
-const carousel = ref(null)
+const carouselRef = ref(null)
 const currentActiveIndex = ref(0)
 
 const itemsWithSelected = computed(() => {
 	return items.map((item, index) => {
 		item.selected = index === currentActiveIndex.value
 		return item
-	}
-
-	)
+	})
 })
-const handleUpdateCarousel = (onClick, actionType, disabled) => {
+const handleUpdateCarouselByButton = (onClick, actionType, disabled) => {
 	if (disabled) return
 	onClick()
-	const pagePrev = carousel.value.page
-
-	if (actionType == 'next')
-		currentActiveIndex.value = pagePrev
-	else if (actionType == 'prev')
-		currentActiveIndex.value = pagePrev - 2
-
 }
 
 const handleClickTab = (tabIndex) => {
-	currentActiveIndex.value = tabIndex
-	carousel.value.select(tabIndex + 1)
+	carouselRef.value.select(tabIndex + 1)
 }
-// function goToSlide(slideNumber) {
-// 	carousel.value.select(slideNumber)
-// }
+
+watch(
+	() => carouselRef.value?.page,
+	(newPage) => (currentActiveIndex.value = newPage - 1)
+)
+
+// autoplay
+// onMounted(() => {
+// 	setInterval(() => {
+// 		if (!carouselRef.value) return
+
+// 		if (carouselRef.value.page === carouselRef.value.pages) {
+// 			currentActiveIndex.value = 0
+// 			return carouselRef.value.select(0)
+// 		}
+
+// 		currentActiveIndex.value = carouselRef.value.page
+// 		carouselRef.value.next()
+// 	}, 5000)
+// })
 </script>
 
 <template>
@@ -45,13 +53,14 @@ const handleClickTab = (tabIndex) => {
 		<div class="text-area">
 			<p>
 				Занимайтесь
-				<span class="orange">любимыми</span> делами,
-				а ремонт мы
-				возьмём на себя.
+				<span class="orange">любимыми</span> делами, а ремонт мы возьмём на себя.
 			</p>
 		</div>
 
-		<UCarousel ref="carousel" :items="items" class="carousel-area"
+		<UCarousel
+			ref="carouselRef"
+			:items="items"
+			class="carousel-area"
 			:ui="{ item: 'w-full h-full rounded-3xl overflow-hidden', container: 'gap-2 relative h-full', arrows: { wrapper: 'absolute bottom-0' } }"
 			arrows>
 			<template #default="{ item }">
@@ -59,48 +68,73 @@ const handleClickTab = (tabIndex) => {
 			</template>
 
 			<template #prev="{ onClick, disabled }">
-				<img :class="['arrow', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg"
-					@click="handleUpdateCarousel(onClick, 'prev', disabled)" />
+				<img :class="['arrow', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg" @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" />
 			</template>
 
 			<template #next="{ onClick, disabled }">
-				<img :class="['arrow', { arrow_disabled: disabled }]" src="/images/arrow-next.svg" :disabled="disabled"
-					@click="handleUpdateCarousel(onClick, 'next', disabled)" />
+				<img
+					:class="['arrow', { arrow_disabled: disabled }]"
+					src="/images/arrow-next.svg"
+					:disabled="disabled"
+					@click="handleUpdateCarouselByButton(onClick, 'next', disabled)" />
 			</template>
 		</UCarousel>
 
 		<div class="tabs-area">
-			<p :class="['text']">4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:</p>
+			<p :class="['text']">
+				4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:
+			</p>
 			<div :class="['tabs-container']">
-
-				<div v-for="(item, index) in itemsWithSelected" @click="handleClickTab(index)"
-					:class="['tab', { tab_selected: item.selected }]" :key="index">
+				<div v-for="(item, index) in itemsWithSelected" @click="handleClickTab(index)" :class="['tab', { tab_selected: item.selected }]" :key="index">
 					<p :class="['label']">{{ item.label.toUpperCase() }}</p>
-					<img :class="['img']" :src="item.img" alt="img">
+					<img :class="['img']" :src="item.img" alt="img" />
 					<div :class="['blanket']"></div>
 				</div>
 			</div>
 		</div>
 
-		<div class="info-area"></div>
-		<!-- <button @click="goToSlide(2)">Перейти на второй слайд</button> -->
+		<div class="info-area">
+			<div class="block">
+				<div class="info">
+					<p class="title">{{ items[currentActiveIndex]?.label }}</p>
+					<p class="text">Для ценителей дорогого минималистичного стиля</p>
+				</div>
+				<div class="to-calculator">
+					<p class="text">Стоимость:</p>
+					<p class="title">Фикс</p>
+					<NuxtLink :to="hrefCalculater" :class="['hover', 'btn', 'btn-calculator']"> Онлайн-калькулятор </NuxtLink>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
-<style scoped>
+<style scoped lang="postcss">
 .box {
+	--s: 890px;
 	display: grid;
 	grid-template-columns: 50% 50%;
-	grid-template-rows: 500px 290px;
+	grid-template-rows: var(--s) 290px;
 	grid-template-areas: 'text carousel' 'tabs info';
 	gap: 30px;
+	@media (max-width: 1200px) {
+		grid-template-columns: 100%;
+		grid-template-rows: auto auto auto auto;
+		grid-template-areas: 'text' 'tabs' 'carousel' 'info';
+	}
 }
 
 .text-area {
+	--s: 65px;
 	grid-area: text;
-	font-size: 65px;
+	font-size: var(--s);
 	font-weight: 600;
-	line-height: 80px;
+	p {
+		line-height: 1.2em;
+		@media (max-width: 1200px) {
+			font-size: 0.5em;
+		}
+	}
 }
 
 .carousel-area {
@@ -125,11 +159,15 @@ const handleClickTab = (tabIndex) => {
 .tabs-area {
 	grid-area: tabs;
 	align-self: flex-end;
+	font-size: 24px;
 
 	.text {
-		font-size: 24px;
 		font-weight: 500;
 		margin-bottom: 30px;
+
+		@media (max-width: 1200px) {
+			font-size: 0.5em;
+		}
 	}
 
 	.tabs-container {
@@ -142,7 +180,6 @@ const handleClickTab = (tabIndex) => {
 			overflow: hidden;
 			width: 125px;
 			height: 125px;
-
 
 			.blanket {
 				position: absolute;
@@ -158,10 +195,9 @@ const handleClickTab = (tabIndex) => {
 				}
 			}
 
-
 			.label {
 				position: absolute;
-				font-size: 16px;
+				font-size: 0.7em;
 				font-weight: 600;
 				color: white;
 				transform: translate(-50%, -50%);
@@ -173,7 +209,6 @@ const handleClickTab = (tabIndex) => {
 			.img {
 				height: 100%;
 				object-fit: cover;
-
 			}
 		}
 	}
@@ -181,9 +216,63 @@ const handleClickTab = (tabIndex) => {
 
 .info-area {
 	grid-area: info;
-	background-color: #EFEFEF;
-	border-radius: 35px;
+	font-size: 50px;
 	width: 100%;
 	height: 100%;
+
+	@media (max-width: 1700px) {
+		font-size: 40px;
+	}
+	@media (max-width: 1400px) {
+		font-size: 35px;
+	}
+	.block {
+		background-color: #efefef;
+		border-radius: 0.7em;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		padding: 0.9em 1.7em;
+
+		.info {
+			width: 7em;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			.title {
+				font-weight: 600;
+			}
+			.text {
+				font-size: 0.4em;
+				color: #818181;
+			}
+		}
+		.to-calculator {
+			display: flex;
+			flex-direction: column;
+			margin-left: auto;
+			.text {
+				font-size: 0.4em;
+			}
+			.title {
+				font-weight: 600;
+			}
+			.btn {
+				border-radius: 2em;
+				padding: 20px;
+				font-size: 0.4em;
+				color: white;
+				text-align: center;
+				background-color: var(--c-orange);
+				margin-top: auto;
+
+				/* @media (max-width: 1500px) {
+					padding: 10px;
+					font-size: 16px;
+				} */
+			}
+		}
+	}
 }
 </style>

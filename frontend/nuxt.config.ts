@@ -13,6 +13,11 @@ export default defineNuxtConfig({
 			'postcss-mixins': {},
 			'postcss-simple-vars': {},
 			'postcss-nested': {},
+			'postcss-functions': {
+				functions: {
+					// fn: (size: number, koefficient: number) => `${size * koefficient}px`,
+				},
+			},
 		},
 	},
 
