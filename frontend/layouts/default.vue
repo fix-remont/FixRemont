@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Header from '~/components/1_wigets/header.vue'
-import Footer from '~/components/1_wigets/footer.vue'
+import Header from '~/components/chanks_1/header.vue'
+import Footer from '~/components/chanks_1/footer.vue'
 </script>
 
 <template>

@@ -1,29 +1,38 @@
 <script setup lang="ts">
 const { width } = useViewport()
-import ArrowHover from '~/components/5_shared/arrow_hover.vue'
+import ArrowHover from '~/components/chanks_2/arrow_hover.vue'
 import ToolsImgBlock from '~/components/home/tools_img_block.vue'
 import { hrefBecomePartner, hrefCalculater } from '~/assets/css/variables'
 
-const slides = [
+let slides = [
 	{
 		title: 'Ремонт',
 		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
 		imgSrc: '/images/home/block1-img1.png',
-		hovered: ref(width.value < 640 ? true : false),
+		hovered: ref(false),
+
 	},
 	{
 		title: 'Строительство',
 		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
 		imgSrc: '/images/home/block1-img1.png',
-		hovered: ref(width.value < 640 ? true : false),
+		hovered: ref(false),
+
 	},
 	{
 		title: 'Партнёрская программа',
 		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
 		imgSrc: '/images/home/block1-img1.png',
-		hovered: ref(width.value < 640 ? true : false),
+		hovered: ref(false),
 	},
 ]
+
+onMounted(() => {
+	slides = slides.map(item => {
+		item.hovered.value = width.value < 640 ? true : false
+		return item
+	})
+})
 </script>
 
 <template>

@@ -9,7 +9,8 @@ const items = [
 	{ label: 'Бизнес', img: '/images/home/package-comfort.png', selected: false },
 ]
 
-const carouselRef = ref(null)
+const carouselRef1 = ref(null)
+const carouselRef2 = ref(null)
 const currentActiveIndex = ref(0)
 
 const itemsWithSelected = computed(() => {
@@ -18,34 +19,22 @@ const itemsWithSelected = computed(() => {
 		return item
 	})
 })
+
 const handleUpdateCarouselByButton = (onClick, actionType, disabled) => {
 	if (disabled) return
 	onClick()
 }
 
 const handleClickTab = (tabIndex) => {
-	carouselRef.value.select(tabIndex + 1)
+	carouselRef1.value.select(tabIndex + 1)
+	carouselRef2.value.select(tabIndex + 1)
 }
 
 watch(
-	() => carouselRef.value?.page,
+	() => carouselRef1.value?.page,
 	(newPage) => (currentActiveIndex.value = newPage - 1)
 )
 
-// autoplay
-// onMounted(() => {
-// 	setInterval(() => {
-// 		if (!carouselRef.value) return
-
-// 		if (carouselRef.value.page === carouselRef.value.pages) {
-// 			currentActiveIndex.value = 0
-// 			return carouselRef.value.select(0)
-// 		}
-
-// 		currentActiveIndex.value = carouselRef.value.page
-// 		carouselRef.value.next()
-// 	}, 5000)
-// })
 </script>
 
 <template>
@@ -57,26 +46,21 @@ watch(
 			</p>
 		</div>
 
-		<UCarousel
-			ref="carouselRef"
-			:items="items"
-			class="carousel-area"
-			:ui="{ item: 'w-full h-full rounded-3xl overflow-hidden', container: 'gap-2 relative h-full', arrows: { wrapper: 'absolute bottom-0' } }"
+		<UCarousel ref="carouselRef1" :items="items" class="carousel-area"
+			:ui="{ item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden', container: 'gap-2 relative h-full', arrows: { wrapper: 'absolute bottom-0' } }"
 			arrows>
 			<template #default="{ item }">
 				<img class="slide" :src="item.img" draggable="false" />
 			</template>
 
 			<template #prev="{ onClick, disabled }">
-				<img :class="['arrow', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg" @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" />
+				<img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg"
+					@click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" />
 			</template>
 
 			<template #next="{ onClick, disabled }">
-				<img
-					:class="['arrow', { arrow_disabled: disabled }]"
-					src="/images/arrow-next.svg"
-					:disabled="disabled"
-					@click="handleUpdateCarouselByButton(onClick, 'next', disabled)" />
+				<img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-next.svg"
+					:disabled="disabled" @click="handleUpdateCarouselByButton(onClick, 'next', disabled)" />
 			</template>
 		</UCarousel>
 
@@ -84,13 +68,22 @@ watch(
 			<p :class="['text']">
 				4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:
 			</p>
-			<div :class="['tabs-container']">
-				<div v-for="(item, index) in itemsWithSelected" @click="handleClickTab(index)" :class="['tab', { tab_selected: item.selected }]" :key="index">
-					<p :class="['label']">{{ item.label.toUpperCase() }}</p>
-					<img :class="['img']" :src="item.img" alt="img" />
-					<div :class="['blanket']"></div>
-				</div>
-			</div>
+			<UCarousel ref="carouselRef2" :items="itemsWithSelected" class="tabs-container" :ui="{
+				container: 'gap-2', item: [
+					'w-16 sm:w-32',
+					'h-16 sm:h-32',
+					'rounded-lg sm:rounded-3xl',
+					' overflow-hidden relative cursor-pointer hover:opacity-90'],
+			}">
+				<template #default="{ item, index }">
+					<div @click="handleClickTab(index)" class="h-full">
+
+						<p :class="['label']">{{ item.label.toUpperCase() }}</p>
+						<img :class="['img']" :src="item.img" alt="img" />
+						<div :class="['blanket', { blanket_selected: item.selected }]"></div>
+					</div>
+				</template>
+			</UCarousel>
 		</div>
 
 		<div class="info-area">
@@ -109,14 +102,14 @@ watch(
 	</div>
 </template>
 
-<style scoped lang="postcss">
+<style scoped>
 .box {
-	--s: 890px;
 	display: grid;
 	grid-template-columns: 50% 50%;
-	grid-template-rows: var(--s) 290px;
+	grid-template-rows: 500px 290px;
 	grid-template-areas: 'text carousel' 'tabs info';
 	gap: 30px;
+
 	@media (max-width: 1200px) {
 		grid-template-columns: 100%;
 		grid-template-rows: auto auto auto auto;
@@ -125,12 +118,13 @@ watch(
 }
 
 .text-area {
-	--s: 65px;
 	grid-area: text;
-	font-size: var(--s);
+	font-size: 65px;
 	font-weight: 600;
+
 	p {
 		line-height: 1.2em;
+
 		@media (max-width: 1200px) {
 			font-size: 0.5em;
 		}
@@ -170,48 +164,39 @@ watch(
 		}
 	}
 
-	.tabs-container {
-		display: flex;
-		gap: 30px;
+	.blanket {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
 
-		.tab {
-			position: relative;
-			border-radius: 20px;
-			overflow: hidden;
-			width: 125px;
-			height: 125px;
-
-			.blanket {
-				position: absolute;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				background-color: rgba(0, 0, 0, 0.3);
-			}
-
-			&_selected {
-				.blanket {
-					background-color: rgba(249, 175, 21, 0.5);
-				}
-			}
-
-			.label {
-				position: absolute;
-				font-size: 0.7em;
-				font-weight: 600;
-				color: white;
-				transform: translate(-50%, -50%);
-				top: 50%;
-				left: 50%;
-				z-index: 2;
-			}
-
-			.img {
-				height: 100%;
-				object-fit: cover;
-			}
+		&_selected {
+			background-color: rgba(249, 175, 21, 0.5);
 		}
 	}
+
+
+	.label {
+		position: absolute;
+		font-size: 0.7em;
+		font-weight: 600;
+		color: white;
+		transform: translate(-50%, -50%);
+		top: 50%;
+		left: 50%;
+		z-index: 2;
+
+		@media (max-width: 640px) {
+			font-size: 10px;
+		}
+	}
+
+	.img {
+		height: 100%;
+		object-fit: cover;
+	}
+
 }
 
 .info-area {
@@ -223,9 +208,11 @@ watch(
 	@media (max-width: 1700px) {
 		font-size: 40px;
 	}
+
 	@media (max-width: 1400px) {
 		font-size: 35px;
 	}
+
 	.block {
 		background-color: #efefef;
 		border-radius: 0.7em;
@@ -235,29 +222,63 @@ watch(
 		display: flex;
 		padding: 0.9em 1.7em;
 
+		@media (max-width: 640px) {
+			flex-direction: column;
+			padding: 0.4em .8em;
+
+		}
+
 		.info {
 			width: 7em;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+
 			.title {
 				font-weight: 600;
+
+				@media (max-width: 640px) {
+					font-size: 24px;
+				}
 			}
+
 			.text {
 				font-size: 0.4em;
 				color: #818181;
+				font-weight: 600;
+
+				@media (max-width: 640px) {
+					font-size: 14px;
+				}
 			}
 		}
+
 		.to-calculator {
 			display: flex;
 			flex-direction: column;
 			margin-left: auto;
+
+			@media (max-width: 640px) {
+				margin-left: initial;
+
+			}
+
 			.text {
 				font-size: 0.4em;
+
+				@media (max-width: 640px) {
+					font-size: 14px;
+				}
 			}
+
 			.title {
 				font-weight: 600;
+
+				@media (max-width: 640px) {
+					font-size: 24px;
+				}
 			}
+
 			.btn {
 				border-radius: 2em;
 				padding: 20px;
@@ -267,10 +288,9 @@ watch(
 				background-color: var(--c-orange);
 				margin-top: auto;
 
-				/* @media (max-width: 1500px) {
-					padding: 10px;
-					font-size: 16px;
-				} */
+				@media (max-width: 640px) {
+					font-size: 12px;
+				}
 			}
 		}
 	}
