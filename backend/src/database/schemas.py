@@ -282,12 +282,12 @@ class SupportCategorySchema(BaseModel):
         from_attributes = True
 
 
-# class FAQSchema(BaseModel):
-#     title: str
-#     label: str
-#
-#     class Config:
-#         orm_mode = True
+class FAQSchema(BaseModel):
+    title: str
+    label: str
+
+    class Config:
+        orm_mode = True
 #
 #
 # class UserSchema(BaseModel):

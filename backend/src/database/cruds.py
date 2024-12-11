@@ -28,7 +28,7 @@ async def get_portfolio_posts(db: AsyncSession):
             "cost": work.cost,
             "square": work.square,
             "video_link": work.video_link,
-            "video_duration": int(work.video_duration),
+            "video_duration": work.video_duration,
             "project_type": work.project_type,
             "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
             "articles": articles
@@ -839,3 +839,33 @@ def create_user(db, user):
     db.refresh(db_user)
     print("User added to the database and committed")
     return db_user
+
+
+def get_faqs(db):
+    result = db.execute(select(models.FAQ))
+    all_faqs = result.scalars().all()
+
+    faqs = []
+
+    for faq in all_faqs:
+        faqs.append({
+            "title": faq.heading,
+            "label": faq.label
+        })
+
+    return faqs
+
+
+def get_faqs_by_keyword(db: AsyncSession, keyword: str):
+    result = db.execute(select(models.FAQ).where(models.FAQ.key_word == keyword))
+    faqs = result.scalars().all()
+
+    faqs_response = []
+
+    for faq in faqs:
+        faqs_response.append({
+            "title": faq.heading,
+            "label": faq.label
+        })
+
+    return faqs_response
