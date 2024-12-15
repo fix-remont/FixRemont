@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { width } = useViewport()
-import ArrowHover from '~/components/chanks_2/arrow_hover.vue'
+import ArrowHover from '~/components/shared/arrow_hover.vue'
 import ToolsImgBlock from '~/components/home/tools_img_block.vue'
 import { hrefBecomePartner, hrefCalculater } from '~/assets/css/variables'
 
@@ -10,14 +10,12 @@ let slides = [
 		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
 		imgSrc: '/images/home/block1-img1.png',
 		hovered: ref(false),
-
 	},
 	{
 		title: 'Строительство',
 		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
 		imgSrc: '/images/home/block1-img1.png',
 		hovered: ref(false),
-
 	},
 	{
 		title: 'Партнёрская программа',
@@ -28,7 +26,7 @@ let slides = [
 ]
 
 onMounted(() => {
-	slides = slides.map(item => {
+	slides = slides.map((item) => {
 		item.hovered.value = width.value < 640 ? true : false
 		return item
 	})
@@ -49,7 +47,9 @@ onMounted(() => {
 		</div>
 		<div :class="['third']">
 			<UCarousel :ui="{ item: 'w-[280px]', container: 'gap-2' }" v-if="width < 1000" v-slot="{ item }" :items="slides">
-				<div :class="['item', { item__hovered: !item.hovered.value }]" @click="() => (item.hovered.value = true)"
+				<div
+					:class="['item', { item__hovered: !item.hovered.value }]"
+					@click="() => (item.hovered.value = true)"
 					@mouseover="() => (item.hovered.value = true)"
 					@mouseout="() => (item.hovered.value = width < 640 ? true : false)">
 					<span :class="['title']">{{ item.title }}</span>
@@ -61,8 +61,12 @@ onMounted(() => {
 				</div>
 			</UCarousel>
 			<div v-else :class="['static-slides']">
-				<div v-for="item of slides" :key="item.title" :class="['item', { item__hovered: !item.hovered.value }]"
-					@click="() => (item.hovered.value = true)" @mouseover="() => (item.hovered.value = true)"
+				<div
+					v-for="item of slides"
+					:key="item.title"
+					:class="['item', { item__hovered: !item.hovered.value }]"
+					@click="() => (item.hovered.value = true)"
+					@mouseover="() => (item.hovered.value = true)"
 					@mouseout="() => (item.hovered.value = false)">
 					<span :class="['title']">{{ item.title }}</span>
 					<span :class="['text']">{{ item.text }}</span>

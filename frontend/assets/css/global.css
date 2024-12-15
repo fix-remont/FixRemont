@@ -1,4 +1,3 @@
-
 :root {
 	--px-3xl: 0 55px;
 	--px-lg: 0 36px;
@@ -6,6 +5,7 @@
 
 	--c-black: #161616;
 	--c-orange: #f9af15;
+	--c-gray: #dddddd;
 }
 
 * {

@@ -1,12 +1,9 @@
-<script setup lang="ts">
-import Header from '~/components/chanks_1/header.vue'
-import Footer from '~/components/chanks_1/footer.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-	<Header />
+	<SharedHeader />
 	<slot />
-	<Footer />
+	<SharedFooter />
 </template>
 
 <style scoped></style>

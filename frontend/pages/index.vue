@@ -1,16 +1,16 @@
-<script setup lang="ts">
-import Block_1 from '~/components/home/block_1.vue'
-import Block_2 from '~/components/home/block_2.vue'
-import Block_3 from '~/components/home/block_3.vue'
-import Block_4 from '~/components/home/block_4.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<NuxtLayout>
-		<Block_1 />
-		<Block_2 />
-		<Block_3 />
-		<Block_4 />
+		<!-- <HomeBlock1 /> -->
+		<!-- <HomeBlock2 /> -->
+		<!-- <HomeBlock3 /> -->
+		<!-- <HomeBlock4 /> -->
+		<!-- <HomeBlock5 /> -->
+		<!-- <HomeBlock6 /> -->
+		<!-- <HomeBlock7 /> -->
+		<!-- <HomeBlock8 /> -->
+		<HomeBlock9 />
 	</NuxtLayout>
 </template>
 

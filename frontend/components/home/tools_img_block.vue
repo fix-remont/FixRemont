@@ -7,12 +7,12 @@ const imagePath = '/images/home/tools.png'
 
 <template>
 	<div :class="[area]">
-		<img :src="imagePath" alt="tools" />
+		<img :src="imagePath" alt="tools" draggable="false" />
 		<p>Первый в России онлайн-сервис по ремонту и строительству с фиксированной стоимостью</p>
 	</div>
 </template>
 
-<style scoped>
+<style scoped lang="postcss">
 $radius: 35px;
 
 .first {
