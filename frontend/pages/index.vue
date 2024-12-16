@@ -10,7 +10,10 @@
 		<!-- <HomeBlock6 /> -->
 		<!-- <HomeBlock7 /> -->
 		<!-- <HomeBlock8 /> -->
-		<HomeBlock9 />
+		<!-- <HomeBlock9 /> -->
+		<!-- <HomeBlock10 /> -->
+		<!-- <HomeBlock11 /> -->
+		<HomeBlock12 />
 	</NuxtLayout>
 </template>
 
