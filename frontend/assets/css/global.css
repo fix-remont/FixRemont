@@ -72,20 +72,18 @@ a {
 }
 
 .title-glob {
-	font-size: 65px;
+	font-size: 64px;
 	font-weight: 600;
 	line-height: 80px;
 
 	@media (max-width: 1240px) {
 		font-size: 45px;
 		line-height: 60px;
-
 	}
 
 	@media (max-width: 640px) {
 		font-size: 30px;
 		line-height: 40px;
-
 	}
 }
 

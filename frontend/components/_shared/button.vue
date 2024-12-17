@@ -1,9 +1,11 @@
 <script setup lang="ts">
-defineProps<{}>()
+const props = defineProps<{
+	youtube?: true
+}>()
 </script>
 
 <template>
-	<button :class="['hover']">
+	<button :class="['hover', { youtube }]">
 		<slot />
 	</button>
 </template>
@@ -15,11 +17,15 @@ button {
 	border-radius: 500px;
 	font-size: 20px;
 	font-weight: 600;
-	border: 2px var(--c-black) solid;
+	border: 2px solid;
 
 	@media (max-width: 640px) {
 		font-size: 12px;
 		padding: 16px;
 	}
+}
+.youtube {
+	color: #ff2600;
+	border-color: #ff2600;
 }
 </style>

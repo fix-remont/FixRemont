@@ -46,9 +46,7 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/c
 			<img src="/icons/profile.svg" alt="profile" />
 		</div>
 
-		<div :class="['burger-box', 'hover']">
-			<img src="/icons/burger.svg" :class="['hover', 'burger']" alt="burger" />
-		</div>
+		<SharedHeaderLinks />
 	</header>
 </template>
 
@@ -70,6 +68,7 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/c
 	margin-bottom: 30px;
 	@media (max-width: 640px) {
 		height: 52px;
+		gap: 10px;
 	}
 }
 
@@ -243,29 +242,6 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/c
 			margin-right: auto;
 			font-size: 10px;
 		}
-	}
-}
-
-.burger-box {
-	@mixin border-radius;
-	width: 80px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: white;
-
-	@media (max-width: 640px) {
-		width: 60px;
-	}
-
-	img {
-		@media (max-width: 640px) {
-			width: 24px;
-		}
-	}
-
-	@media (max-width: 640px) {
-		min-width: 52px;
 	}
 }
 </style>
