@@ -90,3 +90,10 @@ a {
 .orange {
 	color: var(--c-orange);
 }
+
+.radius-glob {
+	border-radius: 35px;
+	@media (max-width: 640px) {
+		border-radius: 15px;
+	}
+}
