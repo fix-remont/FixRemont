@@ -11,8 +11,9 @@ from src.database.schemas import (
     ArticleSchema, PortfolioPostSchema, PostSchema, BlogBulletSchema, MyContractsSchema,
     OrderInfoSchema, WorkStateSchema, WorkStatusSchema, EstimateSchema, ProfileInfoSchema,
     OrderClientInfoSchema, OrderNotificationSchema, OrderDocumentsSchema, ContractsSchema,
-    InvitedPartnersSchema, ProfileNotificationSchema, SupportCategorySchema, FAQSchema
+    InvitedPartnersSchema, ProfileNotificationSchema, SupportCategorySchema, FAQSchema, TariffSchema
 )
+
 
 router = APIRouter()
 
@@ -216,3 +217,13 @@ async def get_faqs(db: AsyncSession = Depends(get_db)):
 @router.get("/faqs/{key_word}", response_model=FAQSchema, tags=["!BUG"])
 async def get_faq(key_word: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs_by_keyword(key_word, db)
+
+
+@router.get("/project_types", response_model=List[ProjectTypeSchema], tags=["GET"])
+async def get_project_types(db: AsyncSession = Depends(get_db)):
+    return cruds.get_project_types(db)
+
+
+@router.get("/tariffs", response_model=List[TariffSchema], tags=["GET"])
+async def get_tariffs(db: AsyncSession = Depends(get_db)):
+    return cruds.get_tariffs(db)

@@ -282,6 +282,8 @@ class Tariff(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     description = Column(String)
+    cost = Column(String)
+    image = Column(String)
 
 
 class Style(Base):

@@ -869,3 +869,50 @@ def get_faqs_by_keyword(db: AsyncSession, keyword: str):
         })
 
     return faqs_response
+
+def get_project_types(db):
+    result = db.execute(select(models.ProjectType))
+    all_project_types = result.scalars().all()
+
+    project_types = []
+
+    for project_type in all_project_types:
+        project_types.append({
+            "id": project_type.id,
+            "name": project_type.name
+        })
+
+    return project_types
+
+
+def get_tariffs(db):
+    result = db.execute(select(models.Tariff))
+    all_tariffs = result.scalars().all()
+
+    tariffs = []
+
+    for tariff in all_tariffs:
+        tariffs.append({
+            "id": tariff.id,
+            "name": tariff.name,
+            "description": tariff.description,
+            "cost": tariff.cost,
+            "image": tariff.image,
+        })
+
+    return tariffs
+
+
+def create_tariff(db, tariff):
+    new_tariff = models.Tariff(
+        name=tariff.name,
+        description=tariff.description,
+        cost=tariff.cost,
+        image=tariff.image
+    )
+
+    db.add(new_tariff)
+    db.commit()
+    db.refresh(new_tariff)
+
+    return new_tariff

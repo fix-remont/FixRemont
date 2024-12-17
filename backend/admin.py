@@ -825,15 +825,44 @@ class StyleAdmin(ModelView, model=Style):
 
 class TariffAdmin(ModelView, model=Tariff):
     name = "Тариф"
-    name_plural = "! Тарифы"
+    name_plural = "Тарифы"
     icon = "fa-solid fa-money-bill"
-    category = "Ремонт квартир"
-    column_list = [Tariff.name, Tariff.description]
+    column_list = [Tariff.name, Tariff.description, Tariff.cost, Tariff.image]
     column_searchable_list = [Tariff.name]
     can_create = True
     can_edit = True
     can_delete = True
-    column_labels = dict(name="Название", description="Описание")
+    column_labels = dict(name="Название", description="Описание", cost="Стоимость", image="Изображение")
+
+    form_overrides = {
+        'image': FileField
+    }
+
+    column_formatters_detail = {
+        'image': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
+
+    }
+
+    column_formatters = {
+        'image': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        if 'image' in data:
+            file = data['image']
+            content = await file.read()
+            data['image'] = base64.b64encode(content).decode('utf-8') if content else None
+
+        tariff_data = schemas.TariffSchema(
+            image=data.get('image'),
+            name = data.get('name'),
+            description = data.get('description'),
+            cost = data.get('cost')
+        )
+        for db_session in get_db():
+            await create_tariff(tariff_data, db_session)
 
 
 class ParagraphAdmin(ModelView, model=Paragraph):

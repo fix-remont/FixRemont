@@ -288,6 +288,8 @@ class FAQSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
 #
 #
 # class UserSchema(BaseModel):
@@ -389,8 +391,20 @@ class UserSchema(BaseModel):
     class Config:
         orm_mode = True
 
+
 class UserRegistrationSchema(BaseModel):
     email: EmailStr
     hashed_password: str
+
+    class Config:
+        orm_mode = True
+
+
+class TariffSchema(BaseModel):
+    name: str
+    description: str
+    cost: str
+    image: str
+
     class Config:
         orm_mode = True
