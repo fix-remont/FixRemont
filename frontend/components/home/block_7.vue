@@ -29,7 +29,7 @@ const items = Array(3)
 				<img :src="item.img" :alt="item.title" draggable="false" />
 				<div class="text-box">
 					<p class="title">{{ item.title }}</p>
-					<NuxtLink :class="['link pointer']" :to="item.id">Узнать Стоимость</NuxtLink>
+					<NuxtLink :class="['link pointer']" to="#">Узнать Стоимость</NuxtLink>
 				</div>
 			</div>
 		</template>

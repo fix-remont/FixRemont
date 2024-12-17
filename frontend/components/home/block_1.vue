@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { width } = useViewport()
-import ArrowHover from '~/components/shared/arrow_hover.vue'
 import ToolsImgBlock from '~/components/home/tools_img_block.vue'
 import { hrefBecomePartner, hrefCalculater } from '~/assets/css/variables'
 
@@ -56,7 +55,7 @@ onMounted(() => {
 					<span :class="['text']">{{ item.text }}</span>
 					<img :src="item.imgSrc" alt="img" />
 					<div :class="['wrap-arrow']">
-						<ArrowHover :hovered="item.hovered.value" />
+						<SharedArrowHover :hovered="item.hovered.value" />
 					</div>
 				</div>
 			</UCarousel>
@@ -72,7 +71,7 @@ onMounted(() => {
 					<span :class="['text']">{{ item.text }}</span>
 					<img :src="item.imgSrc" alt="img" />
 					<div :class="['wrap-arrow']">
-						<ArrowHover :hovered="item.hovered.value" />
+						<SharedArrowHover :hovered="item.hovered.value" />
 					</div>
 				</div>
 			</div>
