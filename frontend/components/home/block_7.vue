@@ -1,13 +1,5 @@
 <script setup lang="ts">
-const itemsRaw = [
-	{ title: 'Дом из кирпича 560м на Барвихе', img: '/images/home/block_7__1.png' },
-	{ title: 'Квартира 300м на Баумана', img: '/images/home/block_7__2.png' },
-]
-
-const items = Array(3)
-	.fill(itemsRaw)
-	.flat()
-	.map((item, index) => ({ ...item, id: index }))
+import { portfolioItemsShort as items } from '#build/imports'
 </script>
 
 <template>
@@ -25,13 +17,7 @@ const items = Array(3)
 		arrows
 		indicators>
 		<template #default="{ item }">
-			<div class="item-box">
-				<img :src="item.img" :alt="item.title" draggable="false" />
-				<div class="text-box">
-					<p class="title">{{ item.title }}</p>
-					<NuxtLink :class="['link pointer']" to="#">Узнать Стоимость</NuxtLink>
-				</div>
-			</div>
+			<SharedPortfolioItem :item="item" />
 		</template>
 
 		<template #prev="{ onClick, disabled }">
@@ -51,33 +37,3 @@ const items = Array(3)
 		</template>
 	</UCarousel>
 </template>
-
-<style scoped>
-.item-box {
-	position: relative;
-	font-weight: 600;
-	font-size: 10px;
-	@media (max-width: 640px) {
-		font-size: 6px;
-	}
-
-	.text-box {
-		position: absolute;
-		left: 5em;
-		bottom: 5em;
-		font-size: 1em;
-
-		.title {
-			font-size: 3.6em;
-			color: white;
-			z-index: 1;
-		}
-		.link {
-			text-decoration: underline;
-			color: var(--c-orange);
-			font-size: 1.8em;
-			z-index: 1;
-		}
-	}
-}
-</style>

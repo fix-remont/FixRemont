@@ -17,7 +17,7 @@ const items = [[{ label: 'Наши объекты', link: '/portfolio' }]]
 				item: { padding: 'px-[15px] py-[5px]', rounded: 'rounded-[20px]', size: 'text-[18px] color-[var(--c-black)]' },
 			}"
 			:items="items">
-			<img v-if="open" class="icon hover" src="/icons/close-button.svg" alt="close-button" draggable="false" />
+			<img v-if="open" class="icon hover" src="/icons/close-button.svg" alt="close-button" draggable="false" loading="eager" />
 			<img v-else class="icon hover" src="/icons/burger.svg" draggable="false" alt="burger" />
 
 			<template #item="{ item }">
