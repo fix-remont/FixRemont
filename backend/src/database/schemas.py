@@ -408,3 +408,21 @@ class TariffSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UserCommentsSchema(BaseModel):
+    image: Optional[str] = None
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+class IntroVideosSchema(BaseModel):
+    author: str
+    video_link: str
+    video_duration: str
+    object: str
+
+    class Config:
+        orm_mode = True
+        from_attributes = True

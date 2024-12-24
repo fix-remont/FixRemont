@@ -377,17 +377,18 @@
 
 from asyncio import Future
 from sqladmin.fields import FileField
+
 from src.database.cruds import create_post, create_portfolio_post, get_project_type_by_id, create_notification, \
-    create_work_status, create_user
+    create_work_status, create_user, create_user_comment, create_intro_video
 import base64
 from markupsafe import Markup
 from src.database import schemas, models
 from src.database.db import get_db
 from src.database.models import User, Flat, Style, AdditionalOption, Tariff, Contract, Post, Work, Notification, \
     ProjectType, PostType, UserType, NotificationType, Paragraph, FAQ, WorkStatus, PlatformNews, \
-    ContractNotificationStatus
+    ContractNotificationStatus, UserComments, IntroVideos
 from src.auth.auth_routes import get_password_hash
-from wtforms import SelectField, RadioField, BooleanField
+from wtforms import SelectField, RadioField, BooleanField, MultipleFileField
 from sqladmin import ModelView
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -857,9 +858,9 @@ class TariffAdmin(ModelView, model=Tariff):
 
         tariff_data = schemas.TariffSchema(
             image=data.get('image'),
-            name = data.get('name'),
-            description = data.get('description'),
-            cost = data.get('cost')
+            name=data.get('name'),
+            description=data.get('description'),
+            cost=data.get('cost')
         )
         for db_session in get_db():
             await create_tariff(tariff_data, db_session)
@@ -902,3 +903,66 @@ class ProjectTypeAdmin(ModelView, model=ProjectType):
     can_edit = True
     can_delete = True
     column_labels = dict(name="Название", works="Работы", works_id="ID работы", id="ID")
+
+
+class UserCommentsAdmin(ModelView, model=UserComments):
+    name = "Комментарии пользователей"
+    name_plural = "Комментарии пользователей"
+    icon = "fa-solid fa-comments"
+    column_list = [UserComments.id, UserComments.image]
+    column_sortable_list = [UserComments.id]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID фото", image="Фото")
+
+    form_overrides = {
+        'image': FileField
+    }
+
+    column_formatters_detail = {
+        'image': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
+    }
+
+    column_formatters = {
+        'image': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        if 'image' in data:
+            file = data['image']
+            content = await file.read()
+            image = base64.b64encode(content).decode('utf-8') if content else None
+            data['image'] = image
+
+        user_comment_data = schemas.UserCommentsSchema(
+            image=data.get('image')
+        )
+        for db_session in get_db():
+            await create_user_comment(db_session, user_comment_data)
+
+
+
+class IntroVideoAdmin(ModelView, model=IntroVideos):
+    name = "Видео приветствия"
+    name_plural = "Видео приветствия"
+    icon = "fa-solid fa-video"
+    column_list = [IntroVideos.id, IntroVideos.video_link, IntroVideos.video_duration, IntroVideos.author, IntroVideos.object]
+    column_searchable_list = [IntroVideos.video_link, IntroVideos.author, IntroVideos.object]
+    column_sortable_list = [IntroVideos.id, IntroVideos.video_link, IntroVideos.author, IntroVideos.object]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор", object="Объект")
+
+    async def on_model_change(self, data, model, is_created, request):
+        intro_video_data = schemas.IntroVideosSchema(
+            video_link=data.get('video_link'),
+            video_duration=data.get('video_duration'),
+            author=data.get('author'),
+            object=data.get('object')
+        )
+        for db_session in get_db():
+            await create_intro_video(intro_video_data, db_session)

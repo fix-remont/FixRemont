@@ -870,6 +870,7 @@ def get_faqs_by_keyword(db: AsyncSession, keyword: str):
 
     return faqs_response
 
+
 def get_project_types(db):
     result = db.execute(select(models.ProjectType))
     all_project_types = result.scalars().all()
@@ -916,3 +917,63 @@ def create_tariff(db, tariff):
     db.refresh(new_tariff)
 
     return new_tariff
+
+
+def create_user_comment(db, user_comment):
+    new_user_comment = models.UserComments(
+        images=user_comment.images,
+    )
+
+    db.add(new_user_comment)
+    db.commit()
+    db.refresh(new_user_comment)
+
+    return new_user_comment
+
+
+def get_user_comments(db):
+    result = db.execute(select(models.UserComments))
+    all_user_comments = result.scalars().all()
+
+    user_comments = []
+
+    for user_comment in all_user_comments:
+        user_comments.append({
+            "id": user_comment.id,
+            "image": user_comment.image,
+        })
+
+    return user_comments
+
+
+def get_intro_videos(db):
+    result = db.execute(select(models.IntroVideos))
+    all_intro_videos = result.scalars().all()
+
+    intro_videos = []
+
+    for intro_video in all_intro_videos:
+        intro_videos.append({
+            "id": intro_video.id,
+            "video_link": intro_video.video_link,
+            "video_duration": intro_video.video_duration,
+            "author": intro_video.author,
+            "object": intro_video.object,
+        })
+
+    return intro_videos
+
+
+def create_intro_video(db, intro_video):
+    new_intro_video = models.IntroVideos(
+        video_link=intro_video.video_link,
+        video_duration=intro_video.video_duration,
+        author=intro_video.author,
+        object=intro_video.object
+    )
+
+    db.add(new_intro_video)
+    db.commit()
+    db.refresh(new_intro_video)
+
+    return new_intro_video

@@ -6,14 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import cruds, schemas
 from src.database.db import get_db
-from src.database.schemas import (
-    Token, UserResponse, ProjectTypeSchema, UserTypeSchema, NotificationTypeSchema,
-    ArticleSchema, PortfolioPostSchema, PostSchema, BlogBulletSchema, MyContractsSchema,
-    OrderInfoSchema, WorkStateSchema, WorkStatusSchema, EstimateSchema, ProfileInfoSchema,
-    OrderClientInfoSchema, OrderNotificationSchema, OrderDocumentsSchema, ContractsSchema,
-    InvitedPartnersSchema, ProfileNotificationSchema, SupportCategorySchema, FAQSchema, TariffSchema
-)
-
+from src.database.schemas import *
 
 router = APIRouter()
 
@@ -227,3 +220,12 @@ async def get_project_types(db: AsyncSession = Depends(get_db)):
 @router.get("/tariffs", response_model=List[TariffSchema], tags=["GET"])
 async def get_tariffs(db: AsyncSession = Depends(get_db)):
     return cruds.get_tariffs(db)
+
+
+@router.get("/user_comments", response_model=List[UserCommentsSchema], tags=["GET"])
+async def get_user_comments(db: AsyncSession = Depends(get_db)):
+    return cruds.get_user_comments(db)
+
+@router.get("/intro_videos", response_model=List[IntroVideosSchema], tags=["GET"])
+async def get_intro_videos(db: AsyncSession = Depends(get_db)):
+    return cruds.get_intro_videos(db)

@@ -83,6 +83,8 @@ admin.add_view(ParagraphAdmin)
 admin.add_view(FAQAdmin)
 admin.add_view(PlatformNewsAdmin)
 admin.add_view(WorkStatusAdmin)
+admin.add_view(UserCommentsAdmin)
+admin.add_view(IntroVideoAdmin)
 
 # app.include_router(user_routes.router)
 app.include_router(routes.meta())

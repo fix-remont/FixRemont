@@ -306,6 +306,20 @@ class FlatAdditionalOption(Base):
     additional_option_id = Column(Integer, ForeignKey('additional_options.id'), primary_key=True)
 
 
+class UserComments(Base):
+    __tablename__ = 'user_comments'
+    id = Column(Integer, primary_key=True, index=True)
+    image = Column(String)
+
+
+class IntroVideos(Base):
+    __tablename__ = 'intro_videos'
+    id = Column(Integer, primary_key=True, index=True)
+    video_link = Column(String)
+    video_duration = Column(String)
+    author = Column(String)
+    object = Column(String)
+
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')
