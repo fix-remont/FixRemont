@@ -6,6 +6,9 @@ export default defineNuxtConfig({
 	app: {
 		head: {
 			title: 'fix-remont',
+			htmlAttrs: {
+				class: 'light',
+			},
 		},
 	},
 	postcss: {
@@ -13,11 +16,7 @@ export default defineNuxtConfig({
 			'postcss-mixins': {},
 			'postcss-simple-vars': {},
 			'postcss-nested': {},
-			'postcss-functions': {
-				functions: {
-					// fn: (size: number, koefficient: number) => `${size * koefficient}px`,
-				},
-			},
+			'postcss-functions': {},
 		},
 	},
 	modules: ['@nuxtjs/google-fonts', '@nuxt/ui', '@nuxt/image'],
