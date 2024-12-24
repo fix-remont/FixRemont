@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/css/variables'
+import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/variables'
 </script>
 
 <template>

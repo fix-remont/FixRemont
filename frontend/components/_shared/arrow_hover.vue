@@ -9,30 +9,28 @@ const black = '#161616'
 
 <template>
 	<svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<rect :class="['circle', { circle__hover: hovered }]" x="0.430664" y="50" width="50" height="49.9439" rx="24.9719" transform="rotate(-90 0.430664 50)" />
-		<path :class="['arrow', { arrow__hover: hovered }]" d="M18.1777 19.2411L31.4587 32.5222L32.9023 31.0786L19.6213 17.7975L18.1777 19.2411Z" :fill="white" />
+		<rect :class="['circle', { 'circle-hover': hovered }]" x="0.430664" y="50" width="50" height="49.9439" rx="24.9719" transform="rotate(-90 0.430664 50)" />
+		<path :class="['arrow', { 'arrow-hover': hovered }]" d="M18.1777 19.2411L31.4587 32.5222L32.9023 31.0786L19.6213 17.7975L18.1777 19.2411Z" />
 		<path
-			:class="['arrow', { arrow__hover: hovered }]"
-			d="M25.007 17.4779L25.007 19.5195L19.9439 19.5195L19.9439 24.5826L17.9023 24.5826L17.9023 17.4779L25.007 17.4779Z"
-			:fill="white" />
+			:class="['arrow', { 'arrow-hover': hovered }]"
+			d="M25.007 17.4779L25.007 19.5195L19.9439 19.5195L19.9439 24.5826L17.9023 24.5826L17.9023 17.4779L25.007 17.4779Z" />
 	</svg>
 </template>
 
-<style scoped lang="postcss">
-$time: 1s;
+<style scoped>
 .circle {
-	transition: fill $time linear;
+	transition: fill 1s linear;
 	fill: v-bind(black);
 
-	&__hover {
+	&-hover {
 		fill: v-bind(white);
 	}
 }
 .arrow {
-	transition: all $time linear;
+	transition: all 1s linear;
 	fill: v-bind(white);
 	transform-origin: center;
-	&__hover {
+	&-hover {
 		transform: rotate(180deg);
 		fill: v-bind(black);
 	}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hrefOtzovik, hrefYandex } from '~/assets/css/variables'
+import { hrefOtzovik, hrefYandex } from '~/assets/variables'
 
 const items = [
 	{ label: 'Яндекс', name: 'yandex', href: hrefYandex, imgSrc: '/images/home/yandex.svg' },

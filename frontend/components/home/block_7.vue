@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { portfolioItemsShort as items } from '#build/imports'
+import { portfolioItemsShort as items } from '~/shared/utils/data'
 </script>
 
 <template>

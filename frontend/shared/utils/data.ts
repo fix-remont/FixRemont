@@ -1,3 +1,5 @@
+import type { PorfolioItemShort } from '../types/types'
+
 let id = 0
 
 export const portfolioItemsShort: PorfolioItemShort[] = [

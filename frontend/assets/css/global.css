@@ -57,7 +57,7 @@ a {
 
 .margin-glob {
 	margin: var(--px-3xl);
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 
 	@media (max-width: 1240px) {
 		margin: var(--px-lg);

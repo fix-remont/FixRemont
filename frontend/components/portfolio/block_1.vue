@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { portfolioItemsShort as items } from '~/utils/data'
+import { portfolioItemsShort as items } from '~/shared/utils/data'
 
 const selectedIndex = ref(0)
 

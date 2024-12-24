@@ -7,9 +7,11 @@ type BreadcrumbItem = {
 const route = useRoute()
 
 //////////////////////////////////////////
-type paths = ['portfolio']
+type paths = ['portfolio', 'contacts']
 const labels = {
 	portfolio: 'Портфолио',
+	contacts: 'Контакты',
+	about_company: 'О компании',
 }
 /////////////////////////////////////////
 
@@ -35,6 +37,6 @@ const items: BreadcrumbItem[] = chanks.reduce((acc, chank, index) => {
 	<div class="margin-glob">
 		<UBreadcrumb
 			:links="items"
-			:ui="{ wrapper: 'mb-[20px] sm:mb-[100px]', li: 'text-[10px] sm:text-[15px]', active: 'text-[--c-black]', inactive: 'text-[var(--c-inactive-crumb)]' }" />
+			:ui="{ wrapper: 'mb-[20px] sm:mb-[50px]', li: 'text-[10px] sm:text-[15px]', active: 'text-[--c-black]', inactive: 'text-[var(--c-inactive-crumb)]' }" />
 	</div>
 </template>

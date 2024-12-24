@@ -1,7 +1,13 @@
 <script setup lang="ts">
 const open = ref(false)
 
-const items = [[{ label: 'Наши объекты', link: '/portfolio' }]]
+const items = [
+	[
+		{ label: 'Наши объекты', link: '/portfolio' },
+		{ label: 'Контакты', link: '/contacts' },
+		{ label: 'О компании', link: '/about_company' },
+	],
+]
 </script>
 
 <template>

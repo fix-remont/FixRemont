@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/css/variables'
+import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone, hrefSelfPolitic } from '~/assets/variables'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/c
 
 		<p style="text-align: center">Copyright 2024. Все права защищены</p>
 
-		<p :class="['politic', 'hover']">Политика конфиденциальности</p>
+		<a :class="['politic', 'hover']" :href="hrefSelfPolitic">Политика конфиденциальности</a>
 
 		<address class="social">
 			<p class="text">

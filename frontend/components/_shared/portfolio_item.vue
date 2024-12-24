@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PorfolioItemShort } from '~/utils/types'
+import type { PorfolioItemShort } from '~/shared/types/types'
 
 const props = defineProps<{
 	item: PorfolioItemShort
