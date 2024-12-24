@@ -977,3 +977,36 @@ def create_intro_video(db, intro_video):
     db.refresh(new_intro_video)
 
     return new_intro_video
+
+
+def create_social_media_account(db, social_media_account):
+    new_social_media_account = models.SocialMediaAccounts(
+        name=social_media_account.name,
+        logo=social_media_account.logo,
+        link=social_media_account.link,
+        subscribers=social_media_account.subscribers
+    )
+
+    db.add(new_social_media_account)
+    db.commit()
+    db.refresh(new_social_media_account)
+
+    return new_social_media_account
+
+
+def get_social_media_accounts(db):
+    result = db.execute(select(models.SocialMediaAccounts))
+    all_social_media_accounts = result.scalars().all()
+
+    social_media_accounts = []
+
+    for social_media_account in all_social_media_accounts:
+        social_media_accounts.append({
+            "id": social_media_account.id,
+            "name": social_media_account.name,
+            "logo": social_media_account.logo,
+            "link": social_media_account.link,
+            "subscribers": social_media_account.subscribers
+        })
+
+    return social_media_accounts

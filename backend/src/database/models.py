@@ -320,6 +320,16 @@ class IntroVideos(Base):
     author = Column(String)
     object = Column(String)
 
+
+class SocialMediaAccounts(Base):
+    __tablename__ = 'social_media_accounts'
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    logo = Column(String)
+    link = Column(String)
+    subscribers = Column(Integer)
+
+
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')

@@ -226,6 +226,12 @@ async def get_tariffs(db: AsyncSession = Depends(get_db)):
 async def get_user_comments(db: AsyncSession = Depends(get_db)):
     return cruds.get_user_comments(db)
 
+
 @router.get("/intro_videos", response_model=List[IntroVideosSchema], tags=["GET"])
 async def get_intro_videos(db: AsyncSession = Depends(get_db)):
     return cruds.get_intro_videos(db)
+
+
+@router.get("/social_networks", response_model=List[SocialMediaAccountsSchema], tags=["GET"])
+async def get_social_networks(db: AsyncSession = Depends(get_db)):
+    return cruds.get_social_media_accounts(db)

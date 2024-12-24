@@ -426,3 +426,14 @@ class IntroVideosSchema(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+
+
+class SocialMediaAccountsSchema(BaseModel):
+    name: str
+    link: str
+    logo: str
+    subscribers: int
+
+    class Config:
+        orm_mode = True
+        from_attributes = True

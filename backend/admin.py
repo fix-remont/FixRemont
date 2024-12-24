@@ -379,14 +379,14 @@ from asyncio import Future
 from sqladmin.fields import FileField
 
 from src.database.cruds import create_post, create_portfolio_post, get_project_type_by_id, create_notification, \
-    create_work_status, create_user, create_user_comment, create_intro_video
+    create_work_status, create_user, create_user_comment, create_intro_video, create_social_media_account
 import base64
 from markupsafe import Markup
 from src.database import schemas, models
 from src.database.db import get_db
 from src.database.models import User, Flat, Style, AdditionalOption, Tariff, Contract, Post, Work, Notification, \
     ProjectType, PostType, UserType, NotificationType, Paragraph, FAQ, WorkStatus, PlatformNews, \
-    ContractNotificationStatus, UserComments, IntroVideos
+    ContractNotificationStatus, UserComments, IntroVideos, SocialMediaAccounts
 from src.auth.auth_routes import get_password_hash
 from wtforms import SelectField, RadioField, BooleanField, MultipleFileField
 from sqladmin import ModelView
@@ -966,3 +966,45 @@ class IntroVideoAdmin(ModelView, model=IntroVideos):
         )
         for db_session in get_db():
             await create_intro_video(intro_video_data, db_session)
+
+class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
+    name = "Аккаунты социальных сетей"
+    name_plural = "Аккаунты социальных сетей"
+    icon = "fa-solid fa-users"
+    column_list = [SocialMediaAccounts.id, SocialMediaAccounts.name, SocialMediaAccounts.link, SocialMediaAccounts.logo, SocialMediaAccounts.subscribers]
+    column_searchable_list = [SocialMediaAccounts.name, SocialMediaAccounts.link]
+    column_sortable_list = [SocialMediaAccounts.id, SocialMediaAccounts.name, SocialMediaAccounts.link]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", name="Название", link="Ссылка")
+
+    form_overrides = {
+        'logo': FileField
+    }
+
+    column_formatters_detail = {
+        'logo': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.logo}" width="100" />') if m.logo else 'Вложение отсутствует',
+    }
+
+    column_formatters = {
+        'logo': lambda m, p: Markup(
+            f'<img src="data:image/png;base64,{m.logo}" width="100" />') if m.logo else 'Вложение отсутствует',
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        if 'logo' in data:
+            file = data['logo']
+            content = await file.read()
+            image = base64.b64encode(content).decode('utf-8') if content else None
+            data['logo'] = image
+
+        social_media_data = schemas.SocialMediaAccountsSchema(
+            name=data.get('name'),
+            link=data.get('link'),
+            logo=data.get('logo'),
+            subscribers=data.get('subscribers')
+        )
+        for db_session in get_db():
+            await create_social_media_account(db_session, social_media_data)
