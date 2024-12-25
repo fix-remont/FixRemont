@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone, hrefSelfPolitic } from '~/assets/variables'
+
+const props = defineProps<{
+	footerWithoutMargin?: boolean
+}>()
+
+const marginTop = ref('auto')
+if (props.footerWithoutMargin) marginTop.value = '0'
 </script>
 
 <template>
-	<footer :class="['footer']">
+	<footer :class="['footer']" :style="{ marginTop }">
 		<NuxtLink :to="hrefLogo">
 			<img src="/icons/logo-for-black.svg" :class="['hover', 'logo']" alt="logo" />
 		</NuxtLink>
@@ -39,9 +46,9 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone, hrefSelfPolitic }
 	</footer>
 </template>
 
-<style scoped>
+<style>
 .footer {
-	margin-top: auto;
+	/* margin-top: v-bind(marginTop); */
 	color: white;
 	background-color: var(--c-black);
 	display: grid;

@@ -22,6 +22,18 @@ export default defineAppConfig({
 				none: 'bg-[#F4F4F4]',
 			},
 		},
+		select: {
+			size: {
+				sm: 'text-[18px]',
+			},
+			rounded: 'rounded-[50px]',
+			padding: {
+				sm: 'px-[20px]  py-[10px] md:px-[45px]  md:py-[34px] ',
+			},
+			variant: {
+				none: 'bg-[#F4F4F4]',
+			},
+		},
 		textarea: {
 			size: {
 				sm: 'text-[18px]',

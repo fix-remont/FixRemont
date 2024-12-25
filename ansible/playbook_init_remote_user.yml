@@ -15,9 +15,9 @@
         remote_env_vars: "{{ hostvars['localhost']['env_vars'] }}"
     ###################################
 
-    - name: update apt cache
-      ansible.builtin.apt:
-        update_cache: true
+    # - name: update apt cache
+    #   ansible.builtin.apt:
+    #     update_cache: true
 
     - name: Create user from ENV_MODE variable
       ansible.builtin.user:

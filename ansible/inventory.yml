@@ -19,11 +19,11 @@ all:
     remote-staging:
       hosts:
         remote-staging-admin:
-          ansible_host: 158.160.138.32
+          ansible_host: 158.160.151.67
           ansible_port: 22
           ansible_user: admin
 
         remote-staging-user:
-          ansible_host: 158.160.138.32
+          ansible_host: 158.160.151.67
           ansible_port: 22
           ansible_user: staging
