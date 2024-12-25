@@ -4,12 +4,12 @@ import {useViewport} from "~/composables/viewport";
 const imagePath = '/images/apartment-renovation/block_1.png'
 const { width } = useViewport()
 
-defineProps<{
-  header1: string,
-  header2: string,
-  imagePath: string,
-  link_href: string,
-}>()
+// defineProps<{
+//   header1: string,
+//   header2: string,
+//   imagePath: string,
+//   link_href: string,
+// }>()
 
 </script>
 
