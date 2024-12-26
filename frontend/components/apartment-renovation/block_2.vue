@@ -14,7 +14,7 @@ const comments = Array(7).fill(commentsRaw[0])
       <span class="orange">с грустью рассказывают</span>
       те, <br/> кто делал ремонт самостоятельно?
       </h1>
-      <p class="subtitle">сотни подобных историй от наших клиентов со всей страны мы слышим регулярно</p>
+      <p class="subtitle-glob">сотни подобных историй от наших клиентов со всей страны мы слышим регулярно</p>
     </div>
 
     <div class="wrapper">
@@ -56,10 +56,4 @@ const comments = Array(7).fill(commentsRaw[0])
 </template>
 
 <style scoped lang="postcss">
-.subtitle {
-  font-size: 16px;
-  font-weight: 450;
-  line-height: 24px;
-  margin-top: 2em;
-}
 </style>
