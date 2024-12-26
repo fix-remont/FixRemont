@@ -12,19 +12,15 @@ const items = [
 
 <template>
 	<div class="block">
-		<UDropdown
-			v-model:open="open"
-			mode="click"
-			:ui="{
-				wrapper: 'h-full w-full rounded-[20px]',
-				padding: 'px-[15px] py-[15px]',
-				width: 'w-max',
-				rounded: 'rounded-[20px]',
-				item: { padding: 'px-[15px] py-[5px]', rounded: 'rounded-[20px]', size: 'text-[18px] color-[var(--c-black)]' },
-			}"
-			:items="items">
-			<img v-if="open" class="icon hover" src="/icons/close-button.svg" alt="close-button" draggable="false" loading="eager" />
-			<img v-else class="icon hover" src="/icons/burger.svg" draggable="false" alt="burger" />
+		<UDropdown v-model:open="open" mode="click" :ui="{
+			wrapper: 'h-[52px] w-[52px] sm:h-full sm:w-full rounded-[20px]',
+			padding: 'px-[15px] py-[15px]',
+			width: 'w-max',
+			rounded: 'rounded-[20px]',
+			item: { padding: 'px-[15px] py-[5px]', rounded: 'rounded-[20px]', size: 'text-[18px] color-[var(--c-black)]' },
+		}" :items="items">
+			<img class="icon hover" :src="open ? '/icons/close-button.svg' : '/icons/burger.svg'" alt="close-button"
+				draggable="false" loading="eager" />
 
 			<template #item="{ item }">
 				<NuxtLink :to="item.link">
@@ -39,6 +35,7 @@ const items = [
 .block {
 	.icon {
 		height: 100%;
+		width: 100%;
 	}
 }
 </style>

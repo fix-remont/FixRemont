@@ -63,7 +63,7 @@
                 proxy_set_header X-Forwarded-Host $host;
                 proxy_set_header X-Forwarded-Prefix /;
               }
-          - listen: '3000'
+          - listen: '8000'
             server_name: '158.160.151.67'
             state: 'present'
             filename: 'fixremont-backend.conf'
