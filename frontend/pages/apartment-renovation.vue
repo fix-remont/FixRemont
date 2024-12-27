@@ -8,6 +8,7 @@
     <ApartmentRenovationBlock2 />
     <ApartmentRenovationBlock3 />
     <ApartmentRenovationBlock4 />
+    <ApartmentRenovationBlock5 />
   </NuxtLayout>
 </template>
 
