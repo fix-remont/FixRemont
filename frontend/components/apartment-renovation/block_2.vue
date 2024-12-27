@@ -56,4 +56,18 @@ const comments = Array(7).fill(commentsRaw[0])
 </template>
 
 <style scoped lang="postcss">
+@media (max-width: 800px) {
+  .titles {
+    text-align: center;
+  }
+
+  .comment-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 90%;
+    }
+  }
+}
 </style>

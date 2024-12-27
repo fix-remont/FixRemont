@@ -151,6 +151,10 @@ const gallery = Array(5).fill(items[0])
     order: 0;
     width: 50%;
   }
+
+  .titles {
+    text-align: center;
+  }
 }
 
 </style>

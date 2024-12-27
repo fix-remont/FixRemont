@@ -101,21 +101,32 @@ let elementContent = [
   gap: 2em;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .upper {
     flex-direction: column;
+  }
+
+  .title {
+    font-size: 40px;
   }
 
   .left {
     width: 100%;
     top: 0;
     z-index: 1;
+    justify-content: center;
     margin-bottom: 2rem;
 
     .wrapper {
+      text-align: center;
       display: flex;
+      align-items: center;
       flex-direction: column;
       gap: 1em;
+
+      a {
+        width: 100%;
+      }
     }
   }
 
@@ -123,6 +134,7 @@ let elementContent = [
     width: 100%;
 
     .element {
+      text-align: center;
       h4 {
         width: 100%;
         font-size: 24px;

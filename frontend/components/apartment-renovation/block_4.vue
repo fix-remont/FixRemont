@@ -187,7 +187,7 @@ const items = [
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -205,7 +205,7 @@ const items = [
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    align-items: flex-start;
+    align-items: center;
     border-radius: 24px;
   }
 
@@ -214,9 +214,22 @@ const items = [
   }
 
   .reasons {
+    align-items: center;
+    text-align: center;
     h4 {
       font-size: 25px;
     }
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      margin-left: 0;
+    }
+  }
+
+  .titles {
+    text-align: center;
   }
 }
 
