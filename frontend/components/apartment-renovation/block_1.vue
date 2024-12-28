@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {useViewport} from "~/composables/viewport";
+import {hrefCalculater} from "assets/css/variables";
+import Bread_crumbs from "~/components/_shared/bread_crumbs.vue";
 
 const imagePath = '/images/apartment-renovation/block_1.png'
 const { width } = useViewport()
@@ -15,40 +17,46 @@ const { width } = useViewport()
 
 <template>
 <div class="margin-glob block">
-  <img :src="imagePath" alt="background"/>
-  <div class="content">
-    <h1 class="title-glob header">
-      Ремотн квартир
-      <br/>
-      под ключ по готовым
-      <br/>
-      проектам и с
-      <br/>
-      фиксированной ценой
-    </h1>
+  <div class="upper">
+    <img :src="imagePath" alt="background"/>
+    <div class="crumb-container">
+      <Bread_crumbs />
+    </div>
+    <div class="content">
+      <h1 class="title-glob header">
+        Ремотн квартир
+        <br/>
+        под ключ по готовым
+        <br/>
+        проектам и с
+        <br/>
+        фиксированной ценой
+      </h1>
+    </div>
+    <div class="box-wrapper">
+      <div class="black-box">
+        <h2>
+          Заселитесь в
+          <br/>
+          квартиру мечты с
+          <br/>
+          мебелью в течение
+          <br/>
+          3-х месяцев
+        </h2>
+        <NuxtLink :to="hrefCalculater">
+          <SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
+        </NuxtLink>
+      </div>
+    </div>
   </div>
-
-  <div class="black-box">
-    <h2>
-      Заселитесь в
-      <br/>
-      квартиру мечты с
-      <br/>
-      мебелью в течение
-      <br/>
-      3-х месяцев
-    </h2>
-    <button :class="['hover']">
-      Онлайн-калькулятор
-    </button>
-  </div>
+  <HomeBlock2 />
 </div>
 </template>
 
 <style scoped lang="postcss">
 $radius: 35px;
-
-.block {
+.upper {
   position: relative;
 }
 
@@ -70,10 +78,35 @@ $radius: 35px;
   }
 }
 
-.black-box {
+.box-wrapper {
   position: absolute;
   bottom: 0;
   right: 0;
+  background-color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  border-radius: 20px 0 0;
+
+  &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 15px 15px white;
+    }
+    &::before {
+      bottom: 0;
+      left: -40px;
+    }
+    &::after {
+      right: 0;
+      top: -40px;
+    }
+}
+
+.black-box {
   background-color: #161616;
   padding: 50px;
   border-radius: $radius;
@@ -88,18 +121,14 @@ $radius: 35px;
       font-size: 30px;
     }
   }
-  button {
-    background-color: var(--c-orange);
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    text-align: center;
-    margin-top: auto;
-    width: 100%;
-    padding: 25px;
-    border-radius: 20em;
-    transition: 0.3s;
-  }
 }
 
+.crumb-container {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  z-index: 1;
+}
 </style>
