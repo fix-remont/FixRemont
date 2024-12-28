@@ -120,6 +120,43 @@ ALTER SEQUENCE public.additional_options_id_seq OWNED BY public.additional_optio
 
 
 --
+-- Name: blog_videos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.blog_videos (
+    id integer NOT NULL,
+    video_link character varying,
+    video_duration character varying,
+    author character varying,
+    object character varying
+);
+
+
+ALTER TABLE public.blog_videos OWNER TO postgres;
+
+--
+-- Name: blog_videos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.blog_videos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.blog_videos_id_seq OWNER TO postgres;
+
+--
+-- Name: blog_videos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.blog_videos_id_seq OWNED BY public.blog_videos.id;
+
+
+--
 -- Name: contracts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -828,6 +865,13 @@ ALTER TABLE ONLY public.additional_options ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: blog_videos id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.blog_videos ALTER COLUMN id SET DEFAULT nextval('public.blog_videos_id_seq'::regclass);
+
+
+--
 -- Name: contracts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -958,6 +1002,15 @@ ALTER TABLE ONLY public.works ALTER COLUMN id SET DEFAULT nextval('public.works_
 --
 
 COPY public.additional_options (id, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: blog_videos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.blog_videos (id, video_link, video_duration, author, object) FROM stdin;
+1	https://www.youtube.com/watch?v=dQw4w9WgXcQ	\N	\N	\N
 \.
 
 
@@ -1141,6 +1194,13 @@ SELECT pg_catalog.setval('public.additional_options_id_seq', 1, false);
 
 
 --
+-- Name: blog_videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.blog_videos_id_seq', 1, true);
+
+
+--
 -- Name: contracts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1272,6 +1332,14 @@ SELECT pg_catalog.setval('public.works_id_seq', 1, false);
 
 ALTER TABLE ONLY public.additional_options
     ADD CONSTRAINT additional_options_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: blog_videos blog_videos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.blog_videos
+    ADD CONSTRAINT blog_videos_pkey PRIMARY KEY (id);
 
 
 --
@@ -1439,6 +1507,13 @@ ALTER TABLE ONLY public.works
 --
 
 CREATE INDEX ix_additional_options_id ON public.additional_options USING btree (id);
+
+
+--
+-- Name: ix_blog_videos_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX ix_blog_videos_id ON public.blog_videos USING btree (id);
 
 
 --
