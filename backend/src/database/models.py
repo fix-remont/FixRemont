@@ -53,6 +53,20 @@ class NotificationType(Base):
         return self.name
 
 
+class PageType(Base):
+    __tablename__ = 'page_type'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    pages = relationship("FAQ", back_populates="page_tag")
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+
 class Work(Base):
     __tablename__ = 'works'
     id = Column(Integer, primary_key=True, index=True)
@@ -113,21 +127,18 @@ class Post(Base):
         return self.title
 
 
-# class FAQ: DONE
-# id = int
-# title = str
-# label = str
-
 class FAQ(Base):
     __tablename__ = 'faqs'
     id = Column(Integer, primary_key=True, index=True)
     heading = Column(String, index=True)
     label = Column(String)
-    date = Column(String)
+    date = Column(String, nullable=True)
     key_word = Column(String)
+    page_tag_id = Column(Integer, ForeignKey('page_type.id'))
+    page_tag = relationship("PageType", back_populates="pages")
 
     def __str__(self):
-        return self.title
+        return self.heading
 
 
 class User(Base):

@@ -462,7 +462,7 @@ async def get_support_categories(db: AsyncSession):
         support_categories.append({
             "heading": faq.heading,
             "date": faq.date,
-            "key_word": faq.key_word
+            "key_word": faq.key_word,
         })
 
     return support_categories
@@ -850,7 +850,10 @@ def get_faqs(db):
     for faq in all_faqs:
         faqs.append({
             "title": faq.heading,
-            "label": faq.label
+            "label": faq.label,
+            "date": faq.date,
+            "key_word": faq.key_word,
+            "page_tag": faq.page_tag
         })
 
     return faqs
@@ -865,7 +868,10 @@ def get_faqs_by_keyword(db: AsyncSession, keyword: str):
     for faq in faqs:
         faqs_response.append({
             "title": faq.heading,
-            "label": faq.label
+            "label": faq.label,
+            "date": faq.date,
+            "key_word": faq.key_word,
+            "page_tag": faq.page_tag
         })
 
     return faqs_response
@@ -1026,6 +1032,7 @@ def create_blog_video(db, blog_video):
 
     return new_blog_video
 
+
 def get_blog_videos(db):
     result = db.execute(select(models.BlogVideos))
     all_blog_videos = result.scalars().all()
@@ -1043,3 +1050,48 @@ def get_blog_videos(db):
         })
 
     return blog_videos
+
+
+def create_page_type(db, page_type):
+    new_page_type = models.PageType(
+        name=page_type.name
+    )
+
+    db.add(new_page_type)
+    db.commit()
+    db.refresh(new_page_type)
+
+    return new_page_type
+
+
+def get_page_types(db):
+    result = db.execute(select(models.PageType))
+    all_page_types = result.scalars().all()
+
+    page_types = []
+
+    for page_type in all_page_types:
+        page_types.append({
+            "id": page_type.id,
+            "name": page_type.name
+        })
+
+    return page_types
+
+
+def get_faqs_by_page_tag(page_tag: str, db: AsyncSession):
+    result = db.execute(select(models.FAQ).where(models.FAQ.page_tag.has(name=page_tag)))
+    faqs = result.scalars().all()
+
+    faqs_response = []
+
+    for faq in faqs:
+        faqs_response.append({
+            "title": faq.heading,
+            "label": faq.label,
+            "date": faq.date,
+            "key_word": faq.key_word,
+            "page_tag": faq.page_tag
+        })
+
+    return faqs_response

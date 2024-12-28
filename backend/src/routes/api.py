@@ -206,6 +206,10 @@ async def get_support_category(id: int = Path(...), db: AsyncSession = Depends(g
 async def get_faqs(db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs(db)
 
+@router.get("/faqs/{page_tag}", response_model=List[FAQSchema], tags=["GET"])
+async def get_faqs(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)):
+    return cruds.get_faqs_by_page_tag(page_tag, db)
+
 
 @router.get("/faqs/{key_word}", response_model=FAQSchema, tags=["!BUG"])
 async def get_faq(key_word: str = Path(...), db: AsyncSession = Depends(get_db)):

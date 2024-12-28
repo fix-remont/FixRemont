@@ -880,14 +880,14 @@ class FAQAdmin(ModelView, model=FAQ):
     name = "Часто задаваемый вопрос"
     name_plural = "Часто задаваемые вопросы"
     icon = "fa-solid fa-question"
-    column_list = [FAQ.heading, FAQ.label, FAQ.date, FAQ.key_word]
+    column_list = [FAQ.heading, FAQ.label, FAQ.date, FAQ.key_word, FAQ.page_tag]
     column_searchable_list = [FAQ.heading]
-    column_sortable_list = [FAQ.heading, FAQ.label, FAQ.date, FAQ.key_word]
+    column_sortable_list = [FAQ.heading, FAQ.label, FAQ.date, FAQ.key_word, FAQ.page_tag]
     can_create = True
     can_edit = True
     can_delete = True
     column_labels = dict(id="ID", title="Вопрос", label="Ответ", heading="Заголовок", date="Дата",
-                         key_word="Ключевое слово (тег)")
+                         key_word="Ключевое слово (тег)", page_tag="Тег страницы")
 
 
 class ProjectTypeAdmin(ModelView, model=ProjectType):
@@ -1028,3 +1028,23 @@ class BlogVideosAdmin(ModelView, model=BlogVideos):
         )
         for db_session in get_db():
             await create_blog_video(blog_video_data, db_session)
+
+
+class PagesAdmin(ModelView, model=PageType):
+    name = "Страницы"
+    name_plural = "Страницы"
+    icon = "fa-solid fa-file"
+    column_list = [PageType.id, PageType.name]
+    column_searchable_list = [PageType.name]
+    column_sortable_list = [PageType.id, PageType.name]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", name="Заголовок")
+
+    async def on_model_change(self, data, model, is_created, request):
+        page_data = schemas.PageTypeSchema(
+            name=data.get('name')
+        )
+        for db_session in get_db():
+            await create_page_type(db_session, page_data)

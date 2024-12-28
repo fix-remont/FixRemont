@@ -82,6 +82,14 @@ class NotificationTypeSchema(BaseModel):
         from_attributes = True
 
 
+class PageTypeSchema(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
 class ArticleSchema(BaseModel):
     title: str
     body: str
@@ -285,6 +293,9 @@ class SupportCategorySchema(BaseModel):
 class FAQSchema(BaseModel):
     title: str
     label: str
+    date: Optional[str]
+    key_word: Optional[str]
+    page_tag: PageTypeSchema
 
     class Config:
         orm_mode = True
