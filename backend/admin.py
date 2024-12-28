@@ -1066,3 +1066,38 @@ class SEOTextAdmin(ModelView, model=SEOText):
     can_edit = True
     can_delete = True
     column_labels = dict(id="ID", text="Текст", page_tag="Тег страницы")
+
+
+class CommunicationTypeAdmin(ModelView, model=CommunicationType):
+    name = "Тип коммуникации"
+    name_plural = "Типы коммуникации"
+    icon = "fa-solid fa-phone"
+    column_list = [CommunicationType.title]
+    column_searchable_list = [CommunicationType.title]
+    column_sortable_list = [CommunicationType.id, CommunicationType.title]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", title="Название")
+
+
+class ConsultationListAdmin(ModelView, model=ConsultationList):
+    name = "Список консультаций"
+    name_plural = "Список консультаций"
+    icon = "fa-solid fa-list"
+    column_list = [ConsultationList.id, ConsultationList.phone, ConsultationList.communication_type,
+                   ConsultationList.answered]
+    column_searchable_list = [ConsultationList.phone]
+    column_sortable_list = [ConsultationList.id, ConsultationList.answered, ConsultationList.communication_type]
+    can_create = False
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", communication_type="Тип коммуникации", phone="Телефон", answered="Отвечено")
+
+    column_formatters = {
+        'answered': lambda m, p: "Да" if m.answered else "Нет"
+    }
+
+    column_formatters_detail = {
+        'answered': lambda m, p: "Да" if m.answered else "Нет"
+    }

@@ -260,3 +260,13 @@ async def get_social_networks(db: AsyncSession = Depends(get_db)):
 @router.get("/blog_videos", response_model=List[BlogVideosSchema], tags=["GET"])
 async def get_blog_videos(db: AsyncSession = Depends(get_db)):
     return cruds.get_blog_videos(db)
+
+
+@router.get("/communications_types", response_model=List[CommunicationTypeSchema], tags=["GET"])
+async def get_communication_types(db: AsyncSession = Depends(get_db)):
+    return cruds.get_communication_types(db)
+
+
+@router.post("/consultations", response_model=ConsultationsListSchema, tags=["POST"])
+async def create_consultation(consultation: ConsultationsListSchema, db: AsyncSession = Depends(get_db)):
+    return cruds.create_consultation(consultation, db)

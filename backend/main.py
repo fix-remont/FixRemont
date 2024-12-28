@@ -89,6 +89,8 @@ admin.add_view(SocialMediaAccountsAdmin)
 admin.add_view(BlogVideosAdmin)
 admin.add_view(PagesAdmin)
 admin.add_view(SEOTextAdmin)
+admin.add_view(CommunicationTypeAdmin)
+admin.add_view(ConsultationListAdmin)
 
 # app.include_router(user_routes.router)
 app.include_router(routes.meta())

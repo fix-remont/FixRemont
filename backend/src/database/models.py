@@ -359,6 +359,28 @@ class SEOText(Base):
     page_tag = relationship("PageType", back_populates="seo_texts")
 
 
+class CommunicationType(Base):
+    __tablename__ = 'communication_type'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    consultation_list = relationship("ConsultationList", back_populates="communication_type")
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.name
+
+
+class ConsultationList(Base):
+    __tablename__ = 'consultation_list'
+    id = Column(Integer, primary_key=True, index=True)
+    phone = Column(String)
+    answered = Column(Boolean, default=False)
+    communication_type_id = Column(Integer, ForeignKey('communication_type.id'))
+    communication_type = relationship("CommunicationType", back_populates="consultation_list")
+
+
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')

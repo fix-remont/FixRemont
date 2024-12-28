@@ -1148,3 +1148,35 @@ def get_seo_text_by_page_tag(page_tag: str, db: AsyncSession):
     }
 
     return seo_text_response
+
+
+def get_communication_types(db):
+    result = db.execute(select(models.CommunicationType))
+    all_communication_types = result.scalars().all()
+
+    communication_types = []
+
+    for communication_type in all_communication_types:
+        communication_types.append({
+            "title": communication_type.title
+        })
+
+    return communication_types
+
+
+def create_consultation(consultation, db):
+    type_of_communication = db.execute(select(models.CommunicationType).where(
+        models.CommunicationType.title == consultation.communication_type.title)).scalars().first()
+    if type_of_communication is None:
+        raise HTTPException(status_code=404, detail="Communication type is incorrect")
+    new_consultation = models.ConsultationList(
+        phone=consultation.phone,
+        answered=consultation.answered,
+        communication_type=type_of_communication
+    )
+
+    db.add(new_consultation)
+    db.commit()
+    db.refresh(new_consultation)
+
+    return new_consultation

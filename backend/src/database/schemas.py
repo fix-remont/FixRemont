@@ -465,3 +465,21 @@ class BlogVideosSchema(BaseModel):
     class Config:
         from_attributes = True
         orm_mode = True
+
+
+class CommunicationTypeSchema(BaseModel):
+    title: str
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class ConsultationsListSchema(BaseModel):
+    phone: str
+    answered: Optional[bool] = False
+    communication_type: CommunicationTypeSchema
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
