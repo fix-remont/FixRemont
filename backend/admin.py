@@ -941,18 +941,19 @@ class UserCommentsAdmin(ModelView, model=UserComments):
             await create_user_comment(db_session, user_comment_data)
 
 
-
 class IntroVideoAdmin(ModelView, model=IntroVideos):
     name = "Видео приветствия"
     name_plural = "Видео приветствия"
     icon = "fa-solid fa-video"
-    column_list = [IntroVideos.id, IntroVideos.video_link, IntroVideos.video_duration, IntroVideos.author, IntroVideos.object]
+    column_list = [IntroVideos.id, IntroVideos.video_link, IntroVideos.video_duration, IntroVideos.author,
+                   IntroVideos.object]
     column_searchable_list = [IntroVideos.video_link, IntroVideos.author, IntroVideos.object]
     column_sortable_list = [IntroVideos.id, IntroVideos.video_link, IntroVideos.author, IntroVideos.object]
     can_create = True
     can_edit = True
     can_delete = True
-    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор", object="Объект")
+    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор",
+                         object="Объект")
 
     async def on_model_change(self, data, model, is_created, request):
         intro_video_data = schemas.IntroVideosSchema(
@@ -964,11 +965,13 @@ class IntroVideoAdmin(ModelView, model=IntroVideos):
         for db_session in get_db():
             await create_intro_video(intro_video_data, db_session)
 
+
 class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
     name = "Аккаунты социальных сетей"
     name_plural = "Аккаунты социальных сетей"
     icon = "fa-solid fa-users"
-    column_list = [SocialMediaAccounts.id, SocialMediaAccounts.name, SocialMediaAccounts.link, SocialMediaAccounts.logo, SocialMediaAccounts.subscribers]
+    column_list = [SocialMediaAccounts.id, SocialMediaAccounts.name, SocialMediaAccounts.link, SocialMediaAccounts.logo,
+                   SocialMediaAccounts.subscribers]
     column_searchable_list = [SocialMediaAccounts.name, SocialMediaAccounts.link]
     column_sortable_list = [SocialMediaAccounts.id, SocialMediaAccounts.name, SocialMediaAccounts.link]
     can_create = True
@@ -1011,13 +1014,15 @@ class BlogVideosAdmin(ModelView, model=BlogVideos):
     name = "Видео блог"
     name_plural = "Видео блог"
     icon = "fa-solid fa-video"
-    column_list = [BlogVideos.id, BlogVideos.video_link, BlogVideos.video_duration, BlogVideos.author, BlogVideos.object]
+    column_list = [BlogVideos.id, BlogVideos.video_link, BlogVideos.video_duration, BlogVideos.author,
+                   BlogVideos.object]
     column_searchable_list = [BlogVideos.video_link, BlogVideos.author, BlogVideos.object]
     column_sortable_list = [BlogVideos.id, BlogVideos.video_link, BlogVideos.author, BlogVideos.object]
     can_create = True
     can_edit = True
     can_delete = True
-    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор", object="Объект")
+    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор",
+                         object="Объект")
 
     async def on_model_change(self, data, model, is_created, request):
         blog_video_data = schemas.BlogVideosSchema(
@@ -1048,3 +1053,16 @@ class PagesAdmin(ModelView, model=PageType):
         )
         for db_session in get_db():
             await create_page_type(db_session, page_data)
+
+
+class SEOTextAdmin(ModelView, model=SEOText):
+    name = "SEO текст"
+    name_plural = "SEO текст"
+    icon = "fa-solid fa-file"
+    column_list = [SEOText.id, SEOText.text, SEOText.page_tag]
+    column_searchable_list = [SEOText.text, SEOText.page_tag]
+    column_sortable_list = [SEOText.id, SEOText.text, SEOText.page_tag]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", text="Текст", page_tag="Тег страницы")

@@ -1095,3 +1095,33 @@ def get_faqs_by_page_tag(page_tag: str, db: AsyncSession):
         })
 
     return faqs_response
+
+
+def get_seo_texts(db):
+    result = db.execute(select(models.SEOText))
+    all_seo_texts = result.scalars().all()
+
+    seo_texts = []
+
+    for seo_text in all_seo_texts:
+        seo_texts.append({
+            "text": seo_text.text,
+            "page_tag": seo_text.page_tag
+        })
+
+    return seo_texts
+
+
+def get_seo_text_by_page_tag(page_tag: str, db: AsyncSession):
+    result = db.execute(select(models.SEOText).where(models.SEOText.page_tag.has(name=page_tag)))
+    seo_text = result.scalars().first()
+
+    if seo_text is None:
+        raise HTTPException(status_code=404, detail="SEO text not found")
+
+    seo_text_response = {
+        "text": seo_text.text,
+        "page_tag": seo_text.page_tag
+    }
+
+    return seo_text_response

@@ -58,7 +58,8 @@ class PageType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    pages = relationship("FAQ", back_populates="page_tag")
+    faqs = relationship("FAQ", back_populates="page_tag")
+    seo_texts = relationship("SEOText", back_populates="page_tag")
 
     def __str__(self):
         return self.name
@@ -135,7 +136,7 @@ class FAQ(Base):
     date = Column(String, nullable=True)
     key_word = Column(String)
     page_tag_id = Column(Integer, ForeignKey('page_type.id'))
-    page_tag = relationship("PageType", back_populates="pages")
+    page_tag = relationship("PageType", back_populates="faqs")
 
     def __str__(self):
         return self.heading
@@ -348,6 +349,14 @@ class BlogVideos(Base):
     video_duration = Column(String, nullable=True)
     author = Column(String, nullable=True)
     object = Column(String, nullable=True)
+
+
+class SEOText(Base):
+    __tablename__ = 'seo_texts'
+    id = Column(Integer, primary_key=True, index=True)
+    text = Column(String)
+    page_tag_id = Column(Integer, ForeignKey('page_type.id'))
+    page_tag = relationship("PageType", back_populates="seo_texts")
 
 
 load_dotenv()

@@ -301,6 +301,11 @@ class FAQSchema(BaseModel):
         orm_mode = True
 
 
+class SEOTextSchema(BaseModel):
+    text: str
+    page_tag: PageTypeSchema
+
+
 #
 #
 # class UserSchema(BaseModel):

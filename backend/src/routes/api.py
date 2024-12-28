@@ -206,6 +206,7 @@ async def get_support_category(id: int = Path(...), db: AsyncSession = Depends(g
 async def get_faqs(db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs(db)
 
+
 @router.get("/faqs/{page_tag}", response_model=List[FAQSchema], tags=["GET"])
 async def get_faqs(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs_by_page_tag(page_tag, db)
@@ -214,6 +215,16 @@ async def get_faqs(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)
 @router.get("/faqs/{key_word}", response_model=FAQSchema, tags=["!BUG"])
 async def get_faq(key_word: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs_by_keyword(key_word, db)
+
+
+@router.get("/seo_texts", response_model=List[SEOTextSchema], tags=["GET"])
+async def get_seo_texts(db: AsyncSession = Depends(get_db)):
+    return cruds.get_seo_texts(db)
+
+
+@router.get("/seo_texts/{page_tag}", response_model=SEOTextSchema, tags=["GET"])
+async def get_seo_text(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)):
+    return cruds.get_seo_text_by_page_tag(page_tag, db)
 
 
 @router.get("/project_types", response_model=List[ProjectTypeSchema], tags=["GET"])
