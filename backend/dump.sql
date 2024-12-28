@@ -157,6 +157,76 @@ ALTER SEQUENCE public.blog_videos_id_seq OWNED BY public.blog_videos.id;
 
 
 --
+-- Name: communication_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.communication_type (
+    id integer NOT NULL,
+    title character varying
+);
+
+
+ALTER TABLE public.communication_type OWNER TO postgres;
+
+--
+-- Name: communication_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.communication_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.communication_type_id_seq OWNER TO postgres;
+
+--
+-- Name: communication_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.communication_type_id_seq OWNED BY public.communication_type.id;
+
+
+--
+-- Name: consultation_list; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.consultation_list (
+    id integer NOT NULL,
+    phone character varying,
+    answered boolean,
+    communication_type_id integer
+);
+
+
+ALTER TABLE public.consultation_list OWNER TO postgres;
+
+--
+-- Name: consultation_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.consultation_list_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.consultation_list_id_seq OWNER TO postgres;
+
+--
+-- Name: consultation_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.consultation_list_id_seq OWNED BY public.consultation_list.id;
+
+
+--
 -- Name: contracts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -942,6 +1012,20 @@ ALTER TABLE ONLY public.blog_videos ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: communication_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.communication_type ALTER COLUMN id SET DEFAULT nextval('public.communication_type_id_seq'::regclass);
+
+
+--
+-- Name: consultation_list id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consultation_list ALTER COLUMN id SET DEFAULT nextval('public.consultation_list_id_seq'::regclass);
+
+
+--
 -- Name: contracts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1095,6 +1179,26 @@ COPY public.additional_options (id, name, description) FROM stdin;
 
 COPY public.blog_videos (id, video_link, video_duration, author, object) FROM stdin;
 1	https://www.youtube.com/watch?v=dQw4w9WgXcQ	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: communication_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.communication_type (id, title) FROM stdin;
+1	Написать в WhatsApp
+2	Позвонить по телефону
+\.
+
+
+--
+-- Data for Name: consultation_list; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.consultation_list (id, phone, answered, communication_type_id) FROM stdin;
+4	+79999999998	f	1
+1	+79999999999	t	1
 \.
 
 
@@ -1305,6 +1409,20 @@ SELECT pg_catalog.setval('public.blog_videos_id_seq', 1, true);
 
 
 --
+-- Name: communication_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.communication_type_id_seq', 2, true);
+
+
+--
+-- Name: consultation_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.consultation_list_id_seq', 4, true);
+
+
+--
 -- Name: contracts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1458,6 +1576,22 @@ ALTER TABLE ONLY public.additional_options
 
 ALTER TABLE ONLY public.blog_videos
     ADD CONSTRAINT blog_videos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: communication_type communication_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.communication_type
+    ADD CONSTRAINT communication_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: consultation_list consultation_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consultation_list
+    ADD CONSTRAINT consultation_list_pkey PRIMARY KEY (id);
 
 
 --
@@ -1651,6 +1785,20 @@ CREATE INDEX ix_blog_videos_id ON public.blog_videos USING btree (id);
 
 
 --
+-- Name: ix_communication_type_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX ix_communication_type_id ON public.communication_type USING btree (id);
+
+
+--
+-- Name: ix_consultation_list_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX ix_consultation_list_id ON public.consultation_list USING btree (id);
+
+
+--
 -- Name: ix_contracts_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1809,6 +1957,14 @@ CREATE INDEX ix_works_id ON public.works USING btree (id);
 --
 
 CREATE INDEX ix_works_title ON public.works USING btree (title);
+
+
+--
+-- Name: consultation_list consultation_list_communication_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consultation_list
+    ADD CONSTRAINT consultation_list_communication_type_id_fkey FOREIGN KEY (communication_type_id) REFERENCES public.communication_type(id);
 
 
 --
