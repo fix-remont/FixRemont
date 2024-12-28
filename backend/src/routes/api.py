@@ -137,6 +137,11 @@ async def get_portfolio_post(id: int = Path(...), db: AsyncSession = Depends(get
     return cruds.get_portfolio_post(id, db)
 
 
+@router.get("/portfolio_posts/{project_type}", response_model=PortfolioPostSchema, tags=["GET"])
+async def get_portfolio_post(project_type: str = Path(...), db: AsyncSession = Depends(get_db)):
+    return cruds.get_portfolio_post_by_project_type(project_type, db)
+
+
 @router.get("/posts/{id}", response_model=PostSchema, tags=["GET"])
 async def get_post(id: int = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_post(id, db)

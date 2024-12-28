@@ -9,6 +9,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import models, schemas
 from src.database.models import PostType, TariffType, OrderType
 from collections import defaultdict
+from sqlalchemy.future import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from src.database import models, schemas
 
 
 async def get_portfolio_posts(db: AsyncSession):
@@ -37,9 +40,29 @@ async def get_portfolio_posts(db: AsyncSession):
     return portfolio_posts
 
 
-from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from src.database import models, schemas
+def get_portfolio_post_by_project_type(project_type, db):
+    result = db.execute(select(models.Work).where(models.Work.project_type == project_type))
+    works = result.scalars().all()
+
+    works_response = []
+
+    for work in works:
+        works_response.append({
+            "id": work.id,
+            "title": work.title,
+            "deadline": work.deadline,
+            "cost": work.cost,
+            "square": work.square,
+            "video_link": work.video_link,
+            "video_duration": work.video_duration,
+            "project_type": work.project_type,
+            "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
+            "articles": [
+                schemas.ArticleSchema(title=art.title, body=art.body)
+                for art in work.description]
+        })
+
+    return works_response
 
 
 async def create_portfolio_post(portfolio_post: schemas.PortfolioPostSchema, db: AsyncSession):
