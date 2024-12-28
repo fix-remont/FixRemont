@@ -3,6 +3,7 @@ inventory_path = './ansible/inventory.yml'
 playbook_init_user_path = './ansible/playbook_init_remote_user.yml'
 playbook_set_environment_path = './ansible/playbook_set_environment.yml'
 playbook_deploy_frontend_path = './ansible/playbook_deploy_frontend.yml'
+playbook_deploy_backend_path = './ansible/playbook_deploy_backend.yml'
 
 
 prepare_ansible:
@@ -18,5 +19,5 @@ set_environment:
 deploy_frontend:
 	ansible-playbook -i $(inventory_path) $(playbook_deploy_frontend_path) --ask-become-pass
 
-pn:
-	cd frontend; pnpm dev
+deploy_backend:
+	ansible-playbook -i $(inventory_path) $(playbook_deploy_backend_path) --ask-become-pass
