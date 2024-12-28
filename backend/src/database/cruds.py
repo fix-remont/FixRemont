@@ -1010,3 +1010,36 @@ def get_social_media_accounts(db):
         })
 
     return social_media_accounts
+
+
+def create_blog_video(db, blog_video):
+    new_blog_video = models.BlogVideos(
+        video_link=blog_video.video_link,
+        video_duration=blog_video.video_duration,
+        author=blog_video.author,
+        object=blog_video.object
+    )
+
+    db.add(new_blog_video)
+    db.commit()
+    db.refresh(new_blog_video)
+
+    return new_blog_video
+
+def get_blog_videos(db):
+    result = db.execute(select(models.BlogVideos))
+    all_blog_videos = result.scalars().all()
+
+    blog_videos = []
+
+    for blog_video in all_blog_videos:
+        blog_videos.append({
+            "id": blog_video.id,
+            "title": blog_video.title,
+            "video_link": blog_video.video_link,
+            "video_duration": blog_video.video_duration,
+            "author": blog_video.author,
+            "object": blog_video.object
+        })
+
+    return blog_videos

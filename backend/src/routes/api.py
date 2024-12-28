@@ -235,3 +235,8 @@ async def get_intro_videos(db: AsyncSession = Depends(get_db)):
 @router.get("/social_networks", response_model=List[SocialMediaAccountsSchema], tags=["GET"])
 async def get_social_networks(db: AsyncSession = Depends(get_db)):
     return cruds.get_social_media_accounts(db)
+
+
+@router.get("/blog_videos", response_model=List[BlogVideosSchema], tags=["GET"])
+async def get_blog_videos(db: AsyncSession = Depends(get_db)):
+    return cruds.get_blog_videos(db)

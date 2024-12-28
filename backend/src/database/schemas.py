@@ -417,6 +417,7 @@ class UserCommentsSchema(BaseModel):
         orm_mode = True
         from_attributes = True
 
+
 class IntroVideosSchema(BaseModel):
     author: str
     video_link: str
@@ -437,3 +438,14 @@ class SocialMediaAccountsSchema(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+
+
+class BlogVideosSchema(BaseModel):
+    video_link: str
+    video_duration: Optional[str]
+    author: Optional[str]
+    object: Optional[str]
+
+    class Config:
+        from_attributes = True
+        orm_mode = True

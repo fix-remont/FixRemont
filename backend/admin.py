@@ -378,15 +378,12 @@
 from asyncio import Future
 from sqladmin.fields import FileField
 
-from src.database.cruds import create_post, create_portfolio_post, get_project_type_by_id, create_notification, \
-    create_work_status, create_user, create_user_comment, create_intro_video, create_social_media_account
+from src.database.cruds import *
 import base64
 from markupsafe import Markup
 from src.database import schemas, models
 from src.database.db import get_db
-from src.database.models import User, Flat, Style, AdditionalOption, Tariff, Contract, Post, Work, Notification, \
-    ProjectType, PostType, UserType, NotificationType, Paragraph, FAQ, WorkStatus, PlatformNews, \
-    ContractNotificationStatus, UserComments, IntroVideos, SocialMediaAccounts
+from src.database.models import *
 from src.auth.auth_routes import get_password_hash
 from wtforms import SelectField, RadioField, BooleanField, MultipleFileField
 from sqladmin import ModelView
@@ -1008,3 +1005,26 @@ class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
         )
         for db_session in get_db():
             await create_social_media_account(db_session, social_media_data)
+
+
+class BlogVideosAdmin(ModelView, model=BlogVideos):
+    name = "Видео блог"
+    name_plural = "Видео блог"
+    icon = "fa-solid fa-video"
+    column_list = [BlogVideos.id, BlogVideos.video_link, BlogVideos.video_duration, BlogVideos.author, BlogVideos.object]
+    column_searchable_list = [BlogVideos.video_link, BlogVideos.author, BlogVideos.object]
+    column_sortable_list = [BlogVideos.id, BlogVideos.video_link, BlogVideos.author, BlogVideos.object]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", video_link="Ссылка на видео", video_duration="Длительность видео", author="Автор", object="Объект")
+
+    async def on_model_change(self, data, model, is_created, request):
+        blog_video_data = schemas.BlogVideosSchema(
+            video_link=data.get('video_link'),
+            video_duration=data.get('video_duration'),
+            author=data.get('author'),
+            object=data.get('object')
+        )
+        for db_session in get_db():
+            await create_blog_video(blog_video_data, db_session)

@@ -330,6 +330,15 @@ class SocialMediaAccounts(Base):
     subscribers = Column(Integer)
 
 
+class BlogVideos(Base):
+    __tablename__ = 'blog_videos'
+    id = Column(Integer, primary_key=True, index=True)
+    video_link = Column(String)
+    video_duration = Column(String, nullable=True)
+    author = Column(String, nullable=True)
+    object = Column(String, nullable=True)
+
+
 load_dotenv()
 
 DB_NAME = os.getenv('DB_NAME')

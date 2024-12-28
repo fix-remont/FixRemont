@@ -86,6 +86,7 @@ admin.add_view(WorkStatusAdmin)
 admin.add_view(UserCommentsAdmin)
 admin.add_view(IntroVideoAdmin)
 admin.add_view(SocialMediaAccountsAdmin)
+admin.add_view(BlogVideosAdmin)
 
 # app.include_router(user_routes.router)
 app.include_router(routes.meta())
