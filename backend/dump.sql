@@ -586,6 +586,41 @@ ALTER SEQUENCE public.project_type_id_seq OWNED BY public.project_type.id;
 
 
 --
+-- Name: seo_texts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.seo_texts (
+    id integer NOT NULL,
+    text character varying,
+    page_tag_id integer
+);
+
+
+ALTER TABLE public.seo_texts OWNER TO postgres;
+
+--
+-- Name: seo_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.seo_texts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.seo_texts_id_seq OWNER TO postgres;
+
+--
+-- Name: seo_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.seo_texts_id_seq OWNED BY public.seo_texts.id;
+
+
+--
 -- Name: social_media_accounts; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -984,6 +1019,13 @@ ALTER TABLE ONLY public.project_type ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: seo_texts id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.seo_texts ALTER COLUMN id SET DEFAULT nextval('public.seo_texts_id_seq'::regclass);
+
+
+--
 -- Name: social_media_accounts id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1169,6 +1211,15 @@ COPY public.project_type (id, name) FROM stdin;
 
 
 --
+-- Data for Name: seo_texts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.seo_texts (id, text, page_tag_id) FROM stdin;
+1	Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.  Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor  do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.	1
+\.
+
+
+--
 -- Data for Name: social_media_accounts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -1328,6 +1379,13 @@ SELECT pg_catalog.setval('public.posts_id_seq', 2, true);
 --
 
 SELECT pg_catalog.setval('public.project_type_id_seq', 5, true);
+
+
+--
+-- Name: seo_texts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.seo_texts_id_seq', 1, true);
 
 
 --
@@ -1496,6 +1554,14 @@ ALTER TABLE ONLY public.posts
 
 ALTER TABLE ONLY public.project_type
     ADD CONSTRAINT project_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: seo_texts seo_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.seo_texts
+    ADD CONSTRAINT seo_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1669,6 +1735,13 @@ CREATE INDEX ix_posts_title ON public.posts USING btree (title);
 
 
 --
+-- Name: ix_seo_texts_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX ix_seo_texts_id ON public.seo_texts USING btree (id);
+
+
+--
 -- Name: ix_social_media_accounts_id; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1800,6 +1873,14 @@ ALTER TABLE ONLY public.notifications
 
 ALTER TABLE ONLY public.paragraphs
     ADD CONSTRAINT paragraphs_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: seo_texts seo_texts_page_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.seo_texts
+    ADD CONSTRAINT seo_texts_page_tag_id_fkey FOREIGN KEY (page_tag_id) REFERENCES public.page_type(id);
 
 
 --
