@@ -4,18 +4,19 @@ import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
 import { hrefCalculater } from '~/assets/variables'
 
 const { width } = useViewport()
+
 </script>
 
 <template>
 	<div class="margin-glob block">
 		<div class="upper">
-			<img src="/images/apartment-renovation/block_1.png" alt="background" />
+			<img src="/images/building-houses/block_1.png" alt="background" />
 			<div class="crumb-container">
 				<Bread_crumbs />
 			</div>
 			<div class="content">
 				<h1 class="title-glob header">
-					Ремотн квартир
+					Строительство домов
 					<br />
 					под ключ по готовым
 					<br />
@@ -27,13 +28,13 @@ const { width } = useViewport()
 			<div class="box-wrapper">
 				<div class="black-box">
 					<h2>
-						Заселитесь в
+						6 месяцев до
 						<br />
-						квартиру мечты с
+						готового дома мечты
 						<br />
-						мебелью в течение
+						с благоустройством
 						<br />
-						3-х месяцев
+						и ремонтом
 					</h2>
 					<NuxtLink :to="hrefCalculater">
 						<SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
@@ -41,7 +42,6 @@ const { width } = useViewport()
 				</div>
 			</div>
 		</div>
-		<HomeBlock2 />
 	</div>
 </template>
 
