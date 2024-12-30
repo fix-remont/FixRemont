@@ -15,10 +15,7 @@
         </SharedButton>
       </NuxtLink>
     </div>
-    <HomeBlock13 />
-    <HomeBlock14 />
-    <HomeBlock15 />
-    <HomeBlock16 />
+
   </div>
 </template>
 

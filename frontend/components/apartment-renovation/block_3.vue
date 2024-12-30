@@ -33,8 +33,7 @@ let elementContent = [
 </script>
 
 <template>
-<div class="margin-glob block">
-  <div class="upper">
+  <div class="margin-glob upper">
     <div class="left">
       <div class="wrapper">
         <h2 class="title">
@@ -59,8 +58,6 @@ let elementContent = [
       </div>
     </div>
   </div>
-  <HomeBlock5 />
-</div>
 </template>
 
 <style scoped>
@@ -135,6 +132,7 @@ let elementContent = [
 
     .element {
       text-align: center;
+
       h4 {
         width: 100%;
         font-size: 24px;
@@ -153,12 +151,14 @@ let elementContent = [
   gap: 1em;
   border-radius: 24px;
   padding: 3rem;
+
   h4 {
     width: 50%;
     font-size: 36px;
     line-height: 40px;
     font-weight: 600;
   }
+
   p {
     margin-top: 1rem;
     font-size: 18px;
