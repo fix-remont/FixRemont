@@ -41,7 +41,6 @@ const { width } = useViewport()
 				</div>
 			</div>
 		</div>
-		<HomeBlock2 />
 	</div>
 </template>
 

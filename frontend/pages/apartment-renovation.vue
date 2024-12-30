@@ -5,6 +5,7 @@
 <template>
   <NuxtLayout>
     <ApartmentRenovationBlock1 />
+		<HomeBlock2 />
     <ApartmentRenovationBlock2 />
     <ApartmentRenovationBlock3 />
     <HomeBlock5 />
