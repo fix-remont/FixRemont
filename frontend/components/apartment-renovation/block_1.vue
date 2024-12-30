@@ -26,7 +26,7 @@ const { width } = useViewport()
 			</div>
 			<div class="box-wrapper">
 				<div class="black-box">
-					<h2>
+					<h3>
 						Заселитесь в
 						<br />
 						квартиру мечты с
@@ -34,7 +34,7 @@ const { width } = useViewport()
 						мебелью в течение
 						<br />
 						3-х месяцев
-					</h2>
+					</h3>
 					<NuxtLink :to="hrefCalculater">
 						<SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
 					</NuxtLink>
