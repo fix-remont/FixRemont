@@ -1,51 +1,28 @@
-# ############### повторяющаяся шапка
-- name: Read .env file and create user
-  hosts: localhost
-  gather_facts: false
-  tasks:
-    - name: set variables from .env to facts
-      ansible.builtin.include_tasks: tasks/set__env_vars__from_.env.yml
-
-- name: Use parsed .env variables on remote host
-  hosts: remote-staging-user
+- name: set_environment
+  hosts: '{{ hosts }}'
   # gather_facts: false
   become: true
   vars:
-    ansistrano_deploy_to: "/home/{{ remote_env_vars['ENV_MODE'] }}/fixremont/backend"
+    - ansistrano_deploy_to: '{{remote_app_path}}/backend/'
   tasks:
-    - name: Pass variables to remote host
-      set_fact:
-        remote_env_vars: "{{ hostvars['localhost']['env_vars'] }}"
-    #     ###################################
-
     - name: ansistrano deploy
       ansible.builtin.import_role:
         name: ansistrano.deploy
       vars:
         ansistrano_deploy_from: '{{ playbook_dir }}/../backend'
         ansistrano_deploy_via: rsync
-        ansistrano_rsync_extra_params: '--exclude=.vscode --exclude=.nuxt --exclude=.output --exclude=node_modules  --exclude=.build'
 
     - name: copy .env file
       ansible.builtin.copy:
         src: '{{ local_app_path }}/.env'
-        dest: '{{ remote_app_path }}/backend/current/.env'
+        dest: '{{ ansistrano_deploy_to }}/current/.env'
 
     - name: install dependencies
       ansible.builtin.command:
-        cmd: pip install -r requirements.txt --break-system-packages
-        chdir: '{{ remote_app_path }}/backend/current/backend'
-      become: true
+        cmd: pip install -r requirements.txt
+        chdir: '{{ ansistrano_deploy_to }}/current/backend/'
 
-    # - name: make build
-    #   ansible.builtin.command:
-    #     cmd: pnpm build
-    #     chdir: '{{ ansistrano_deploy_to }}/current/frontend'
-    #   become: true
-
-    # - name: start/restart pm2 frontend process
-    #   ansible.builtin.command:
-    #     cmd: pm2 start frontend
-    #     chdir: "/home/{{ remote_env_vars['ENV_MODE'] }}/fixremont"
-    #   become: true
-    #   become_user: "{{ remote_env_vars['ENV_MODE'] }}"
+    - name: start/restart pm2 process
+      ansible.builtin.command:
+        cmd: pm2 start ecosystem.config.js
+        chdir: '{{ remote_app_path }}'

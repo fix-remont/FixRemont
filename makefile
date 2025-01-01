@@ -6,18 +6,32 @@ playbook_deploy_frontend_path = './ansible/playbook_deploy_frontend.yml'
 playbook_deploy_backend_path = './ansible/playbook_deploy_backend.yml'
 
 
-prepare_ansible:
+######################################
+ssh:
+	ssh -l admin 158.160.132.225
+######################################
+prepare_ansible_locally:
 	# python3 -m pip install --user ansible
 	ansible-galaxy install -r ansible/requirements.yml
 
-create_remote_user:
-	ansible-playbook -i $(inventory_path) $(playbook_init_user_path) --ask-become-pass
+vagrant_set_environment:
+	ansible-playbook -i $(inventory_path) $(playbook_set_environment_path) --extra-vars hosts=vagrant
 
+vagrant_deploy_frontend:
+	ansible-playbook -i $(inventory_path) $(playbook_deploy_frontend_path) --extra-vars hosts=vagrant
+
+vagrant_deploy_backend:
+	ansible-playbook -i $(inventory_path) $(playbook_deploy_backend_path) --extra-vars hosts=vagrant
+
+
+######################################
 set_environment:
-	ansible-playbook -i $(inventory_path) $(playbook_set_environment_path) --ask-become-pass
+	ansible-playbook -i $(inventory_path) $(playbook_set_environment_path) --extra-vars hosts=remote-staging-admin
 
 deploy_frontend:
-	ansible-playbook -i $(inventory_path) $(playbook_deploy_frontend_path) --ask-become-pass
+	ansible-playbook -i $(inventory_path) $(playbook_deploy_frontend_path) --extra-vars hosts=remote-staging-admin
 
 deploy_backend:
-	ansible-playbook -i $(inventory_path) $(playbook_deploy_backend_path) --ask-become-pass
+	ansible-playbook -i $(inventory_path) $(playbook_deploy_backend_path) --extra-vars hosts=remote-staging-admin
+
+######################################
