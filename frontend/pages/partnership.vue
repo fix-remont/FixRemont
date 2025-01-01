@@ -6,7 +6,7 @@
   <NuxtLayout>
     <PartenrshipBlock1 />
     <HomeBlock2 />
-
+    <PartenrshipBlock2 />
   </NuxtLayout>
 </template>
 
