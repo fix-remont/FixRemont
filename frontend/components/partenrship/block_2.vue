@@ -78,15 +78,15 @@ const setActiveIndex = (index: number) => {
       <UCarousel
           :items="[items[activeIndex]]"
           :ui="{
-            item: 'w-full flex flex-col p-10 gap-12'
+            item: 'w-full flex flex-col p-10 gap-12 md:items-start items-center'
           }"
       >
         <template #default="{ item }">
-            <h4 class="text-5xl font-bold">{{ item.title }}</h4>
-            <ul class="list-disc pl-4 mb-4">
+            <h4 class="md:text-5xl font-bold text-4xl">{{ item.title }}</h4>
+            <ul class="md:list-disc pl-4 md:mb-4 text-center md:text-start w-full">
               <li
                   v-for="(elem, index) in item.list" :key="index"
-                  class="w-11/12 text-lg font-medium leading-6 mb-2"
+                  class="w-11/12 text-lg font-medium leading-6 mb-4"
               >
                 {{ elem }}
               </li>
@@ -191,6 +191,7 @@ const setActiveIndex = (index: number) => {
   .left {
     width: 100%;
     gap: 5rem;
+    margin-bottom: 2rem;
     h2 {
       text-align: center;
     }
