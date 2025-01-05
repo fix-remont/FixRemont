@@ -5,7 +5,8 @@ const props = defineProps<{
 </script>
 
 <template>
-	<SharedHeader />
+	<SharedHeaderSigned />
+	<!-- <SharedHeader /> -->
 	<slot />
 	<SharedFooter :footerWithoutMargin="props.footerWithoutMargin" />
 </template>

@@ -57,7 +57,7 @@
 
               }
           - listen:
-              8000
+              7000
               # proxy_buffering off;
             server_name: '{{ ansible_remote_ip }}'
             state: present
