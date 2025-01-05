@@ -10,6 +10,7 @@
     <PartenrshipBlock3 />
     <HomeBlock9 />
     <PartenrshipBlock4 />
+    <PartenrshipBlock5 />
   </NuxtLayout>
 </template>
 
