@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "format": "prettier --write .",
+    "check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.4.2",
+    "prettier-plugin-organize-attributes": "1.0.0",
+    "prettier-plugin-tailwindcss": "0.6.9"
+  }
+}
