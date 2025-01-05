@@ -98,8 +98,8 @@ function onSubmit() {
 }
 
 .left {
-  text-align: center;
   @media (max-width: 800px) {
+    text-align: center;
     order: 1;
   }
 }

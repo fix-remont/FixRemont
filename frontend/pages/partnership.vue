@@ -8,6 +8,7 @@
     <HomeBlock2 />
     <PartenrshipBlock2 />
     <PartenrshipBlock3 />
+    <HomeBlock9 />
   </NuxtLayout>
 </template>
 
