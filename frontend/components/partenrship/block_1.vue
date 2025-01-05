@@ -1,69 +1,71 @@
 <script setup lang="ts">
-import Bread_crumbs from "~/components/_shared/bread_crumbs.vue";
+import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
 
 const items = ref([
-	{
-		id: 1,
-		title: 'Ремонт',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
-	{
-		id: 2,
-		title: 'Строительство',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
-	{
-		id: 3,
-		title: 'Партнёрская программа',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
+  {
+    id: 1,
+    title: 'Ремонт',
+    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    hovered: false
+  },
+  {
+    id: 2,
+    title: 'Строительство',
+    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    hovered: false
+  },
+  {
+    id: 3,
+    title: 'Партнёрская программа',
+    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    hovered: false
+  }
 ])
 </script>
 
 <template>
   <div class="margin-glob block">
     <div class="crumb-container">
-      <Bread_crumbs/>
+      <Bread_crumbs />
     </div>
     <div class="content">
-				<h1>
-					Зарабатывайте 10%
-					<br />
-					комиссию с каждой
-					<br />
-					сделки FIX-ремонт
-				</h1>
-			</div>
+      <h1>
+        Зарабатывайте 10%
+        <br />
+        комиссию с каждой
+        <br />
+        сделки FIX-ремонт
+      </h1>
+    </div>
     <div class="black-box">
       <h3>
-        Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с фиксированной ценой
+        Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с
+        фиксированной ценой
       </h3>
       <NuxtLink>
-						<SharedButton fillOrange> Зарегистрироваться, как партнёр </SharedButton>
+        <SharedButton fillOrange> Зарегистрироваться, как партнёр </SharedButton>
       </NuxtLink>
     </div>
-    <UCarousel v-if="items" class="third" :items="items" :ui="{ container: 'gap-2' }">
-				<template #default="{ item }">
-					<div
-						@mouseover="item.hovered = true"
-						@mouseout="item.hovered = false"
-						:class="['item', { 'item-hovered': item.hovered }]"
-						@click="item.hovered = true">
-						<span :class="['title']">{{ item.title }}</span>
-						<span :class="['text']">{{ item.text }}</span>
-						<img :src="item.imgSrc" alt="img" />
-						<div :class="['wrap-arrow']">
-							<SharedArrowHover :hovered="item.hovered" />
-						</div>
-					</div>
-				</template>
-			</UCarousel>
+    <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-2' }">
+      <template #default="{ item }">
+        <div
+          @mouseover="item.hovered = true"
+          @mouseout="item.hovered = false"
+          :class="['item', { 'item-hovered': item.hovered }]"
+          @click="item.hovered = true"
+        >
+          <span :class="['title']">{{ item.title }}</span>
+          <span :class="['text']">{{ item.text }}</span>
+          <img :src="item.imgSrc" alt="img" />
+          <div :class="['wrap-arrow']">
+            <SharedArrowHover :hovered="item.hovered" />
+          </div>
+        </div>
+      </template>
+    </UCarousel>
   </div>
 </template>
 
@@ -72,7 +74,7 @@ $radius: 35px;
 
 .block {
   min-height: 50rem;
-  background-image: url("/images/partnership/block_1.png");
+  background-image: url('/images/partnership/block_1.png');
   background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
@@ -80,19 +82,19 @@ $radius: 35px;
 }
 
 .crumb-container {
-	position: absolute;
-	display: inline-block;
-	top: 0;
-	left: 0;
-	padding: 20px;
-	z-index: 1;
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  z-index: 1;
 }
 
 .content {
   display: inline-block;
   position: absolute;
-	bottom: 5rem;
-	left: 100px;
+  bottom: 5rem;
+  left: 100px;
   color: #fff;
 
   h1 {
@@ -121,8 +123,8 @@ $radius: 35px;
   h3 {
     display: inline-block;
     font-size: 30px;
-		font-weight: 500;
-		line-height: 40px;
+    font-weight: 500;
+    line-height: 40px;
   }
 
   button {
@@ -136,85 +138,85 @@ $radius: 35px;
   bottom: 1rem;
   right: 0;
 
-		.static-slides {
-			width: 890px;
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 20px;
-			height: 100%;
-			flex-grow: 1;
+  .static-slides {
+    width: 890px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 100%;
+    flex-grow: 1;
 
-			@media (max-width: 1500px) {
-				width: 100%;
-				gap: 0;
-				display: flex;
-				justify-content: space-between;
-			}
-		}
+    @media (max-width: 1500px) {
+      width: 100%;
+      gap: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 
-		.item {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			color: white;
-			border-radius: 35px;
-			overflow: hidden;
-			transition: all 1s linear;
-			background-color: white;
-			/* background-color: var(--c-black); */
+  .item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    border-radius: 35px;
+    overflow: hidden;
+    transition: all 1s linear;
+    background-color: white;
+    /* background-color: var(--c-black); */
 
-			width: 260px;
-      height: 230px;
-			@media (max-width: 1500px) {
-			}
+    width: 260px;
+    height: 230px;
+    @media (max-width: 1500px) {
+    }
 
-			/* @media (max-width: 1000px) {
+    /* @media (max-width: 1000px) {
 				width: initial;
 				} */
 
-			.title {
-				font-weight: 500;
-				font-size: 24px;
-				margin: 25px 0 10px 25px;
-				line-height: 32px;
-				transition: all 1s linear;
-				color: var(--c-black);
-			}
+    .title {
+      font-weight: 500;
+      font-size: 24px;
+      margin: 25px 0 10px 25px;
+      line-height: 32px;
+      transition: all 1s linear;
+      color: var(--c-black);
+    }
 
-			.text {
-				width: 160px;
-				font-size: 16px;
-				font-weight: 400;
-				margin-left: 25px;
-				color: white;
-			}
+    .text {
+      width: 160px;
+      font-size: 16px;
+      font-weight: 400;
+      margin-left: 25px;
+      color: white;
+    }
 
-			img {
-				position: absolute;
-				z-index: -1;
-				width: 100%;
-				height: 100%;
-			}
+    img {
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
 
-			.wrap-arrow {
-				position: absolute;
-				right: 25px;
-				bottom: 25px;
-			}
-		}
+    .wrap-arrow {
+      position: absolute;
+      right: 25px;
+      bottom: 25px;
+    }
+  }
 
-		.item-hovered {
-			background: none;
-			/* background: #efefef; */
+  .item-hovered {
+    background: none;
+    /* background: #efefef; */
 
-			.title {
-				color: white;
-				/* color: var(--c-black); */
-			}
+    .title {
+      color: white;
+      /* color: var(--c-black); */
+    }
 
-			.text {
-				color: #efefef;
-			}
-		}
-	}
+    .text {
+      color: #efefef;
+    }
+  }
+}
 </style>

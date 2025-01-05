@@ -4,26 +4,26 @@ let items = [
   {
     title: 'Кухня: внеплановые затраты удвоили стоимость ремонта ',
     points: [
-        'Мастера сняли потолок, переделали электрику, наклеили обои и уложили керамогранит на стену',
-        'При монтаже натяжного потолка рабочие попали в силовой кабель',
-        'Пришлось снимать керамогранит, отклеивать обои и делать электрику заново',
-        'Бегом по магазинам за новыми материалами',
-        'Снова приходится клеить обои, укладывать керамогранит и натягивать потолок',
+      'Мастера сняли потолок, переделали электрику, наклеили обои и уложили керамогранит на стену',
+      'При монтаже натяжного потолка рабочие попали в силовой кабель',
+      'Пришлось снимать керамогранит, отклеивать обои и делать электрику заново',
+      'Бегом по магазинам за новыми материалами',
+      'Снова приходится клеить обои, укладывать керамогранит и натягивать потолок'
     ],
     final: 'затраты умножились на 2 ',
-    image: imagePath,
+    image: imagePath
   }
 ]
 
 const gallery = Array(5).fill(items[0])
-
 </script>
 
 <template>
-  <div class="block margin-glob">
+  <div class="margin-glob block">
     <div class="titles">
-      <h1 class="title-glob">При самостоятельном ремонте вы
-        <br/>
+      <h1 class="title-glob">
+        При самостоятельном ремонте вы
+        <br />
         <span class="orange">рискуете потратить в два раза больше</span>
       </h1>
       <p class="subtitle-glob">3 примера непредвиденного роста затрат:</p>
@@ -31,15 +31,20 @@ const gallery = Array(5).fill(items[0])
 
     <div class="gallery">
       <UCarousel
-          :items="gallery"
-          arrows
-          indicators
-          :ui="{
+        :items="gallery"
+        arrows
+        indicators
+        :ui="{
           container: 'gap-5',
-          indicators: { wrapper: 'justify-end', base: 'h-[5px] w-[5px] sm:h-2 sm:w-2', active: 'bg-[var(--c-black)]', inactive: 'bg-[var(--c-gray)]' },
-          arrows: {
-            wrapper: 'flex gap-2 justify-start mt-2',
+          indicators: {
+            wrapper: 'justify-end',
+            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
+            active: 'bg-[var(--c-black)]',
+            inactive: 'bg-[var(--c-gray)]'
           },
+          arrows: {
+            wrapper: 'flex gap-2 justify-start mt-2'
+          }
         }"
       >
         <template #default="{ item }">
@@ -58,22 +63,31 @@ const gallery = Array(5).fill(items[0])
         </template>
 
         <template #prev="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-prev.svg"
-					@click="onClick"
-					draggable="false" />
-			</template>
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-prev.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
 
-			<template #next="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-next.svg"
-					@click="onClick"
-					draggable="false" />
-      </template>
+        <template #next="{ onClick, disabled }">
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-next.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
       </UCarousel>
-
     </div>
   </div>
 </template>
@@ -91,7 +105,7 @@ const gallery = Array(5).fill(items[0])
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-    div {
+  div {
     border-radius: 24px;
   }
 }
@@ -156,5 +170,4 @@ const gallery = Array(5).fill(items[0])
     text-align: center;
   }
 }
-
 </style>

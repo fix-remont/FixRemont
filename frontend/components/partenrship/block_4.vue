@@ -16,97 +16,126 @@ const carousel2 = [
 ]
 const gallery1 = Array(5).fill(carousel1[0])
 const gallery2 = Array(5).fill(carousel2[0])
-
 </script>
 
 <template>
-<div class="margin-glob">
-  <h1 class="title-glob mb-4 ">
-    <span class="orange">Возьмём на себя</span>
-    организацию и выполнение работ под ключ
-  </h1>
-  <div class="wrapper">
-    <UCarousel
-      :items="gallery1"
-      arrows
-      indicators
-      :ui="{
-        container: 'gap-3 rounded-3xl',
-        indicators: { wrapper: 'justify-end', base: 'h-[5px] w-[5px] sm:h-2 sm:w-2', active: 'bg-[var(--c-black)]', inactive: 'bg-[var(--c-gray)]' },
-        arrows: {
-          wrapper: 'flex gap-2 justify-start mt-2',
-        },
-      }"
-      class="w-1/2 h-1/2"
-    >
-      <template #default="{ item }">
-        <div class="relative rounded-3xl">
-          <img :src="item.imgSrc" alt="img" draggable="false"/>
-          <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
-            <h4 class="text-3xl font-bold mb-3">{{ item.title }}</h4>
-            <p class="text-lg font-bolder">{{ item.label }}</p>
+  <div class="margin-glob">
+    <h1 class="title-glob mb-4">
+      <span class="orange">Возьмём на себя</span>
+      организацию и выполнение работ под ключ
+    </h1>
+    <div class="wrapper">
+      <UCarousel
+        class="h-1/2 w-1/2"
+        :items="gallery1"
+        arrows
+        indicators
+        :ui="{
+          container: 'gap-3 rounded-3xl',
+          indicators: {
+            wrapper: 'justify-end',
+            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
+            active: 'bg-[var(--c-black)]',
+            inactive: 'bg-[var(--c-gray)]'
+          },
+          arrows: {
+            wrapper: 'flex gap-2 justify-start mt-2'
+          }
+        }"
+      >
+        <template #default="{ item }">
+          <div class="relative rounded-3xl">
+            <img :src="item.imgSrc" alt="img" draggable="false" />
+            <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
+              <h4 class="mb-3 text-3xl font-bold">{{ item.title }}</h4>
+              <p class="font-bolder text-lg">{{ item.label }}</p>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
 
-      <template #prev="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-prev.svg"
-					@click="onClick"
-					draggable="false" />
-			</template>
+        <template #prev="{ onClick, disabled }">
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-prev.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
 
-			<template #next="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-next.svg"
-					@click="onClick"
-					draggable="false" />
-      </template>
-    </UCarousel>
+        <template #next="{ onClick, disabled }">
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-next.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
+      </UCarousel>
 
-    <UCarousel
-      :items="gallery2"
-      arrows
-      indicators
-      :ui="{
-        container: 'gap-3 rounded-3xl',
-        indicators: { wrapper: 'justify-end', base: 'h-[5px] w-[5px] sm:h-2 sm:w-2', active: 'bg-[var(--c-black)]', inactive: 'bg-[var(--c-gray)]' },
-        arrows: {
-          wrapper: 'flex gap-2 justify-start mt-2',
-        },
-      }"
-      class="w-1/2 h-1/2"
-    >
-      <template #default="{ item }">
-        <div class="relative rounded-3xl">
-          <img :src="item.imgSrc" alt="img" draggable="false"/>
-          <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
-            <h4 class="text-3xl font-bold mb-3">{{ item.title }}</h4>
-            <p class="text-lg font-bolder">{{ item.label }}</p>
+      <UCarousel
+        class="h-1/2 w-1/2"
+        :items="gallery2"
+        arrows
+        indicators
+        :ui="{
+          container: 'gap-3 rounded-3xl',
+          indicators: {
+            wrapper: 'justify-end',
+            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
+            active: 'bg-[var(--c-black)]',
+            inactive: 'bg-[var(--c-gray)]'
+          },
+          arrows: {
+            wrapper: 'flex gap-2 justify-start mt-2'
+          }
+        }"
+      >
+        <template #default="{ item }">
+          <div class="relative rounded-3xl">
+            <img :src="item.imgSrc" alt="img" draggable="false" />
+            <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
+              <h4 class="mb-3 text-3xl font-bold">{{ item.title }}</h4>
+              <p class="font-bolder text-lg">{{ item.label }}</p>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
 
-      <template #prev="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-prev.svg"
-					@click="onClick"
-					draggable="false" />
-			</template>
+        <template #prev="{ onClick, disabled }">
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-prev.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
 
-			<template #next="{ onClick, disabled }">
-				<img
-					:class="['arrow cursor-pointer', 'w-[35px] h-[35px] sm:w-[60px] sm:h-[60px]', { 'opacity-60': disabled }]"
-					src="/images/arrow-next.svg"
-					@click="onClick"
-					draggable="false" />
-      </template>
-    </UCarousel>
+        <template #next="{ onClick, disabled }">
+          <img
+            :class="[
+              'arrow cursor-pointer',
+              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+              { 'opacity-60': disabled }
+            ]"
+            src="/images/arrow-next.svg"
+            @click="onClick"
+            draggable="false"
+          />
+        </template>
+      </UCarousel>
+    </div>
   </div>
-</div>
 </template>
 
 <style scoped>
@@ -128,5 +157,4 @@ const gallery2 = Array(5).fill(carousel2[0])
     text-align: center;
   }
 }
-
 </style>

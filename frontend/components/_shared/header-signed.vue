@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { hrefLogo, hrefMessages } from '~/assets/variables'
-
 </script>
 
 <template>
@@ -12,11 +11,13 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
 
       <div class="divider"></div>
 
-      <p class="low-lvl-info">Первый онлайн-сервис по ремонту и строительству <span style="font-weight: 800">с фикс
-          стоимостью</span></p>
+      <p class="low-lvl-info">
+        Первый онлайн-сервис по ремонту и строительству
+        <span style="font-weight: 800">с фикс стоимостью</span>
+      </p>
     </div>
 
-    <div class='right-part'>
+    <div class="right-part">
       <NuxtLink class="bell-container" :to="hrefMessages">
         <img class="hover" src="/images/header-signed/bell.svg" alt="icon" />
       </NuxtLink>
@@ -25,9 +26,7 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
         <img class="hover" src="/images/header-signed/phone.svg" alt="icon" />
       </NuxtLink>
 
-      <SharedButton fillOrange class="make-order">Оформить
-        заказ
-      </SharedButton>
+      <SharedButton class="make-order" fillOrange>Оформить заказ </SharedButton>
 
       <div :class="['profile', 'hover']">
         <p class="red">Мой профиль</p>
@@ -35,13 +34,12 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
       </div>
 
       <div class="avatar-container">
-        <img src="/images/header-signed/avatar.png" alt="avatar">
+        <img src="/images/header-signed/avatar.png" alt="avatar" />
 
         <p class="text">
           <b>
-
             Ильсур
-            <br>
+            <br />
             Халитов
           </b>
         </p>
@@ -55,7 +53,6 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
   display: flex;
   height: 80px;
   margin-top: 30px;
-
 }
 
 .right-part {
@@ -75,9 +72,9 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
     gap: 10px;
     border-radius: 20px;
 
-    .text {}
+    .text {
+    }
   }
-
 
   .bell-container {
     width: 80px;
@@ -138,8 +135,6 @@ import { hrefLogo, hrefMessages } from '~/assets/variables'
   .divider {
     height: 60%;
     border-left: dashed 2px #e3e3e3;
-
   }
-
 }
 </style>

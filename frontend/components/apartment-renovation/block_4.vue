@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="block-choice margin-glob">
@@ -8,15 +6,13 @@
       <p class="subtitle-glob">Давайте сравним</p>
       <h2 class="title-glob">
         <span class="orange">Что выгоднее и надёжнее?</span>
-        <br/>
+        <br />
         Обратиться в FIX-ремонт или нанять бригаду?
       </h2>
     </div>
     <div class="container">
       <div class="choicer left-choice">
-        <h3 class="choice-title">
-          Бригада строителей
-        </h3>
+        <h3 class="choice-title">Бригада строителей</h3>
         <div class="reasons">
           <h4>Финансовые траты</h4>
           <ul>
@@ -42,14 +38,13 @@
       </div>
 
       <div class="choicer right-choice">
-        <h3 class="choice-title">
-          Сервис FIX-ремонт
-        </h3>
+        <h3 class="choice-title">Сервис FIX-ремонт</h3>
         <div class="reasons">
           <h4>Финансовые траты</h4>
           <ul>
-            <li>Единоразовая оплата сервису, который сам закупает, доставляет материалы, а также нанимает и
-              контролирует всю бригаду
+            <li>
+              Единоразовая оплата сервису, который сам закупает, доставляет материалы, а также
+              нанимает и контролирует всю бригаду
             </li>
           </ul>
         </div>
@@ -63,8 +58,9 @@
         <div class="reasons">
           <h4>Нервы</h4>
           <ul>
-            <li>Команда FIX-ремонт заботится о клиентах <br> и выполнит всю работу не дергая вас по пустякам и решая
-              вопросы самостоятельно
+            <li>
+              Команда FIX-ремонт заботится о клиентах <br />
+              и выполнит всю работу не дергая вас по пустякам и решая вопросы самостоятельно
             </li>
           </ul>
         </div>
@@ -114,7 +110,7 @@
 }
 
 .left-choice {
-  background-color: #EFEFEF;
+  background-color: #efefef;
   color: #000;
 
   .reasons li {
@@ -195,5 +191,4 @@
     text-align: center;
   }
 }
-
 </style>

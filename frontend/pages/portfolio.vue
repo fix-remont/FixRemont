@@ -4,11 +4,11 @@
 </script>
 
 <template>
-	<NuxtLayout>
-		<SharedBreadCrumbs />
-		<!-- <PortfolioBlock1 /> -->
-		<PortfolioBlock2 />
-	</NuxtLayout>
+  <NuxtLayout>
+    <SharedBreadCrumbs />
+    <!-- <PortfolioBlock1 /> -->
+    <PortfolioBlock2 />
+  </NuxtLayout>
 </template>
 
 <style scoped></style>

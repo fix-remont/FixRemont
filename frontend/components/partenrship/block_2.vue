@@ -16,7 +16,7 @@ const items = [
       'Получите скидку на ремонт квартиры',
       'Получите скидку на строительство дома',
       'Получите скидку на ремонт офиса',
-      'Получите скидку на ремонт квартиры',
+      'Получите скидку на ремонт квартиры'
     ],
     selected: false
   },
@@ -26,23 +26,19 @@ const items = [
       'Кешбек за каждую сделку',
       'Кешбек за каждую сделку',
       'Кешбек за каждую сделку',
-      'Кешбек за каждую сделку',
+      'Кешбек за каждую сделку'
     ],
     selected: false
   }
 ]
 
-const names = [
-  'РИЕЛТОР',
-  'ФИЗ. ЛИЦО',
-  'ЗАСТРОЙЩИК'
-]
+const names = ['РИЕЛТОР', 'ФИЗ. ЛИЦО', 'ЗАСТРОЙЩИК']
 
-const activeIndex = ref(0);
+const activeIndex = ref(0)
 
 const setActiveIndex = (index: number) => {
-  activeIndex.value = index;
-};
+  activeIndex.value = index
+}
 </script>
 
 <template>
@@ -53,20 +49,18 @@ const setActiveIndex = (index: number) => {
         партнерская программа FIX-ремонт?
       </h2>
       <div class="manipulate">
-        <p class="subtitle">
-          Кто вы:
-        </p>
+        <p class="subtitle">Кто вы:</p>
         <UCarousel
-            :items="names"
-            :ui="{
-              container: 'md:gap-12 gap-2',
-            }"
+          :items="names"
+          :ui="{
+            container: 'md:gap-12 gap-2'
+          }"
         >
           <template #default="{ item, index }">
             <div
-                class="button-box"
-                :class="{ active: activeIndex === index }"
-                @click="setActiveIndex(index)"
+              class="button-box"
+              :class="{ active: activeIndex === index }"
+              @click="setActiveIndex(index)"
             >
               {{ item }}
             </div>
@@ -76,35 +70,32 @@ const setActiveIndex = (index: number) => {
     </div>
     <div class="right">
       <UCarousel
-          :items="[items[activeIndex]]"
-          :ui="{
-            item: 'w-full flex flex-col p-10 gap-12 md:items-start items-center'
-          }"
+        :items="[items[activeIndex]]"
+        :ui="{
+          item: 'w-full flex flex-col p-10 gap-12 md:items-start items-center'
+        }"
       >
         <template #default="{ item }">
-            <h4 class="md:text-5xl font-bold text-4xl">{{ item.title }}</h4>
-            <ul class="md:list-disc pl-4 md:mb-4 text-center md:text-start w-full">
-              <li
-                  v-for="(elem, index) in item.list" :key="index"
-                  class="w-11/12 text-lg font-medium leading-6 mb-4"
-              >
-                {{ elem }}
-              </li>
-            </ul>
+          <h4 class="text-4xl font-bold md:text-5xl">{{ item.title }}</h4>
+          <ul class="w-full pl-4 text-center md:mb-4 md:list-disc md:text-start">
+            <li
+              class="mb-4 w-11/12 text-lg font-medium leading-6"
+              v-for="(elem, index) in item.list"
+              :key="index"
+            >
+              {{ elem }}
+            </li>
+          </ul>
         </template>
       </UCarousel>
 
       <div class="link-buttons">
         <NuxtLink>
-          <SharedButton fill-orange>
-            Присоединиться к программе
-          </SharedButton>
+          <SharedButton fill-orange> Присоединиться к программе </SharedButton>
         </NuxtLink>
 
         <NuxtLink class="button2">
-          <SharedButton>
-            Подробнее
-          </SharedButton>
+          <SharedButton> Подробнее </SharedButton>
         </NuxtLink>
       </div>
     </div>
@@ -142,7 +133,7 @@ const setActiveIndex = (index: number) => {
   width: 50%;
   height: 100%;
   border-radius: 24px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   padding: 40px;
 }
 
@@ -219,6 +210,5 @@ const setActiveIndex = (index: number) => {
       width: 100%;
     }
   }
-
 }
 </style>

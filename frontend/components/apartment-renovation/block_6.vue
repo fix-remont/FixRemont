@@ -1,21 +1,16 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="block margin-glob">
+  <div class="margin-glob block">
     <div class="no-risk-block">
       <div class="text-container">
         <h4>Исключите риски и доверьте свой объект FIX-ремонт</h4>
         <h5>мы не просто берём все финансовые риски на себя, но и закрепляем их юридически</h5>
       </div>
       <NuxtLink>
-        <SharedButton>
-          Онлайн-калькулятор
-        </SharedButton>
+        <SharedButton> Онлайн-калькулятор </SharedButton>
       </NuxtLink>
     </div>
-
   </div>
 </template>
 
@@ -82,5 +77,4 @@
     }
   }
 }
-
 </style>

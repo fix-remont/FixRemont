@@ -3,38 +3,35 @@ const items = [
   'Удобный онлайн <span class="orange">личный кабинет</span> партнера',
   '<span class="orange">Персональный</span> менеджер',
   'Следите за ходом работ прямо <span class="orange">с телефона</span',
-  '<span class="orange">Оформляйте сделку</span> в личном кабинете',
+  '<span class="orange">Оформляйте сделку</span> в личном кабинете'
 ]
 </script>
 
 <template>
-<div class="margin-glob">
-  <h1 class="title-glob md:w-4/5 mb-4">
-    Весь процесс сотрудничества с нами
-    на <span class="orange">100% прозрачный</span> и контролируемый
-  </h1>
+  <div class="margin-glob">
+    <h1 class="title-glob mb-4 md:w-4/5">
+      Весь процесс сотрудничества с нами на <span class="orange">100% прозрачный</span> и
+      контролируемый
+    </h1>
 
-  <div class="wrapper">
-    <div class="left">
-      <div class="items">
-        <div class="item" v-for="item in items" :key="item">
-          <span v-html="item" class="text"></span>
-          <img class="icon" src="/images/home/checkbox_checked.svg" alt="icon">
+    <div class="wrapper">
+      <div class="left">
+        <div class="items">
+          <div class="item" v-for="item in items" :key="item">
+            <span class="text" v-html="item"></span>
+            <img class="icon" src="/images/home/checkbox_checked.svg" alt="icon" />
+          </div>
         </div>
-      </div>
 
-      <NuxtLink>
-        <SharedButton>
-          Зарегистрироваться на платформе
-        </SharedButton>
-      </NuxtLink>
-    </div>
-    <div class="imgWrapper">
-      <img class="" alt="picture" src="/images/partnership/block_5.png" draggable="false"/>
+        <NuxtLink>
+          <SharedButton> Зарегистрироваться на платформе </SharedButton>
+        </NuxtLink>
+      </div>
+      <div class="imgWrapper">
+        <img class="" alt="picture" src="/images/partnership/block_5.png" draggable="false" />
+      </div>
     </div>
   </div>
-
-</div>
 </template>
 
 <style scoped>
@@ -69,39 +66,39 @@ const items = [
 }
 
 .items {
-    grid-area: items;
+  grid-area: items;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 30px;
+  justify-content: space-between;
+
+  .item {
     display: flex;
-    flex-wrap: wrap;
-    row-gap: 30px;
-    justify-content: space-between;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 500;
+    align-items: flex-start;
+    width: 350px;
+    padding: 20px;
+    border-radius: 24px;
 
-    .item {
-      display: flex;
-      gap: 10px;
-      font-size: 18px;
-      font-weight: 500;
-      align-items: flex-start;
-      width: 350px;
-      padding: 20px;
-      border-radius: 24px;
-
-      @media (max-width: 800px) {
-        font-size: 16px;
-        padding: 10px;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .icon {
-        position: relative;
-        top: 4px;
-      }
-
-      .text {
-        padding: 20px;
-        font-weight: 450;
-      }
+    @media (max-width: 800px) {
+      font-size: 16px;
+      padding: 10px;
+      justify-content: space-between;
+      width: 100%;
     }
+
+    .icon {
+      position: relative;
+      top: 4px;
+    }
+
+    .text {
+      padding: 20px;
+      font-weight: 450;
+    }
+  }
 }
 
 .imgWrapper {
@@ -112,5 +109,4 @@ const items = [
     order: 1;
   }
 }
-
 </style>

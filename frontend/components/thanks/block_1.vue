@@ -2,9 +2,9 @@
 import { labelPhone } from '~/assets/variables'
 </script>
 <template>
-	<div class="block margin-glob radius-glob">
-		<div class="box">
-			<!-- <img src="/images/thanks/block_1.png" alt="img" />
+  <div class="margin-glob radius-glob block">
+    <div class="box">
+      <!-- <img src="/images/thanks/block_1.png" alt="img" />
 			<div class="content">
 				<div class="title title-glob">
 					Благодарим <br />
@@ -13,20 +13,20 @@ import { labelPhone } from '~/assets/variables'
 				<p class="text">Ожидайте звонок с номера {{ labelPhone }}</p>
 				<SharedButton fillBlack>Вернуться на сайт</SharedButton>
 			</div> -->
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 <style scoped>
 .block {
-	display: flex;
-	padding: auto;
-	.box {
-		flex-grow: 1;
-		align-self: stretch;
-		background-color: #f9af15;
-	}
-	/* position: relative; */
-	/* display: flex;
+  display: flex;
+  padding: auto;
+  .box {
+    flex-grow: 1;
+    align-self: stretch;
+    background-color: #f9af15;
+  }
+  /* position: relative; */
+  /* display: flex;
 	overflow: hidden;
 	align-items: center;
 	justify-content: center;

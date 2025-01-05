@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 let elementContent = [
   {
     title: 'Долгий выбор материала и подсчёты бюджета',
@@ -15,7 +14,8 @@ let elementContent = [
   },
   {
     title: 'Постоянный контроль',
-    label: 'приходится отвлекаться от дел, бросать всё и ехать на объект без понимания, что проверять'
+    label:
+      'приходится отвлекаться от дел, бросать всё и ехать на объект без понимания, что проверять'
   },
   {
     title: 'Разборки, кто прав, а кто виноват',
@@ -27,8 +27,9 @@ let elementContent = [
   },
   {
     title: 'И в результате:',
-    label: 'несмотря на все старания и страдания, сроки и стоимость ремонта увеличиваются в 2-3 раза '
-  },
+    label:
+      'несмотря на все старания и страдания, сроки и стоимость ремонта увеличиваются в 2-3 раза '
+  }
 ]
 </script>
 
@@ -37,22 +38,20 @@ let elementContent = [
     <div class="left">
       <div class="wrapper">
         <h2 class="title">
-          <span class="orange">Избавим вас от <br/> типичных проблем </span> <br/>
+          <span class="orange"
+            >Избавим вас от <br />
+            типичных проблем
+          </span>
+          <br />
           ремонта квартиры:
         </h2>
         <NuxtLink>
-          <SharedButton>
-            Рассчитать стоимость без посещения офиса
-          </SharedButton>
+          <SharedButton> Рассчитать стоимость без посещения офиса </SharedButton>
         </NuxtLink>
       </div>
     </div>
     <div class="right">
-      <div
-          class="element"
-          v-for="(item, index) in elementContent"
-          :key="index"
-      >
+      <div class="element" v-for="(item, index) in elementContent" :key="index">
         <h4>{{ item.title }}</h4>
         <p>{{ item.label }}</p>
       </div>

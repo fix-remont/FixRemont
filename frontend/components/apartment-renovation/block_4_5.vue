@@ -3,31 +3,32 @@ const items = [
   '25 бригад и более, чем 30 сотрудников в штате',
   'Сдаём каждый год  более 150 объектов',
   'Работаем без посредников',
-  'Был основным подрядчиком компании ТАИФ',
+  'Был основным подрядчиком компании ТАИФ'
 ]
 </script>
 
 <template>
-<div class="block2 margin-glob">
-      <h1 class="title title-glob">Лично <span class="orange"> несу ответственность </span> за качество предоставляемых
-        услуг
-      </h1>
-      <div class="img-container">
-        <img class="img" src="/images/home/block_11.png" alt="img">
-        <div class="text-container">
-
-          <p class="text1">Фанис Хасанов</p>
-          <p class="text2">Генеральный директор <br> FIX РЕМОНТ</p>
-        </div>
-      </div>
-      <div class="items">
-        <div class="item" v-for="item in items" :key="item">
-          <img class="icon" src="/icons/checkbox__checked__orange.svg" alt="icon">
-          <span class="text"> {{ item }}</span>
-        </div>
-
+  <div class="block2 margin-glob">
+    <h1 class="title title-glob">
+      Лично <span class="orange"> несу ответственность </span> за качество предоставляемых услуг
+    </h1>
+    <div class="img-container">
+      <img class="img" src="/images/home/block_11.png" alt="img" />
+      <div class="text-container">
+        <p class="text1">Фанис Хасанов</p>
+        <p class="text2">
+          Генеральный директор <br />
+          FIX РЕМОНТ
+        </p>
       </div>
     </div>
+    <div class="items">
+      <div class="item" v-for="item in items" :key="item">
+        <img class="icon" src="/icons/checkbox__checked__orange.svg" alt="icon" />
+        <span class="text"> {{ item }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -62,8 +63,6 @@ const items = [
       /* object-position: ; */
       @media (max-width: 800px) {
         border-radius: 20px;
-      ;
-
       }
     }
 
@@ -81,7 +80,6 @@ const items = [
 
         @media (max-width: 800px) {
           font-size: 20px;
-
         }
       }
 
@@ -91,10 +89,8 @@ const items = [
 
         @media (max-width: 800px) {
           font-size: 12px;
-
         }
       }
-
     }
   }
 
@@ -116,7 +112,6 @@ const items = [
       @media (max-width: 800px) {
         width: auto;
         font-size: 16px;
-
       }
 
       .icon {

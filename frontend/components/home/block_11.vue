@@ -7,29 +7,30 @@ const items = [
   'Был основным подрядчиком «ТАИФ». Построил 50+объектов крупного значения',
   'Президент локальной международной палаты JCI Russia в Казани в 2019-2020 гг.',
   'Был резидентом IT-парка  и «Сколково»',
-  'В 2019 создал ассоциацию строителей «Перестройка»',
+  'В 2019 создал ассоциацию строителей «Перестройка»'
 ]
 </script>
 
 <template>
-  <div class="block margin-glob">
-    <h1 class="title title-glob">Лично <span class="orange"> несу ответственность </span> за качество предоставляемых
-      услуг
+  <div class="margin-glob block">
+    <h1 class="title title-glob">
+      Лично <span class="orange"> несу ответственность </span> за качество предоставляемых услуг
     </h1>
     <div class="img-container">
-      <img class="img" src="/images/home/block_11.png" alt="img">
+      <img class="img" src="/images/home/block_11.png" alt="img" />
       <div class="text-container">
-
         <p class="text1">Фанис Хасанов</p>
-        <p class="text2">Генеральный директор <br> FIX РЕМОНТ</p>
+        <p class="text2">
+          Генеральный директор <br />
+          FIX РЕМОНТ
+        </p>
       </div>
     </div>
     <div class="items">
       <div class="item" v-for="item in items" :key="item">
-        <img class="icon" src="/icons/checkbox__checked__orange.svg" alt="icon">
+        <img class="icon" src="/icons/checkbox__checked__orange.svg" alt="icon" />
         <span class="text"> {{ item }}</span>
       </div>
-
     </div>
   </div>
 </template>
@@ -66,8 +67,6 @@ const items = [
       /* object-position: ; */
       @media (max-width: 800px) {
         border-radius: 20px;
-        ;
-
       }
     }
 
@@ -85,7 +84,6 @@ const items = [
 
         @media (max-width: 800px) {
           font-size: 20px;
-
         }
       }
 
@@ -95,10 +93,8 @@ const items = [
 
         @media (max-width: 800px) {
           font-size: 12px;
-
         }
       }
-
     }
   }
 
@@ -120,7 +116,6 @@ const items = [
       @media (max-width: 800px) {
         width: auto;
         font-size: 16px;
-
       }
 
       .icon {
@@ -128,7 +123,8 @@ const items = [
         top: 4px;
       }
 
-      .text {}
+      .text {
+      }
     }
   }
 }
