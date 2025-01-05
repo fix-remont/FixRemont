@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const src = '/images/home/block_4.png'
+const src = '/images/home/block_4_2.png'
 </script>
 
 <template>
