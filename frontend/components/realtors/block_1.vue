@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useViewport } from '~/composables/viewport'
+import { hrefCalculater } from 'assets/variables'
 import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
-import { hrefCalculater } from '~/assets/variables'
 
 const { width } = useViewport()
 </script>
@@ -9,34 +9,31 @@ const { width } = useViewport()
 <template>
   <div class="margin-glob block">
     <div class="upper">
-      <img src="/images/apartment-renovation/block_1.png" alt="background" />
+      <img src="/images/realtors/block_1.png" alt="background" />
       <div class="crumb-container">
         <Bread_crumbs />
       </div>
       <div class="content">
         <h1 class="title-glob header">
-          Ремотн квартир
+          Приводите клиентов на
           <br />
-          под ключ по готовым
+          ремонт с фикс ценой и
           <br />
-          проектам и с
+          зарабатывайте от 1 000 руб/м²
           <br />
-          фиксированной ценой
+          с каждой сделки
         </h1>
       </div>
       <div class="box-wrapper">
         <div class="black-box">
           <h3>
-            Заселитесь в
-            <br />
-            квартиру мечты с
-            <br />
-            мебелью в течение
-            <br />
-            3-х месяцев
+            Обеспечим ваших клиентов сервисом и услугой высшего уровня без рисков для репутации
           </h3>
+
+          <NuxtLink class="orange link"> Подробнее </NuxtLink>
+
           <NuxtLink :to="hrefCalculater">
-            <SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
+            <SharedButton class="mt-10" fillOrange> Онлайн-калькулятор </SharedButton>
           </NuxtLink>
         </div>
       </div>
@@ -102,14 +99,21 @@ $radius: 35px;
   border-radius: $radius;
   color: white;
   width: 35em;
+
   h3 {
+    width: 85%;
     font-size: 25px;
     font-weight: 500;
     line-height: 40px;
-    margin-bottom: 100px;
+    margin-bottom: 55px;
     @media (max-width: 1500px) {
       font-size: 30px;
     }
+  }
+
+  .link {
+    text-decoration: underline;
+    font-weight: bold;
   }
 }
 
