@@ -39,4 +39,15 @@
     margin-top: 21rem;
   }
 }
+
+@media (max-width: 800px) {
+  .block {
+    align-items: center;
+    text-align: center;
+
+    .titles h1 {
+      margin-top: 0;
+    }
+  }
+}
 </style>
