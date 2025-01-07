@@ -21,3 +21,12 @@ export const hrefCabinetPartnerProgram = '#'
 export const hrefCabinetProfile = '#'
 export const hrefCabinetNews = '#'
 export const hrefCabinetSupport = '#'
+
+export const cabinetNavigationLinks = [
+  { href: hrefCabinet, label: 'Главная' },
+  { href: hrefCabinetContracts, label: 'Договоры' },
+  { href: hrefCabinetPartnerProgram, label: 'Партнёрская программа' },
+  { href: hrefCabinetProfile, label: 'Профиль' },
+  { href: hrefCabinetNews, label: 'Новости платформы' },
+  { href: hrefCabinetSupport, label: 'Служба поддержки' }
+]

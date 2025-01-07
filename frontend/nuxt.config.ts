@@ -19,6 +19,9 @@ export default defineNuxtConfig({
       'postcss-functions': {}
     }
   },
+  image: {
+    format: ['avif', 'webp']
+  },
   modules: ['@nuxtjs/google-fonts', '@nuxt/ui', '@nuxt/image'],
   googleFonts: {
     download: true,

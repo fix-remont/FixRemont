@@ -34,10 +34,12 @@ button {
 .fillOrange {
   color: white;
   background-color: var(--c-orange);
+  border-color: var(--c-orange);
 }
 
 .fillBlack {
   color: white;
   background-color: var(--c-black);
+  border-color: var(--c-black);
 }
 </style>

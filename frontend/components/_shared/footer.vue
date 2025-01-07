@@ -56,7 +56,7 @@ if (props.footerWithoutMargin) marginTop.value = '0'
   </footer>
 </template>
 
-<style>
+<style scoped>
 .footer {
   /* margin-top: v-bind(marginTop); */
   color: white;

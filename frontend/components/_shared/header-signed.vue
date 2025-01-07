@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  cabinetNavigationLinks,
   hrefCabinet,
   hrefCabinetContracts,
   hrefCabinetNews,
@@ -15,7 +16,7 @@ import {
   labelPhone
 } from '~/assets/variables'
 
-const openNavigation = ref(true)
+const openNavigation = ref(false)
 const openDetails = ref(false)
 
 const handleClickNavigation = () => {
@@ -37,22 +38,13 @@ const handleClickDetails = () => {
     openDetails.value = true
   }
 }
-
-const navigationLinks = [
-  { href: hrefCabinet, label: 'Главная' },
-  { href: hrefCabinetContracts, label: 'Договоры' },
-  { href: hrefCabinetPartnerProgram, label: 'Партнёрская программа' },
-  { href: hrefCabinetProfile, label: 'Профиль' },
-  { href: hrefCabinetNews, label: 'Новости платформы' },
-  { href: hrefCabinetSupport, label: 'Служба поддержки' }
-]
 </script>
 
 <template>
   <header :class="['box-large', 'margin-glob']">
     <div class="left-part">
       <NuxtLink :to="hrefLogo">
-        <img src="/icons/logo-for-white.svg" :class="['hover', 'logo']" alt="logo" />
+        <nuxt-img src="/icons/logo-for-white.svg" :class="['hover', 'logo']" alt="logo" />
       </NuxtLink>
 
       <div class="divider"></div>
@@ -80,7 +72,7 @@ const navigationLinks = [
       </div>
 
       <div class="avatar-container">
-        <img src="/images/header-signed/avatar.png" alt="avatar" />
+        <NuxtImg src="/images/header-signed/avatar.png" alt="avatar" />
 
         <p class="text">
           <b>
@@ -106,7 +98,7 @@ const navigationLinks = [
       </NuxtLink>
 
       <div class="drop-down-menu">
-        <img src="/images/header-signed/avatar.png" alt="avatar" />
+        <NuxtImg src="/images/header-signed/avatar.png" alt="avatar" />
         <p class="text">
           <b>
             Ильсур
@@ -135,7 +127,7 @@ const navigationLinks = [
 
     <div class="opened-navigation-block" v-if="openNavigation">
       <div class="navigation-links">
-        <NuxtLink class="link hover" v-for="link in navigationLinks" :to="link.href">
+        <NuxtLink class="link hover" v-for="link in cabinetNavigationLinks" :to="link.href">
           {{ link.label }}
         </NuxtLink>
       </div>
@@ -268,7 +260,7 @@ const navigationLinks = [
   top: 0;
   background-color: #fafafa;
   width: 100%;
-  padding: 30px 55px;
+  padding: 0 55px 30px 55px;
   height: 100vh;
   z-index: 10;
 
@@ -335,7 +327,7 @@ const navigationLinks = [
   margin: 0;
   top: 0;
   width: 100%;
-  padding: 30px 55px;
+  padding: 0 55px 30px 55px;
   height: 100vh;
   z-index: 10;
   background-color: var(--c-black);
@@ -399,6 +391,11 @@ const navigationLinks = [
     display: none;
   }
 
+  .low-lvl-info {
+    font-weight: 500;
+    width: 215px;
+    line-height: 18px;
+  }
   .right-part {
     margin-left: auto;
     align-items: center;
