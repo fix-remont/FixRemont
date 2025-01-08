@@ -9,25 +9,26 @@ const { width } = useViewport()
 <template>
   <div class="margin-glob block">
     <div class="upper">
-      <img src="/images/builders/block_1.png" alt="background" />
+      <img src="/images/realtors/block_1.png" alt="background" />
       <div class="crumb-container">
         <Bread_crumbs />
       </div>
       <div class="content">
         <h1 class="title-glob header">
-          Продавайте квартиры
+          Приводите клиентов на
           <br />
-          с готовым ремонтом по
+          ремонт с фикс ценой и
           <br />
-          фиксированной цене
+          зарабатывайте от 1 000 руб/м²
           <br />
-          от FIX-ремонт
+          с каждой сделки
         </h1>
       </div>
       <div class="box-wrapper">
         <div class="black-box">
           <h3>
-            Повысьте качество ваших объектов и дополнительно зарабатывайте на “ремонте в ипотеку”
+            Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с
+            фиксированной ценой
           </h3>
 
           <NuxtLink class="orange link"> Подробнее </NuxtLink>
