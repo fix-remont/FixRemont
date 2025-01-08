@@ -11,6 +11,8 @@
     <PartenrshipBlock5 />
     <PartenrshipBlock4 />
     <HomeBlock9 />
+    <RealtorsBlock5 />
+
   </NuxtLayout>
 </template>
 
