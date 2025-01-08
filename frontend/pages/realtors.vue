@@ -12,7 +12,10 @@
     <PartenrshipBlock4 />
     <HomeBlock9 />
     <RealtorsBlock5 />
-
+    <ApartmentRenovationBlock45 />
+    <HomeBlock6 />
+    <HomeBlock7 />
+    <HomeBlock8 />
   </NuxtLayout>
 </template>
 
