@@ -16,6 +16,13 @@
     <HomeBlock6 />
     <HomeBlock7 />
     <HomeBlock8 />
+    <RealtorsBlock6 />
+    <HomeBlock10 />
+    <HomeBlock12 />
+    <HomeBlock13 />
+    <HomeBlock14 />
+    <HomeBlock15 />
+    <HomeBlock16 />
   </NuxtLayout>
 </template>
 
