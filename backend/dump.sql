@@ -1391,6 +1391,7 @@ COPY public.work_status (id, title, document, status, contract_id) FROM stdin;
 --
 
 COPY public.works (id, title, project_type_id, deadline, cost, square, task, description, image1, image2, image3, image4, image5, video_link, video_duration) FROM stdin;
+1	Тестовый дом	2	14 дней	150	210	Сделать все ровно и красиво	{"Тест: красиво","Тест 2: надежно"}	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -1559,7 +1560,7 @@ SELECT pg_catalog.setval('public.work_status_id_seq', 2, true);
 -- Name: works_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.works_id_seq', 1, false);
+SELECT pg_catalog.setval('public.works_id_seq', 1, true);
 
 
 --
