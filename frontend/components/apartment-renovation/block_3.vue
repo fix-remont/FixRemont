@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { hrefCalculater } from 'assets/variables'
+
 let elementContent = [
   {
     title: 'Долгий выбор материала и подсчёты бюджета',
@@ -45,7 +47,7 @@ let elementContent = [
           <br />
           ремонта квартиры:
         </h2>
-        <NuxtLink>
+        <NuxtLink :to="hrefCalculater">
           <SharedButton> Рассчитать стоимость без посещения офиса </SharedButton>
         </NuxtLink>
       </div>

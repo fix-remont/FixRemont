@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
-import {hrefBecomePartner, hrefCabinet} from 'assets/variables'
+import { hrefBecomePartner, hrefCabinet } from 'assets/variables'
 
 const items = ref([
   {

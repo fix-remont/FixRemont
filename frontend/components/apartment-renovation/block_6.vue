@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { hrefCalculater } from 'assets/variables'
+</script>
 
 <template>
   <div class="margin-glob block">
@@ -7,7 +9,7 @@
         <h4>Исключите риски и доверьте свой объект FIX-ремонт</h4>
         <h5>мы не просто берём все финансовые риски на себя, но и закрепляем их юридически</h5>
       </div>
-      <NuxtLink>
+      <NuxtLink :to="hrefCalculater">
         <SharedButton> Онлайн-калькулятор </SharedButton>
       </NuxtLink>
     </div>
