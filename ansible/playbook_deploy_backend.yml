@@ -24,5 +24,5 @@
 
     - name: start/restart pm2 process
       ansible.builtin.command:
-        cmd: pm2 restart ecosystem.config.js
+        cmd: pm2 start ecosystem.config.js
         chdir: '{{ remote_app_path }}'
