@@ -8,6 +8,7 @@ const items = ref([
     title: 'Ремонт',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
+    href: 'apartment-renovation',
     hovered: false
   },
   {
@@ -15,6 +16,7 @@ const items = ref([
     title: 'Строительство',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
+    href: '/building-houses',
     hovered: false
   },
   {
@@ -22,6 +24,7 @@ const items = ref([
     title: 'Партнёрская программа',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
+    href: hrefBecomePartner,
     hovered: false
   }
 ])
@@ -47,10 +50,11 @@ const items = ref([
       </div>
       <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-2' }">
         <template #default="{ item }">
-          <div
+          <NuxtLink
+            :to="item.href"
             @mouseover="item.hovered = true"
             @mouseout="item.hovered = false"
-            :class="['item', { 'item-hovered': item.hovered }]"
+            :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
             @click="item.hovered = true"
           >
             <span :class="['title']">{{ item.title }}</span>
@@ -59,7 +63,7 @@ const items = ref([
             <div :class="['wrap-arrow']">
               <SharedArrowHover :hovered="item.hovered" />
             </div>
-          </div>
+          </NuxtLink>
         </template>
       </UCarousel>
     </div>
