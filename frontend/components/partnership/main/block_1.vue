@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
+import {hrefBecomePartner} from 'assets/variables'
 
 const items = ref([
   {
@@ -8,7 +9,7 @@ const items = ref([
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
     hovered: false,
-    href: '/partnership/realtors'
+    href: `${hrefBecomePartner}/realtors`
   },
   {
     id: 2,
@@ -16,7 +17,7 @@ const items = ref([
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
     hovered: false,
-    href: '/partnership/builders'
+    href: `${hrefBecomePartner}/builders`
   },
   {
     id: 3,
@@ -24,7 +25,7 @@ const items = ref([
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
     hovered: false,
-    href: '/partnership/individuals'
+    href: `${hrefBecomePartner}/individuals`
   }
 ])
 </script>
