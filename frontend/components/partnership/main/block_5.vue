@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { hrefCabinet } from 'assets/variables'
+
 const items = [
   'Удобный онлайн <span class="orange">личный кабинет</span> партнера',
   '<span class="orange">Персональный</span> менеджер',
@@ -23,7 +25,7 @@ const items = [
           </div>
         </div>
 
-        <NuxtLink>
+        <NuxtLink :to="hrefCabinet">
           <SharedButton> Зарегистрироваться на платформе </SharedButton>
         </NuxtLink>
       </div>

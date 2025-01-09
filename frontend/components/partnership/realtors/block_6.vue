@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { hrefCabinet } from 'assets/variables'
+</script>
 
 <template>
   <article class="margin-glob block">
@@ -27,7 +29,7 @@
           <p class="time">1:25 мин</p>
         </div>
       </div>
-      <NuxtLink>
+      <NuxtLink :to="hrefCabinet">
         <SharedButton>Стать партнером</SharedButton>
       </NuxtLink>
     </div>
