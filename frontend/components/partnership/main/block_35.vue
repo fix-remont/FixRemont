@@ -29,7 +29,7 @@ const items = [
     img,
     selected: false,
     text: '4 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
-  },
+  }
 ]
 
 const currentActiveIndex = ref(0)

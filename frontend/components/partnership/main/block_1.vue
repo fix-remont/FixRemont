@@ -4,24 +4,27 @@ import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
 const items = ref([
   {
     id: 1,
-    title: 'Ремонт',
+    title: 'Риэлторам',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false
+    hovered: false,
+    href: '/partnership/realtors'
   },
   {
     id: 2,
-    title: 'Строительство',
+    title: 'Застройщикам',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false
+    hovered: false,
+    href: '/partnership/builders'
   },
   {
     id: 3,
-    title: 'Партнёрская программа',
+    title: 'Физическим <br/> лицам',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false
+    hovered: false,
+    href: '/partnership/individuals'
   }
 ])
 </script>
@@ -51,19 +54,20 @@ const items = ref([
     </div>
     <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-2' }">
       <template #default="{ item }">
-        <div
+        <NuxtLink
+          :to="item.href"
           @mouseover="item.hovered = true"
           @mouseout="item.hovered = false"
-          :class="['item', { 'item-hovered': item.hovered }]"
+          :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
           @click="item.hovered = true"
         >
-          <span :class="['title']">{{ item.title }}</span>
+          <span v-html="item.title" :class="['title']"></span>
           <span :class="['text']">{{ item.text }}</span>
           <img :src="item.imgSrc" alt="img" />
           <div :class="['wrap-arrow']">
             <SharedArrowHover :hovered="item.hovered" />
           </div>
-        </div>
+        </NuxtLink>
       </template>
     </UCarousel>
   </div>
