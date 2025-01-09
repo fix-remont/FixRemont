@@ -2,13 +2,13 @@
 
 <template>
   <NuxtLayout>
-    <PartenrshipMainBlock1 />
+    <PartnershipMainBlock1 />
     <HomeBlock2 />
-    <PartenrshipMainBlock2 />
-    <PartenrshipMainBlock3 />
-    <HomeBlock9 />
-    <PartenrshipMainBlock4 />
-    <PartenrshipMainBlock5 />
+    <PartnershipMainBlock2 />
+    <PartnershipMainBlock3 />
+    <PartnershipMainBlock35 />
+    <PartnershipMainBlock4 />
+    <PartnershipMainBlock5 />
     <HomeBlock5 />
     <ApartmentRenovationBlock3 />
     <HomeBlock6 />

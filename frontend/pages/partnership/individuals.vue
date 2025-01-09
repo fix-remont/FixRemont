@@ -2,16 +2,16 @@
 
 <template>
   <NuxtLayout>
-    <PartenrshipIndividualsBlock1 />
+    <PartnershipIndividualsBlock1 />
     <HomeBlock2 />
-    <PartenrshipRealtorsBlock2 />
-    <PartenrshipRealtorsBlock3 />
-    <PartenrshipMainBlock3 />
-    <PartenrshipIndividualsBlock2 />
-    <PartenrshipRealtorsBlock4 />
-    <PartenrshipMainBlock5 />
-    <PartenrshipMainBlock4 />
-    <HomeBlock9 />
+    <PartnershipRealtorsBlock2 />
+    <PartnershipRealtorsBlock3 />
+    <PartnershipMainBlock3 />
+    <PartnershipIndividualsBlock2 />
+    <PartnershipRealtorsBlock4 />
+    <PartnershipMainBlock5 />
+    <PartnershipMainBlock4 />
+    <PartnershipMainBlock35 />
     <ApartmentRenovationBlock45 />
     <HomeBlock6 />
     <HomeBlock7 />
