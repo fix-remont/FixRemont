@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
-import {hrefBecomePartner} from 'assets/variables'
+import {hrefBecomePartner, hrefCabinet} from 'assets/variables'
 
 const items = ref([
   {
@@ -49,7 +49,7 @@ const items = ref([
         Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с
         фиксированной ценой
       </h3>
-      <NuxtLink>
+      <NuxtLink :to="hrefCabinet">
         <SharedButton fillOrange> Зарегистрироваться, как партнёр </SharedButton>
       </NuxtLink>
     </div>
