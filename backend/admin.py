@@ -590,7 +590,7 @@ class WorkAdmin(ModelView, model=Work):
         'project_type_id': lambda m, p: m.project_type.name,
         'description': lambda m, p: Markup(
             ''.join(
-                f'<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>'
+                f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
                 for article in m.description
             ) if m.description else 'Описание отсутствует'),
         'task': lambda m, p: Markup(
@@ -612,7 +612,7 @@ class WorkAdmin(ModelView, model=Work):
         'project_type_id': lambda m, p: m.project_type.name,
         'description': lambda m, p: Markup(
             ''.join(
-                f'<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>'
+                f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
                 for article in m.description
             ) if m.description else 'Описание отсутствует'),
 
