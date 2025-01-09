@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { hrefCalculater } from '~/assets/variables'
+import { hrefCalculater } from 'assets/variables'
 
 const infoCheckboxes = [
   'Цены уже рассчитаны, а материалы подобраны и закуплены',
