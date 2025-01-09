@@ -3,12 +3,22 @@ const props = defineProps<{
   youtube?: true
   fillOrange?: true
   fillBlack?: true
+  fillBlackWithOutline?: true
   class?: string
 }>()
 </script>
 
 <template>
-  <button :class="['hover', { youtube }, { fillOrange }, { fillBlack }, props.class]">
+  <button
+    :class="[
+      'hover',
+      { youtube },
+      { fillOrange },
+      { fillBlack },
+      { fillBlackWithOutline },
+      props.class
+    ]"
+  >
     <slot />
   </button>
 </template>
@@ -41,5 +51,10 @@ button {
   color: white;
   background-color: var(--c-black);
   border-color: var(--c-black);
+}
+
+.fillBlackWithOutline {
+  color: white;
+  background-color: var(--c-black);
 }
 </style>

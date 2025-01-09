@@ -2,28 +2,16 @@
 
 <template>
   <NuxtLayout>
-    <div class="margin-glob wrapper">
-      <CabinetNavigation />
-      <div class="content">
-        <CabinetMainBlock1 />
-        <CabinetMainBlock2 />
-        <CabinetMainBlock3 />
-        <CabinetMainBlock4 />
-        <CabinetMainBlock5 />
-        <CabinetMainBlock6 />
-        <CabinetMainBlock7 />
-      </div>
-    </div>
+    <NuxtLayout name="cabinet-navigation">
+      <CabinetMainBlock1 />
+      <CabinetMainBlock2 />
+      <CabinetMainBlock3 />
+      <CabinetMainBlock4 />
+      <CabinetMainBlock5 />
+      <CabinetMainBlock6 />
+      <CabinetMainBlock7 />
+    </NuxtLayout>
   </NuxtLayout>
 </template>
 
-<style scoped>
-.wrapper {
-  display: flex;
-  gap: 30px;
-
-  .content {
-    flex-grow: 1;
-  }
-}
-</style>
+<style scoped></style>

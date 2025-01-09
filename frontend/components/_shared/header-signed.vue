@@ -182,7 +182,7 @@ const handleClickDetails = () => {
           <img src="/images/header-signed/profile.svg" alt="bell" />
         </div>
       </div>
-      <SharedButton fillBlack>Выйти из профиля</SharedButton>
+      <SharedButton fillBlackWithOutline>Выйти из профиля</SharedButton>
     </div>
   </header>
 </template>

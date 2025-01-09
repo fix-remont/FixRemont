@@ -1,30 +1,48 @@
-<script setup>
+<script setup lang="ts">
+const props = defineProps<{
+  withTitle?: true
+}>()
+
 const balance = 123345
 const inWork = 13345
 </script>
 
 <template>
-  <section class="wallet radius-glob margin-b-glob">
-    <h2>Кошелёк</h2>
-    <div class="wrap-info">
-      <div class="balance">
-        <div class="label">Баланс:</div>
-        <div class="value">{{ balance }} руб</div>
-      </div>
+  <div class="margin-b-glob">
+    <div class="wrap" v-if="props.withTitle">
+      <h2 class="title-glob">Кошелёк</h2>
+      <p class="text">В этом разделе вы можете управлять своими средствами</p>
+    </div>
+    <article class="wallet radius-glob">
+      <h2>Кошелёк</h2>
+      <div class="wrap-info">
+        <div class="balance">
+          <div class="label">Баланс:</div>
+          <div class="value">{{ balance }} руб</div>
+        </div>
 
-      <div class="in-work">
-        <div class="label">В работе:</div>
-        <div class="value">{{ inWork }} руб</div>
+        <div class="in-work">
+          <div class="label">В работе:</div>
+          <div class="value">{{ inWork }} руб</div>
+        </div>
       </div>
-    </div>
-    <div class="wrap-buttons">
-      <SharedButton class="button-wallet" fillOrange>Вывести средства</SharedButton>
-      <SharedButton class="button-wallet">Перейти в кошелёк</SharedButton>
-    </div>
-  </section>
+      <div class="wrap-buttons">
+        <SharedButton class="button-wallet" fillOrange>Вывести средства</SharedButton>
+        <SharedButton class="button-wallet">Перейти в кошелёк</SharedButton>
+      </div>
+    </article>
+  </div>
 </template>
 
 <style scoped>
+.wrap {
+  .text {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  margin-bottom: 20px;
+}
+
 .wallet {
   font-size: 32px;
   font-weight: 600;

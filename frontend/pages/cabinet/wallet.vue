@@ -3,11 +3,8 @@
 <template>
   <NuxtLayout>
     <NuxtLayout name="cabinet-navigation">
-      <CabinetMainBlock1 />
-      <CabinetMainBlock2 />
-      <CabinetMainBlock5 />
-      <CabinetMainBlock6 />
-      <CabinetMainBlock7 />
+      <!-- <CabinetMainBlock3 withTitle /> -->
+      <!-- <CabinetMainBlock7 /> -->
     </NuxtLayout>
   </NuxtLayout>
 </template>
