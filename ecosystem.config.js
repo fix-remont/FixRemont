@@ -12,7 +12,7 @@ module.exports = {
     {
       name: 'fastapi-backend',
       script: 'fastapi', // Указываем команду fastapi
-      args: 'dev main.py --port 8000', // Указываем аргументы для команды
+      args: 'dev main.py --port 7000', // Указываем аргументы для команды
       interpreter: 'python3', // Указываем интерпретатор для Python
       cwd: '/home/{{ ansible_user }}/backend/current/backend/' // Указываем путь к проекту, если нужно
       // env: {
