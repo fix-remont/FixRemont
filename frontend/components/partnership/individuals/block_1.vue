@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useViewport } from '~/composables/viewport'
-import { hrefCalculater } from 'assets/variables'
+import { hrefCabinet } from 'assets/variables'
 import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
 
 const { width } = useViewport()
@@ -33,8 +33,8 @@ const { width } = useViewport()
 
           <NuxtLink class="orange link"> Подробнее </NuxtLink>
 
-          <NuxtLink :to="hrefCalculater">
-            <SharedButton class="mt-10" fillOrange> Онлайн-калькулятор </SharedButton>
+          <NuxtLink :to="hrefCabinet">
+            <SharedButton class="mt-10" fillOrange> Зарегистрироваться как партнер </SharedButton>
           </NuxtLink>
         </div>
       </div>
