@@ -519,7 +519,7 @@ def get_portfolio_post(id, db):
         "cost": work.cost,
         "square": work.square,
         "video_link": work.video_link,
-        "video_duration": int(work.video_duration),
+        "video_duration": work.video_duration,
         "project_type": work.project_type,
         "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
         "articles": [
