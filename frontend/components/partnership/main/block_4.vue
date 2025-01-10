@@ -26,7 +26,7 @@ const gallery2 = Array(5).fill(carousel2[0])
     </h1>
     <div class="wrapper">
       <UCarousel
-        class="h-1/2 w-1/2"
+        class="carousel"
         :items="gallery1"
         arrows
         indicators
@@ -44,11 +44,11 @@ const gallery2 = Array(5).fill(carousel2[0])
         }"
       >
         <template #default="{ item }">
-          <div class="relative rounded-3xl">
+          <div class="item">
             <img :src="item.imgSrc" alt="img" draggable="false" />
-            <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
-              <h4 class="mb-3 text-3xl font-bold">{{ item.title }}</h4>
-              <p class="font-bolder text-lg">{{ item.label }}</p>
+            <div class="text">
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.label }}</p>
             </div>
           </div>
         </template>
@@ -81,7 +81,7 @@ const gallery2 = Array(5).fill(carousel2[0])
       </UCarousel>
 
       <UCarousel
-        class="h-1/2 w-1/2"
+        class="carousel"
         :items="gallery2"
         arrows
         indicators
@@ -99,11 +99,11 @@ const gallery2 = Array(5).fill(carousel2[0])
         }"
       >
         <template #default="{ item }">
-          <div class="relative rounded-3xl">
+          <div class="item">
             <img :src="item.imgSrc" alt="img" draggable="false" />
-            <div class="absolute bottom-10 left-10 right-0 p-4 text-white">
-              <h4 class="mb-3 text-3xl font-bold">{{ item.title }}</h4>
-              <p class="font-bolder text-lg">{{ item.label }}</p>
+            <div class="text">
+              <h4>{{ item.title }}</h4>
+              <p>{{ item.label }}</p>
             </div>
           </div>
         </template>
@@ -145,12 +145,82 @@ const gallery2 = Array(5).fill(carousel2[0])
   justify-content: space-between;
   align-items: center;
   gap: 4rem;
+
+  .carousel {
+    width: 50%;
+    height: 50%;
+
+    .item {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      display: inline-block;
+      max-width: fit-content;
+
+      img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 24px;
+      }
+
+      .text {
+        max-width: calc(100% - 34px);
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        right: 0;
+        padding: 1rem;
+        color: #fff;
+
+        h4 {
+          margin-bottom: 12px;
+          font-size: 1.875rem;
+          font-weight: bold;
+        }
+
+        p {
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 800px) {
   /*TODO: сделать нормальный адаптив */
   .wrapper {
     flex-direction: column;
+
+    .carousel {
+      width: auto;
+      max-width: 100%;
+      margin: 0 auto;
+
+      .item {
+        img {
+          width: 42%;
+        }
+
+        .text {
+          bottom: 17px;
+          left: 17px;
+          width: 40%;
+          padding: 0;
+
+          h4 {
+            margin-bottom: 8px;
+            font-size: 18px;
+          }
+
+          p {
+            font-size: 15px;
+          }
+        }
+      }
+    }
   }
 
   h1 {
