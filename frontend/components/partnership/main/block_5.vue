@@ -20,8 +20,8 @@ const items = [
       <div class="left">
         <div class="items">
           <div class="item" v-for="item in items" :key="item">
-            <span class="text" v-html="item"></span>
             <img class="icon" src="/images/home/checkbox_checked.svg" alt="icon" />
+            <span class="text" v-html="item"></span>
           </div>
         </div>
 
@@ -87,13 +87,10 @@ const items = [
     @media (max-width: 800px) {
       font-size: 16px;
       padding: 10px;
-      justify-content: space-between;
       width: 100%;
     }
 
     .icon {
-      position: relative;
-      top: 4px;
     }
 
     .text {
