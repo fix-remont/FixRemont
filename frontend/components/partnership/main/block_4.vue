@@ -154,7 +154,6 @@ const gallery2 = Array(5).fill(carousel2[0])
       position: relative;
       border-radius: 24px;
 
-
       img {
         border-radius: 24px;
       }
