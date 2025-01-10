@@ -31,7 +31,7 @@ const gallery2 = Array(5).fill(carousel2[0])
         arrows
         indicators
         :ui="{
-          container: 'gap-3 rounded-3xl',
+          container: 'rounded-3xl',
           indicators: {
             wrapper: 'justify-end',
             base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
@@ -153,15 +153,9 @@ const gallery2 = Array(5).fill(carousel2[0])
     .item {
       position: relative;
       border-radius: 24px;
-      overflow: hidden;
-      display: inline-block;
-      max-width: fit-content;
+
 
       img {
-        width: auto;
-        max-width: 100%;
-        height: auto;
-        display: block;
         border-radius: 24px;
       }
 
@@ -200,14 +194,17 @@ const gallery2 = Array(5).fill(carousel2[0])
       margin: 0 auto;
 
       .item {
+        width: 42%;
+
         img {
-          width: 42%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         .text {
           bottom: 17px;
           left: 17px;
-          width: 40%;
           padding: 0;
 
           h4 {
