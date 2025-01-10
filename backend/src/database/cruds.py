@@ -1065,7 +1065,6 @@ def get_blog_videos(db):
     for blog_video in all_blog_videos:
         blog_videos.append({
             "id": blog_video.id,
-            "title": blog_video.title,
             "video_link": blog_video.video_link,
             "video_duration": blog_video.video_duration,
             "author": blog_video.author,

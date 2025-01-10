@@ -84,8 +84,8 @@ class Work(Base):
     image3 = Column(String)
     image4 = Column(String)
     image5 = Column(String)
-    video_link = Column(String)
-    video_duration = Column(String)
+    video_link = Column(String, nullable=True)
+    video_duration = Column(String, nullable=True)
 
     def __str__(self):
         return self.title

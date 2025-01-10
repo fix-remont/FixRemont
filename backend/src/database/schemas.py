@@ -105,8 +105,8 @@ class PortfolioPostSchema(BaseModel):
     deadline: str
     cost: int
     square: int
-    video_link: str
-    video_duration: str
+    video_link: Optional[str] = None
+    video_duration: Optional[str] = None
     project_type: ProjectTypeSchema
     images: Optional[List[Optional[str]]] = None
     articles: Optional[List[Optional[ArticleSchema]]] = None
