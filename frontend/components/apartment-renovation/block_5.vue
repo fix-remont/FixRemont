@@ -29,8 +29,8 @@ const gallery = Array(5).fill(items[0])
       <p class="subtitle-glob">3 примера непредвиденного роста затрат:</p>
     </div>
 
-    <div class="gallery">
       <UCarousel
+        class="gallery"
         :items="gallery"
         arrows
         indicators
@@ -88,7 +88,6 @@ const gallery = Array(5).fill(items[0])
           />
         </template>
       </UCarousel>
-    </div>
   </div>
 </template>
 
@@ -143,12 +142,17 @@ const gallery = Array(5).fill(items[0])
 }
 
 /*TODO: исправить центровку элементов в мобилке*/
-@media (max-width: 768px) {
+@media (max-width: 800px) {
+  .gallery {
+    width: 100%;
+  }
+
+
   .gallery-box {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
     gap: 1rem;
+    width: fit-content;
   }
 
   .text-part {
@@ -163,7 +167,7 @@ const gallery = Array(5).fill(items[0])
 
   .img-part {
     order: 0;
-    width: 50%;
+    object-fit: cover;
   }
 
   .titles {
