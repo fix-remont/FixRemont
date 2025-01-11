@@ -26,8 +26,8 @@ all:
     remote-staging:
       hosts:
         remote-staging-admin:
-          ansible_host: 158.160.132.225
-          ansible_remote_ip: 158.160.132.225
+          ansible_host: 158.160.151.235
+          ansible_remote_ip: 158.160.151.235
           ansible_port: 22
           ansible_user: admin
           remote_app_path: '/home/{{ ansible_user }}'

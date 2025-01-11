@@ -8,7 +8,7 @@ playbook_deploy_backend_path = './ansible/playbook_deploy_backend.yml'
 
 ######################################
 ssh:
-	ssh -l admin 158.160.132.225
+	ssh -l admin 158.160.151.235
 ######################################
 prepare_ansible_locally:
 	# python3 -m pip install --user ansible
