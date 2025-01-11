@@ -1,29 +1,33 @@
 all:
   vars:
-    env_vars: {}
-    required_vars_from_env:
-      - DB_USERNAME
-      - DB_PASSWORD
-      - DB_NAME
-      - FRONTEND_PORT
-      - BACKEND_PORT
-      - ENV_MODE
-    remote_app_path: /home/staging/fixremont
-    local_app_path: /home/g/projects/fix-remont
+    # env_vars: {}
+    # required_vars_from_env:
+    #   - DB_USERNAME
+    #   - DB_PASSWORD
+    #   - DB_NAME
+    #   - FRONTEND_PORT
+    #   - BACKEND_PORT
+    #   - ENV_MODE
+    local_app_path: /mnt/c/Users/Кирилл/PycharmProjects/FixRemont/
   children:
     localhost:
       hosts:
-        localhost:
-          ansible_connection: local
+        vagrant:
+          ansible_host: 127.0.0.1
+          ansible_remote_ip: localhost
+          ansible_port: 2222
+          ansible_user: vagrant
+          remote_app_path: '/home/{{ ansible_user }}'
+
+          # db_name: db_nameeee
+        # localhost:
+        #   ansible_connection: local
 
     remote-staging:
       hosts:
         remote-staging-admin:
-          ansible_host: 158.160.151.67
+          ansible_host: 158.160.151.235
+          ansible_remote_ip: 158.160.151.235
           ansible_port: 22
           ansible_user: admin
-
-        remote-staging-user:
-          ansible_host: 158.160.151.67
-          ansible_port: 22
-          ansible_user: staging
+          remote_app_path: '/home/{{ ansible_user }}'
