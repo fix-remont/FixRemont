@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { PorfolioItemShort } from '~/shared/types/types'
+import type { PortfolioPost } from '../home/block_7.vue'
 
 const props = defineProps<{
-  item: PorfolioItemShort
+  item: PortfolioPost
 }>()
 
 const src = props.item.images[0] ?? undefined
@@ -10,7 +10,7 @@ const src = props.item.images[0] ?? undefined
 
 <template>
   <div class="item-box">
-    <img :src="src" :alt="item.title" draggable="false" />
+    <img v-if="src" :src="src" :alt="item.title" draggable="false" />
     <div class="text-box">
       <p class="title">{{ item.title }}</p>
       <NuxtLink :class="['link pointer']" to="#">Узнать Стоимость</NuxtLink>

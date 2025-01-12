@@ -23,6 +23,11 @@ export default defineNuxtConfig({
     format: ['avif', 'webp']
   },
   modules: ['@nuxtjs/google-fonts', '@nuxt/ui', '@nuxt/image'],
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://158.160.151.235:7000'
+    }
+  },
   googleFonts: {
     download: true,
     families: {

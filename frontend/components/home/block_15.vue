@@ -80,7 +80,7 @@ const toggleShow = (index: number) => {
           </Transition>
         </div>
         <img
-          :class="['arrow', { 'arrow-opened': isOpen }]"
+          :class="['arrow hover', { 'arrow-opened': isOpen }]"
           @click="toggleShow(index)"
           src="/arrow-diagonal.svg"
           alt="icon"
