@@ -1,7 +1,7 @@
 from typing import Any, List
 from sqladmin import Admin, ModelView
 from starlette.middleware.sessions import SessionMiddleware
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from sqladmin.authentication import AuthenticationBackend
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import crud, models
@@ -17,6 +17,9 @@ from fastapi import Request
 from admin import *
 from src.database.db import get_db
 from src.database.cruds import get_user_by_email
+from fastapi.responses import RedirectResponse
+import logging
+from io import StringIO
 
 
 class CustomAuthBackend(AuthenticationBackend):
@@ -44,7 +47,7 @@ class CustomAuthBackend(AuthenticationBackend):
                 db = get_db()
                 user = get_user_by_email(db, payload.get("sub"))
                 if user:
-                    return user
+                    return RedirectResponse(url="http://158.160.151.235:7000/admin/", status_code=302)
         return None
 
 
@@ -58,6 +61,11 @@ app.add_middleware(
     SessionMiddleware,
     secret_key="09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7",
 )
+
+# origins = [
+#     "http://localhost:3000",
+# ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -134,3 +142,51 @@ def protected_route(token: str = Depends(oauth2_scheme), db: Session = Depends(g
 def logout(request: Request):
     request.session.pop("access_token", None)
     return {"message": "Successfully logged out"}
+
+
+log_stream = StringIO()
+logging.basicConfig(level=logging.INFO, stream=log_stream,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+
+uvicorn_logger = logging.getLogger("uvicorn")
+uvicorn_logger.handlers = []
+uvicorn_logger.addHandler(logging.StreamHandler(log_stream))
+
+uvicorn_access_logger = logging.getLogger("uvicorn.access")
+uvicorn_access_logger.handlers = []
+uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
+# uvicorn_access_logger = logging.getLogger("uvicorn.error")
+# uvicorn_access_logger.handlers = []
+# uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
+# uvicorn_access_logger = logging.getLogger("uvicorn.asgi")
+# uvicorn_access_logger.handlers = []
+# uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
+# Configure other loggers to use the same StringIO buffer
+fastapi_logger = logging.getLogger("fastapi")
+fastapi_logger.handlers = []
+fastapi_logger.addHandler(logging.StreamHandler(log_stream))
+
+
+@app.get("/log")
+def get_logs():
+    log_stream.seek(0)
+    logs = log_stream.read()
+    log_lines = logs.splitlines()
+
+    structured_logs = []
+    for line in log_lines:
+        parts = line.split(" - ")
+        if len(parts) == 2:
+            log_entry = {
+                "ip": parts[0],
+                "type": parts[1].split()[0][1:],
+                "address": parts[1].split()[1],
+                "code": parts[1].split()[3],
+            }
+            if log_entry["address"] == "/log":
+                continue
+        else:
+            log_entry = {"message": line}
+        structured_logs.append(log_entry)
+
+    return {"logs": structured_logs}
