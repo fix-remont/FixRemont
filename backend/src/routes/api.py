@@ -11,7 +11,7 @@ from src.database.schemas import *
 router = APIRouter()
 
 
-@router.get("/portfolio_posts", response_model=List[PortfolioPostSchema], tags=["GET"])
+@router.get("/portfolio_posts", response_model=List[PortfolioPostSchema], tags=["GET", "Главная", "Портфолио", "Работа из портфолио"])
 async def get_portfolio_posts(db: AsyncSession = Depends(get_db)):
     return await cruds.get_portfolio_posts(db)
 
@@ -26,7 +26,7 @@ async def create_project_type(project_type: ProjectTypeSchema, db: AsyncSession 
     return await cruds.create_project_type(project_type, db)
 
 
-@router.get("/posts", response_model=List[PostSchema], tags=["GET"])
+@router.get("/posts", response_model=List[PostSchema], tags=["GET", "Главная"])
 async def get_posts(db: AsyncSession = Depends(get_db)):
     return await cruds.get_posts(db)
 
@@ -36,9 +36,9 @@ async def create_post(post: PostSchema, db: AsyncSession = Depends(get_db)):
     return await cruds.create_post(post, db)
 
 
-@router.get("/blog_bullets", response_model=List[BlogBulletSchema])
-async def get_blog_bullets():
-    return []
+# @router.get("/blog_bullets", response_model=List[BlogBulletSchema])
+# async def get_blog_bullets():
+#     return []
 
 
 @router.get("/my_contracts", response_model=List[MyContractsSchema], tags=["GET"])
@@ -132,12 +132,12 @@ async def create_support_category(support_category: SupportCategorySchema, db: A
     return await cruds.create_support_category(support_category, db)
 
 
-@router.get("/portfolio_posts/{id}", response_model=PortfolioPostSchema, tags=["GET"])
+@router.get("/portfolio_posts/{id}", response_model=PortfolioPostSchema, tags=["GET", "Работа из портфолио"])
 async def get_portfolio_post(id: int = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_portfolio_post(id, db)
 
 
-@router.get("/portfolio_posts/{project_type}", response_model=PortfolioPostSchema, tags=["GET"])
+@router.get("/portfolio_posts/{project_type}", response_model=PortfolioPostSchema, tags=["GET", "Портфолио"])
 async def get_portfolio_post(project_type: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_portfolio_post_by_project_type(project_type, db)
 
@@ -207,12 +207,12 @@ async def get_support_category(id: int = Path(...), db: AsyncSession = Depends(g
     return cruds.get_support_category(id, db)
 
 
-@router.get("/faqs", response_model=List[FAQSchema], tags=["GET"])
+@router.get("/faqs", response_model=List[FAQSchema], tags=["GET", "Главная"])
 async def get_faqs(db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs(db)
 
 
-@router.get("/faqs/{page_tag}", response_model=List[FAQSchema], tags=["GET"])
+@router.get("/faqs/{page_tag}", response_model=List[FAQSchema], tags=["GET", "Главная"])
 async def get_faqs(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_faqs_by_page_tag(page_tag, db)
 
@@ -222,51 +222,51 @@ async def get_faq(key_word: str = Path(...), db: AsyncSession = Depends(get_db))
     return cruds.get_faqs_by_keyword(key_word, db)
 
 
-@router.get("/seo_texts", response_model=List[SEOTextSchema], tags=["GET"])
+@router.get("/seo_texts", response_model=List[SEOTextSchema], tags=["GET", "All"])
 async def get_seo_texts(db: AsyncSession = Depends(get_db)):
     return cruds.get_seo_texts(db)
 
 
-@router.get("/seo_texts/{page_tag}", response_model=SEOTextSchema, tags=["GET"])
+@router.get("/seo_texts/{page_tag}", response_model=SEOTextSchema, tags=["GET", "All"])
 async def get_seo_text(page_tag: str = Path(...), db: AsyncSession = Depends(get_db)):
     return cruds.get_seo_text_by_page_tag(page_tag, db)
 
 
-@router.get("/project_types", response_model=List[ProjectTypeSchema], tags=["GET"])
+@router.get("/project_types", response_model=List[ProjectTypeSchema], tags=["GET", "Портфолио"])
 async def get_project_types(db: AsyncSession = Depends(get_db)):
     return cruds.get_project_types(db)
 
 
-@router.get("/tariffs", response_model=List[TariffSchema], tags=["GET"])
+@router.get("/tariffs", response_model=List[TariffSchema], tags=["GET", "Главная"])
 async def get_tariffs(db: AsyncSession = Depends(get_db)):
     return cruds.get_tariffs(db)
 
 
-@router.get("/user_comments", response_model=List[UserCommentsSchema], tags=["GET"])
+@router.get("/user_comments", response_model=List[UserCommentsSchema], tags=["GET", "Главная"])
 async def get_user_comments(db: AsyncSession = Depends(get_db)):
     return cruds.get_user_comments(db)
 
 
-@router.get("/intro_videos", response_model=List[IntroVideosSchema], tags=["GET"])
+@router.get("/intro_videos", response_model=List[IntroVideosSchema], tags=["GET", "Главная"])
 async def get_intro_videos(db: AsyncSession = Depends(get_db)):
     return cruds.get_intro_videos(db)
 
 
-@router.get("/social_networks", response_model=List[SocialMediaAccountsSchema], tags=["GET"])
+@router.get("/social_networks", response_model=List[SocialMediaAccountsSchema], tags=["GET", "Главная"])
 async def get_social_networks(db: AsyncSession = Depends(get_db)):
     return cruds.get_social_media_accounts(db)
 
 
-@router.get("/blog_videos", response_model=List[BlogVideosSchema], tags=["GET"])
+@router.get("/blog_videos", response_model=List[BlogVideosSchema], tags=["GET", "Главная"])
 async def get_blog_videos(db: AsyncSession = Depends(get_db)):
     return cruds.get_blog_videos(db)
 
 
-@router.get("/communications_types", response_model=List[CommunicationTypeSchema], tags=["GET"])
+@router.get("/communications_types", response_model=List[CommunicationTypeSchema], tags=["GET", "Портфолио", "Работа из портфолио"])
 async def get_communication_types(db: AsyncSession = Depends(get_db)):
     return cruds.get_communication_types(db)
 
 
-@router.post("/consultations", response_model=ConsultationsListSchema, tags=["POST"])
+@router.post("/consultations", response_model=ConsultationsListSchema, tags=["Портфолио", "Работа из портфолио"])
 async def create_consultation(consultation: ConsultationsListSchema, db: AsyncSession = Depends(get_db)):
     return cruds.create_consultation(consultation, db)

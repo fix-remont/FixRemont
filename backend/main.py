@@ -47,7 +47,7 @@ class CustomAuthBackend(AuthenticationBackend):
                 db = get_db()
                 user = get_user_by_email(db, payload.get("sub"))
                 if user:
-                    return RedirectResponse(url="http://158.160.151.235:7000/admin/", status_code=302)
+                    return user
         return None
 
 
