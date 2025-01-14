@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { portfolioItemsShort as items } from '~/shared/utils/data'
 
-const selectedIndex = ref(0)
-
-const tabsRow = [
-  { label: 'Все', value: 'all', selected: false },
-  { label: 'Ремонт квартир', value: 'appartament_renovation', selected: false },
-  { label: 'Строительство домов', value: 'house_construction', selected: false }
+const tabs = [
+  { label: 'Все', value: 'all' },
+  { label: 'Ремонт квартир', value: 'appartament_renovation' },
+  { label: 'Строительство домов', value: 'house_construction' }
 ]
-const tabs = computed(() => {
-  return tabsRow.map((tab, index) => {
-    tab.selected = selectedIndex.value === index ? true : false
-    return tab
-  })
-})
+const selectedTabIndex = ref(0)
 </script>
 
 <template>
@@ -22,15 +15,7 @@ const tabs = computed(() => {
     <h1 class="title title-glob">
       Посмотрите на наши <span class="orange"> выполненные проекты</span>
     </h1>
-    <div class="tabs-container">
-      <div
-        v-for="(tab, index) in tabs"
-        :class="['tab', 'radius-glob', 'hover', { 'tab-selected': tab.selected }]"
-        @click="selectedIndex = index"
-      >
-        {{ tab.label }}
-      </div>
-    </div>
+    <SharedTabs @selected-tab="(tabIndex: number) => (selectedTabIndex = tabIndex)" :tabs="tabs" />
   </div>
 </template>
 

@@ -6,7 +6,7 @@
 <template>
   <NuxtLayout>
     <SharedBreadCrumbs />
-    <!-- <PortfolioBlock1 /> -->
+    <PortfolioBlock1 />
     <PortfolioBlock2 />
   </NuxtLayout>
 </template>

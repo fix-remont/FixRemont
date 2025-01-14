@@ -12,10 +12,10 @@
         ansistrano_deploy_from: '{{ playbook_dir }}/../backend'
         ansistrano_deploy_via: rsync
 
-    - name: copy .env file
-      ansible.builtin.copy:
-        src: '{{ local_app_path }}/.env'
-        dest: '{{ ansistrano_deploy_to }}/current/.env'
+    # - name: copy .env file
+    #   ansible.builtin.copy:
+    #     src: '{{ local_app_path }}/.env'
+    #     dest: '{{ ansistrano_deploy_to }}/current/.env'
 
     - name: install dependencies
       ansible.builtin.command:
