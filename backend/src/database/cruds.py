@@ -12,6 +12,7 @@ from collections import defaultdict
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import models, schemas
+import os
 
 
 async def get_portfolio_posts(db: AsyncSession):
@@ -30,68 +31,73 @@ async def get_portfolio_posts(db: AsyncSession):
             "deadline": work.deadline,
             "cost": work.cost,
             "square": work.square,
-            "video_link": work.video_link,
-            "video_duration": work.video_duration,
+            "task": work.task,
+            "description": work.description,
             "project_type": work.project_type,
-            "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
-            "articles": articles
+            "preview_image": work.preview_image,
+            "main_image": work.main_image,
+            "result_image": work.result_image,
+            "articles": articles,
+            "result_video": work.result_video,
+            "client_video": work.client_video
         })
 
     return portfolio_posts
 
 
-def get_portfolio_post_by_project_type(project_type, db):
-    result = db.execute(select(models.Work).where(models.Work.project_type == project_type))
-    works = result.scalars().all()
+def get_portfolio_post(id, db):
+    result = db.execute(select(models.Work).where(models.Work.id == id))
+    work = result.scalars().first()
 
-    works_response = []
+    if work is None:
+        raise HTTPException(status_code=404, detail="Work not found")
+    articles = [
+        schemas.ArticleSchema(title=art.split(": ")[0], body=art.split(": ")[1]) if isinstance(art, str) else art
+        for art in work.description]
+    work_response = {
+        "id": work.id,
+        "title": work.title,
+        "deadline": work.deadline,
+        "cost": work.cost,
+        "square": work.square,
+        "task": work.task,
+        "description": work.description,
+        "project_type": work.project_type,
+        "preview_image": work.preview_image,
+        "main_image": work.main_image,
+        "result_image": work.result_image,
+        "articles": articles,
+        "result_video": work.result_video,
+        "client_video": work.client_video
+    }
 
-    for work in works:
-        works_response.append({
-            "id": work.id,
-            "title": work.title,
-            "deadline": work.deadline,
-            "cost": work.cost,
-            "square": work.square,
-            "video_link": work.video_link,
-            "video_duration": work.video_duration,
-            "project_type": work.project_type,
-            "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
-            "articles": [
-                schemas.ArticleSchema(title=art.title, body=art.body)
-                for art in work.description]
-        })
-
-    return works_response
+    return work_response
 
 
 async def create_portfolio_post(portfolio_post: schemas.PortfolioPostSchema, db: AsyncSession):
     result = db.execute(select(models.ProjectType).filter_by(name=portfolio_post.project_type.name))
     project_type_instance = result.scalars().first()
     articles = [f"{article.title}: {article.body}" for article in
-                portfolio_post.articles] if portfolio_post.articles else []
+                portfolio_post.description] if portfolio_post.description else []
 
     new_portfolio_post = models.Work(
         title=portfolio_post.title,
         deadline=portfolio_post.deadline,
         cost=portfolio_post.cost,
         square=portfolio_post.square,
-        video_link=portfolio_post.video_link,
-        video_duration=str(portfolio_post.video_duration),
-        project_type_id=project_type_instance.id if project_type_instance else None,
-        image1=portfolio_post.images[0] if portfolio_post.images else None,
-        image2=portfolio_post.images[1] if portfolio_post.images and len(portfolio_post.images) > 1 else None,
-        image3=portfolio_post.images[2] if portfolio_post.images and len(portfolio_post.images) > 2 else None,
-        image4=portfolio_post.images[3] if portfolio_post.images and len(portfolio_post.images) > 3 else None,
-        image5=portfolio_post.images[4] if portfolio_post.images and len(portfolio_post.images) > 4 else None,
-        description=articles
+        task=portfolio_post.task,
+        preview_image=portfolio_post.preview_image,
+        main_image=portfolio_post.main_image,
+        result_image=portfolio_post.result_image,
+        project_type_id=project_type_instance.id,
+        description=articles,
+        result_video=portfolio_post.result_video,
+        client_video=portfolio_post.client_video
     )
-
     db.add(new_portfolio_post)
     db.commit()
     db.refresh(new_portfolio_post)
 
-    # Convert the SQLAlchemy model instance to a Pydantic model instance
     return schemas.PortfolioPostSchema.from_orm(new_portfolio_post)
 
 
@@ -117,7 +123,7 @@ async def get_posts(db: AsyncSession):
             "id": post.id,
             "title": post.title,
             "post_type": post.post_type,
-            "images": [post.image1, post.image2, post.image3],
+            "images": post.images,
             "articles": articles
         })
 
@@ -135,9 +141,7 @@ async def create_post(post: schemas.PostSchema, db: AsyncSession):
     new_post = models.Post(
         title=post.title,
         post_type=post_type_enum,  # Use the PostType enum instance here
-        image1=post.pictures[0] if post.pictures else None,
-        image2=post.pictures[1] if len(post.pictures) > 1 else None,
-        image3=post.pictures[2] if len(post.pictures) > 2 else None,
+        images=post.images,
         paragraphs=articles_instances  # Assign the list of Article instances to paragraphs
     )
 
@@ -503,31 +507,6 @@ async def create_support_category(support_category: schemas.SupportCategorySchem
     db.refresh(new_support_category)
 
     return schemas.SupportCategorySchema.from_orm(new_support_category)
-
-
-def get_portfolio_post(id, db):
-    result = db.execute(select(models.Work).where(models.Work.id == id))
-    work = result.scalars().first()
-
-    if work is None:
-        raise HTTPException(status_code=404, detail="Work not found")
-
-    work_response = {
-        "id": work.id,
-        "title": work.title,
-        "deadline": work.deadline,
-        "cost": work.cost,
-        "square": work.square,
-        "video_link": work.video_link,
-        "video_duration": work.video_duration,
-        "project_type": work.project_type,
-        "images": [work.image1, work.image2, work.image3, work.image4, work.image5],
-        "articles": [
-            schemas.ArticleSchema(title=art.split(": ")[0], body=art.split(": ")[1]) if isinstance(art, str) else art
-            for art in work.description]
-    }
-
-    return work_response
 
 
 def get_post(id, db):
@@ -950,7 +929,7 @@ def create_tariff(db, tariff):
 
 def create_user_comment(db, user_comment):
     new_user_comment = models.UserComments(
-        images=user_comment.images,
+        image=user_comment.image,
     )
 
     db.add(new_user_comment)
@@ -984,7 +963,7 @@ def get_intro_videos(db):
     for intro_video in all_intro_videos:
         intro_videos.append({
             "id": intro_video.id,
-            "video_link": intro_video.video_link,
+            "video": intro_video.video,
             "video_duration": intro_video.video_duration,
             "author": intro_video.author,
             "object": intro_video.object,
@@ -995,7 +974,7 @@ def get_intro_videos(db):
 
 def create_intro_video(db, intro_video):
     new_intro_video = models.IntroVideos(
-        video_link=intro_video.video_link,
+        video=intro_video.video,
         video_duration=intro_video.video_duration,
         author=intro_video.author,
         object=intro_video.object
@@ -1179,3 +1158,99 @@ def create_consultation(consultation, db):
     db.refresh(new_consultation)
 
     return new_consultation
+
+
+def get_last_work_id(db):
+    result = db.execute(select(models.Work.id).order_by(models.Work.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_work_id(db, base_path):
+    last_id = get_last_work_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_post_id(db):
+    result = db.execute(select(models.Post.id).order_by(models.Post.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_post_id(db, base_path):
+    last_id = get_last_post_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_tariff_id(db):
+    result = db.execute(select(models.Tariff.id).order_by(models.Tariff.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_tariff_id(db, base_path):
+    last_id = get_last_tariff_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_intro_video_id(db):
+    result = db.execute(select(models.IntroVideos.id).order_by(models.IntroVideos.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_intro_video_id(db, base_path):
+    last_id = get_last_intro_video_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_user_comment_id(db):
+    result = db.execute(select(models.UserComments.id).order_by(models.UserComments.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_user_comment_id(db, base_path):
+    last_id = get_last_user_comment_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def create_directory_for_last_social_networks_id(db, base_path):
+    last_id = get_last_social_networks_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_social_networks_id(db):
+    result = db.execute(select(models.SocialMediaAccounts.id).order_by(models.SocialMediaAccounts.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id

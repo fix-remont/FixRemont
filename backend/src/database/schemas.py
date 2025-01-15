@@ -105,11 +105,14 @@ class PortfolioPostSchema(BaseModel):
     deadline: str
     cost: int
     square: int
-    video_link: Optional[str] = None
-    video_duration: Optional[str] = None
     project_type: ProjectTypeSchema
-    images: Optional[List[Optional[str]]] = None
-    articles: Optional[List[Optional[ArticleSchema]]] = None
+    preview_image: str
+    main_image: str
+    result_image: str
+    description: Optional[List[Optional[ArticleSchema]]] = None
+    task: str
+    result_video: str
+    client_video: str
 
     class Config:
         from_attributes = True
@@ -120,7 +123,7 @@ class PostSchema(BaseModel):
     id: int
     title: str
     post_type: PostTypeEnum
-    pictures: Optional[List[Optional[str]]] = None
+    images: List[str]
     articles: Optional[List[Optional[ArticleSchema]]] = None
 
     class Config:
@@ -427,7 +430,7 @@ class TariffSchema(BaseModel):
 
 
 class UserCommentsSchema(BaseModel):
-    image: Optional[str] = None
+    image: str
 
     class Config:
         orm_mode = True
@@ -436,7 +439,7 @@ class UserCommentsSchema(BaseModel):
 
 class IntroVideosSchema(BaseModel):
     author: str
-    video_link: str
+    video: str
     video_duration: str
     object: str
 

@@ -24,7 +24,7 @@ CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
@@ -89,9 +89,9 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.additional_options (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    description character varying
+                                           id integer NOT NULL,
+                                           name character varying NOT NULL,
+                                           description character varying
 );
 
 
@@ -124,11 +124,11 @@ ALTER SEQUENCE public.additional_options_id_seq OWNED BY public.additional_optio
 --
 
 CREATE TABLE public.blog_videos (
-    id integer NOT NULL,
-    video_link character varying,
-    video_duration character varying,
-    author character varying,
-    object character varying
+                                    id integer NOT NULL,
+                                    video_link character varying,
+                                    video_duration character varying,
+                                    author character varying,
+                                    object character varying
 );
 
 
@@ -161,8 +161,8 @@ ALTER SEQUENCE public.blog_videos_id_seq OWNED BY public.blog_videos.id;
 --
 
 CREATE TABLE public.communication_type (
-    id integer NOT NULL,
-    title character varying
+                                           id integer NOT NULL,
+                                           title character varying
 );
 
 
@@ -195,10 +195,10 @@ ALTER SEQUENCE public.communication_type_id_seq OWNED BY public.communication_ty
 --
 
 CREATE TABLE public.consultation_list (
-    id integer NOT NULL,
-    phone character varying,
-    answered boolean,
-    communication_type_id integer
+                                          id integer NOT NULL,
+                                          phone character varying,
+                                          answered boolean,
+                                          communication_type_id integer
 );
 
 
@@ -231,20 +231,20 @@ ALTER SEQUENCE public.consultation_list_id_seq OWNED BY public.consultation_list
 --
 
 CREATE TABLE public.contracts (
-    id integer NOT NULL,
-    object character varying,
-    order_type public.ordertype,
-    tariff_type public.tarifftype,
-    square integer,
-    location character varying,
-    current_stage character varying,
-    total_cost integer,
-    materials_cost integer,
-    work_cost integer,
-    revenue integer,
-    client_id integer,
-    date character varying,
-    document bytea
+                                  id integer NOT NULL,
+                                  object character varying,
+                                  order_type public.ordertype,
+                                  tariff_type public.tarifftype,
+                                  square integer,
+                                  location character varying,
+                                  current_stage character varying,
+                                  total_cost integer,
+                                  materials_cost integer,
+                                  work_cost integer,
+                                  revenue integer,
+                                  client_id integer,
+                                  date character varying,
+                                  document bytea
 );
 
 
@@ -277,12 +277,12 @@ ALTER SEQUENCE public.contracts_id_seq OWNED BY public.contracts.id;
 --
 
 CREATE TABLE public.faqs (
-    id integer NOT NULL,
-    heading character varying,
-    label character varying,
-    date character varying,
-    key_word character varying,
-    page_tag_id integer
+                             id integer NOT NULL,
+                             heading character varying,
+                             label character varying,
+                             date character varying,
+                             key_word character varying,
+                             page_tag_id integer
 );
 
 
@@ -315,8 +315,8 @@ ALTER SEQUENCE public.faqs_id_seq OWNED BY public.faqs.id;
 --
 
 CREATE TABLE public.flat_additional_options (
-    flat_id integer NOT NULL,
-    additional_option_id integer NOT NULL
+                                                flat_id integer NOT NULL,
+                                                additional_option_id integer NOT NULL
 );
 
 
@@ -327,18 +327,18 @@ ALTER TABLE public.flat_additional_options OWNER TO postgres;
 --
 
 CREATE TABLE public.flats (
-    id integer NOT NULL,
-    square integer NOT NULL,
-    address character varying NOT NULL,
-    number_of_rooms integer NOT NULL,
-    number_of_doors integer NOT NULL,
-    number_of_wc integer NOT NULL,
-    demolition boolean,
-    wall_build boolean,
-    liquid_floor boolean,
-    ceiling_stretching boolean,
-    tariff_id integer,
-    style_id integer
+                              id integer NOT NULL,
+                              square integer NOT NULL,
+                              address character varying NOT NULL,
+                              number_of_rooms integer NOT NULL,
+                              number_of_doors integer NOT NULL,
+                              number_of_wc integer NOT NULL,
+                              demolition boolean,
+                              wall_build boolean,
+                              liquid_floor boolean,
+                              ceiling_stretching boolean,
+                              tariff_id integer,
+                              style_id integer
 );
 
 
@@ -371,11 +371,11 @@ ALTER SEQUENCE public.flats_id_seq OWNED BY public.flats.id;
 --
 
 CREATE TABLE public.intro_videos (
-    id integer NOT NULL,
-    video_link character varying,
-    video_duration character varying,
-    author character varying,
-    object character varying
+                                     id integer NOT NULL,
+                                     video_link character varying,
+                                     video_duration character varying,
+                                     author character varying,
+                                     object character varying
 );
 
 
@@ -408,8 +408,8 @@ ALTER SEQUENCE public.intro_videos_id_seq OWNED BY public.intro_videos.id;
 --
 
 CREATE TABLE public.notification_type (
-    id integer NOT NULL,
-    name character varying NOT NULL
+                                          id integer NOT NULL,
+                                          name character varying NOT NULL
 );
 
 
@@ -442,14 +442,14 @@ ALTER SEQUENCE public.notification_type_id_seq OWNED BY public.notification_type
 --
 
 CREATE TABLE public.notifications (
-    id integer NOT NULL,
-    notification_status public.contractnotificationstatus,
-    title character varying,
-    date character varying,
-    label character varying,
-    attachment bytea,
-    contract_id integer,
-    user_id integer
+                                      id integer NOT NULL,
+                                      notification_status public.contractnotificationstatus,
+                                      title character varying,
+                                      date character varying,
+                                      label character varying,
+                                      attachment bytea,
+                                      contract_id integer,
+                                      user_id integer
 );
 
 
@@ -482,8 +482,8 @@ ALTER SEQUENCE public.notifications_id_seq OWNED BY public.notifications.id;
 --
 
 CREATE TABLE public.page_type (
-    id integer NOT NULL,
-    name character varying
+                                  id integer NOT NULL,
+                                  name character varying
 );
 
 
@@ -516,10 +516,10 @@ ALTER SEQUENCE public.page_type_id_seq OWNED BY public.page_type.id;
 --
 
 CREATE TABLE public.paragraphs (
-    id integer NOT NULL,
-    title character varying,
-    body character varying,
-    post_id integer
+                                   id integer NOT NULL,
+                                   title character varying,
+                                   body character varying,
+                                   post_id integer
 );
 
 
@@ -552,10 +552,10 @@ ALTER SEQUENCE public.paragraphs_id_seq OWNED BY public.paragraphs.id;
 --
 
 CREATE TABLE public.platform_news (
-    id integer NOT NULL,
-    title character varying,
-    date character varying,
-    label character varying
+                                      id integer NOT NULL,
+                                      title character varying,
+                                      date character varying,
+                                      label character varying
 );
 
 
@@ -588,12 +588,12 @@ ALTER SEQUENCE public.platform_news_id_seq OWNED BY public.platform_news.id;
 --
 
 CREATE TABLE public.posts (
-    id integer NOT NULL,
-    title character varying,
-    post_type public.posttype NOT NULL,
-    image1 character varying,
-    image2 character varying,
-    image3 character varying
+                              id integer NOT NULL,
+                              title character varying,
+                              post_type public.posttype NOT NULL,
+                              image1 character varying,
+                              image2 character varying,
+                              image3 character varying
 );
 
 
@@ -626,8 +626,8 @@ ALTER SEQUENCE public.posts_id_seq OWNED BY public.posts.id;
 --
 
 CREATE TABLE public.project_type (
-    id integer NOT NULL,
-    name character varying NOT NULL
+                                     id integer NOT NULL,
+                                     name character varying NOT NULL
 );
 
 
@@ -660,9 +660,9 @@ ALTER SEQUENCE public.project_type_id_seq OWNED BY public.project_type.id;
 --
 
 CREATE TABLE public.seo_texts (
-    id integer NOT NULL,
-    text character varying,
-    page_tag_id integer
+                                  id integer NOT NULL,
+                                  text character varying,
+                                  page_tag_id integer
 );
 
 
@@ -695,11 +695,11 @@ ALTER SEQUENCE public.seo_texts_id_seq OWNED BY public.seo_texts.id;
 --
 
 CREATE TABLE public.social_media_accounts (
-    id integer NOT NULL,
-    name character varying,
-    logo character varying,
-    link character varying,
-    subscribers integer
+                                              id integer NOT NULL,
+                                              name character varying,
+                                              logo character varying,
+                                              link character varying,
+                                              subscribers integer
 );
 
 
@@ -732,9 +732,9 @@ ALTER SEQUENCE public.social_media_accounts_id_seq OWNED BY public.social_media_
 --
 
 CREATE TABLE public.styles (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    description character varying
+                               id integer NOT NULL,
+                               name character varying NOT NULL,
+                               description character varying
 );
 
 
@@ -767,11 +767,11 @@ ALTER SEQUENCE public.styles_id_seq OWNED BY public.styles.id;
 --
 
 CREATE TABLE public.tariffs (
-    id integer NOT NULL,
-    name character varying,
-    description character varying,
-    cost character varying,
-    image character varying
+                                id integer NOT NULL,
+                                name character varying,
+                                description character varying,
+                                cost character varying,
+                                image character varying
 );
 
 
@@ -804,8 +804,8 @@ ALTER SEQUENCE public.tariffs_id_seq OWNED BY public.tariffs.id;
 --
 
 CREATE TABLE public.user_comments (
-    id integer NOT NULL,
-    image character varying
+                                      id integer NOT NULL,
+                                      image character varying
 );
 
 
@@ -838,8 +838,8 @@ ALTER SEQUENCE public.user_comments_id_seq OWNED BY public.user_comments.id;
 --
 
 CREATE TABLE public.user_type (
-    id integer NOT NULL,
-    name character varying NOT NULL
+                                  id integer NOT NULL,
+                                  name character varying NOT NULL
 );
 
 
@@ -872,20 +872,20 @@ ALTER SEQUENCE public.user_type_id_seq OWNED BY public.user_type.id;
 --
 
 CREATE TABLE public.users (
-    id integer NOT NULL,
-    email character varying,
-    hashed_password character varying,
-    name character varying,
-    surname character varying,
-    patronymic character varying,
-    phone character varying,
-    user_type_id integer,
-    user_referral_code character varying,
-    others_referral_code character varying,
-    notification_status_id integer,
-    is_verified boolean,
-    is_superuser boolean,
-    avatar character varying
+                              id integer NOT NULL,
+                              email character varying,
+                              hashed_password character varying,
+                              name character varying,
+                              surname character varying,
+                              patronymic character varying,
+                              phone character varying,
+                              user_type_id integer,
+                              user_referral_code character varying,
+                              others_referral_code character varying,
+                              notification_status_id integer,
+                              is_verified boolean,
+                              is_superuser boolean,
+                              avatar character varying
 );
 
 
@@ -918,11 +918,11 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 --
 
 CREATE TABLE public.work_status (
-    id integer NOT NULL,
-    title character varying,
-    document bytea,
-    status boolean,
-    contract_id integer
+                                    id integer NOT NULL,
+                                    title character varying,
+                                    document bytea,
+                                    status boolean,
+                                    contract_id integer
 );
 
 
@@ -955,21 +955,21 @@ ALTER SEQUENCE public.work_status_id_seq OWNED BY public.work_status.id;
 --
 
 CREATE TABLE public.works (
-    id integer NOT NULL,
-    title character varying,
-    project_type_id integer,
-    deadline character varying,
-    cost integer,
-    square integer,
-    task character varying,
-    description character varying[],
-    image1 character varying,
-    image2 character varying,
-    image3 character varying,
-    image4 character varying,
-    image5 character varying,
-    video_link character varying,
-    video_duration character varying
+                              id integer NOT NULL,
+                              title character varying,
+                              project_type_id integer,
+                              deadline character varying,
+                              cost integer,
+                              square integer,
+                              task character varying,
+                              description character varying[],
+                              image1 character varying,
+                              image2 character varying,
+                              image3 character varying,
+                              image4 character varying,
+                              image5 character varying,
+                              video_link character varying,
+                              video_duration character varying
 );
 
 

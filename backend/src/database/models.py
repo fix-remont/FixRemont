@@ -8,6 +8,9 @@ import string
 import enum
 from dotenv import load_dotenv
 import os
+from fastapi_storages import FileSystemStorage
+from fastapi_storages.integrations.sqlalchemy import FileType
+
 
 Base = declarative_base()
 pwd_context = CryptContext(schemes=["bcrypt", "argon2", "pbkdf2_sha256"], deprecated="auto")
@@ -79,13 +82,11 @@ class Work(Base):
     square = Column(Integer)
     task = Column(String)
     description = Column(ARRAY(String))
-    image1 = Column(String)
-    image2 = Column(String)
-    image3 = Column(String)
-    image4 = Column(String)
-    image5 = Column(String)
-    video_link = Column(String, nullable=True)
-    video_duration = Column(String, nullable=True)
+    preview_image = Column(String)
+    main_image = Column(String)
+    result_image = Column(String)
+    result_video = Column(String)
+    client_video = Column(String)
 
     def __str__(self):
         return self.title
@@ -120,9 +121,7 @@ class Post(Base):
     title = Column(String, index=True)
     post_type = Column(Enum(PostType))
     paragraphs = relationship("Paragraph", back_populates="post")
-    image1 = Column(String)
-    image2 = Column(String)
-    image3 = Column(String)
+    images = Column(ARRAY(String))
 
     def __str__(self):
         return self.title
@@ -327,7 +326,7 @@ class UserComments(Base):
 class IntroVideos(Base):
     __tablename__ = 'intro_videos'
     id = Column(Integer, primary_key=True, index=True)
-    video_link = Column(String)
+    video = Column(String)
     video_duration = Column(String)
     author = Column(String)
     object = Column(String)

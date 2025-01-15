@@ -12,17 +12,22 @@
         ansistrano_deploy_from: '{{ playbook_dir }}/../backend'
         ansistrano_deploy_via: rsync
 
-    - name: copy .env file
-      ansible.builtin.copy:
-        src: '{{ local_app_path }}/.env'
-        dest: '{{ ansistrano_deploy_to }}/current/.env'
+#    - name: copy .env file
+#      ansible.builtin.copy:
+#        src: '{{ local_app_path }}/.env'
+#        dest: '{{ ansistrano_deploy_to }}/current/.env'
 
     - name: install dependencies
       ansible.builtin.command:
         cmd: pip install -r requirements.txt
         chdir: '{{ ansistrano_deploy_to }}current/backend/'
 
-    - name: start/restart pm2 process
+    - name: delete pm2 process
+      ansible.builtin.command:
+        cmd: pm2 delete ecosystem.config.js
+        chdir: '{{ remote_app_path }}'
+
+    - name: start pm2 process
       ansible.builtin.command:
         cmd: pm2 start ecosystem.config.js
         chdir: '{{ remote_app_path }}'

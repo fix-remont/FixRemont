@@ -144,49 +144,49 @@ def logout(request: Request):
     return {"message": "Successfully logged out"}
 
 
-log_stream = StringIO()
-logging.basicConfig(level=logging.INFO, stream=log_stream,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-
-uvicorn_logger = logging.getLogger("uvicorn")
-uvicorn_logger.handlers = []
-uvicorn_logger.addHandler(logging.StreamHandler(log_stream))
-
-uvicorn_access_logger = logging.getLogger("uvicorn.access")
-uvicorn_access_logger.handlers = []
-uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# uvicorn_access_logger = logging.getLogger("uvicorn.error")
+# log_stream = StringIO()
+# logging.basicConfig(level=logging.INFO, stream=log_stream,
+#                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+#
+# uvicorn_logger = logging.getLogger("uvicorn")
+# uvicorn_logger.handlers = []
+# uvicorn_logger.addHandler(logging.StreamHandler(log_stream))
+#
+# uvicorn_access_logger = logging.getLogger("uvicorn.access")
 # uvicorn_access_logger.handlers = []
 # uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# uvicorn_access_logger = logging.getLogger("uvicorn.asgi")
-# uvicorn_access_logger.handlers = []
-# uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# Configure other loggers to use the same StringIO buffer
-fastapi_logger = logging.getLogger("fastapi")
-fastapi_logger.handlers = []
-fastapi_logger.addHandler(logging.StreamHandler(log_stream))
-
-
-@app.get("/log")
-def get_logs():
-    log_stream.seek(0)
-    logs = log_stream.read()
-    log_lines = logs.splitlines()
-
-    structured_logs = []
-    for line in log_lines:
-        parts = line.split(" - ")
-        if len(parts) == 2:
-            log_entry = {
-                "ip": parts[0],
-                "type": parts[1].split()[0][1:],
-                "address": parts[1].split()[1],
-                "code": parts[1].split()[3],
-            }
-            if log_entry["address"] == "/log":
-                continue
-        else:
-            log_entry = {"message": line}
-        structured_logs.append(log_entry)
-
-    return {"logs": structured_logs}
+# # uvicorn_access_logger = logging.getLogger("uvicorn.error")
+# # uvicorn_access_logger.handlers = []
+# # uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
+# # uvicorn_access_logger = logging.getLogger("uvicorn.asgi")
+# # uvicorn_access_logger.handlers = []
+# # uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
+# # Configure other loggers to use the same StringIO buffer
+# fastapi_logger = logging.getLogger("fastapi")
+# fastapi_logger.handlers = []
+# fastapi_logger.addHandler(logging.StreamHandler(log_stream))
+#
+#
+# @app.get("/log")
+# def get_logs():
+#     log_stream.seek(0)
+#     logs = log_stream.read()
+#     log_lines = logs.splitlines()
+#
+#     structured_logs = []
+#     for line in log_lines:
+#         parts = line.split(" - ")
+#         if len(parts) == 2:
+#             log_entry = {
+#                 "ip": parts[0],
+#                 "type": parts[1].split()[0][1:],
+#                 "address": parts[1].split()[1],
+#                 "code": parts[1].split()[3],
+#             }
+#             if log_entry["address"] == "/log":
+#                 continue
+#         else:
+#             log_entry = {"message": line}
+#         structured_logs.append(log_entry)
+#
+#     return {"logs": structured_logs}
