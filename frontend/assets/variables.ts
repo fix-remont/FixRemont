@@ -22,6 +22,8 @@ export const hrefCabinetProfile = '#'
 export const hrefCabinetNews = '#'
 export const hrefCabinetSupport = '#'
 
+export const revalidationResponseInMilliseconds = 1000 * 10 // 10 секунд
+
 export const cabinetNavigationLinks = [
   { href: hrefCabinet, label: 'Главная' },
   { href: hrefCabinetContracts, label: 'Договоры' },

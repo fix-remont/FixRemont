@@ -2,19 +2,25 @@
 import { ref } from 'vue'
 import { hrefCalculater } from '~/assets/variables'
 
-const items = [
+// import useTariffsStore from '~/stores/tariffs.ts'
+// import { storeToRefs } from 'pinia'
+
+// const { items } = storeToRefs(useTariffsStore())
+const items = ref([
   { label: 'Базовый', img: '/images/home/package-comfort.png', selected: false },
   { label: 'Стандарт', img: '/images/home/package-comfort.png', selected: false },
   { label: 'Комфорт', img: '/images/home/package-comfort.png', selected: false },
   { label: 'Бизнес', img: '/images/home/package-comfort.png', selected: false }
-]
+])
 
 const carouselRef1 = ref(null)
 const carouselRef2 = ref(null)
 const currentActiveIndex = ref(0)
 
+
+
 const itemsWithSelected = computed(() => {
-  return items.map((item, index) => {
+  return items.value.map((item, index) => {
     item.selected = index === currentActiveIndex.value
     return item
   })
@@ -34,6 +40,8 @@ watch(
   () => carouselRef1.value?.page,
   (newPage) => (currentActiveIndex.value = newPage - 1)
 )
+
+
 </script>
 
 <template>
@@ -45,36 +53,23 @@ watch(
       </p>
     </div>
 
-    <UCarousel
-      class="carousel-area"
-      ref="carouselRef1"
-      :items="items"
-      :ui="{
-        item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
-        container: 'gap-2 relative h-full',
-        arrows: { wrapper: 'absolute bottom-0' }
-      }"
-      arrows
-    >
+    <UCarousel class="carousel-area" ref="carouselRef1" :items="items" :ui="{
+      item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
+      container: 'gap-2 relative h-full',
+      arrows: { wrapper: 'absolute bottom-0' }
+    }" arrows>
       <template #default="{ item }">
         <img class="slide" :src="item.img" draggable="false" />
       </template>
 
       <template #prev="{ onClick, disabled }">
-        <img
-          :class="['arrow cursor-pointer', { arrow_disabled: disabled }]"
-          src="/images/arrow-prev.svg"
-          @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)"
-        />
+        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg"
+          @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" />
       </template>
 
       <template #next="{ onClick, disabled }">
-        <img
-          :class="['arrow cursor-pointer', { arrow_disabled: disabled }]"
-          src="/images/arrow-next.svg"
-          :disabled="disabled"
-          @click="handleUpdateCarouselByButton(onClick, 'next', disabled)"
-        />
+        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-next.svg"
+          :disabled="disabled" @click="handleUpdateCarouselByButton(onClick, 'next', disabled)" />
       </template>
     </UCarousel>
 
@@ -82,20 +77,15 @@ watch(
       <p :class="['text']">
         4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:
       </p>
-      <UCarousel
-        class="tabs-container"
-        ref="carouselRef2"
-        :items="itemsWithSelected"
-        :ui="{
-          container: 'gap-2',
-          item: [
-            'w-16 sm:w-32',
-            'h-16 sm:h-32',
-            'rounded-lg sm:rounded-3xl',
-            ' overflow-hidden relative cursor-pointer hover:opacity-90'
-          ]
-        }"
-      >
+      <UCarousel class="tabs-container" ref="carouselRef2" :items="itemsWithSelected" :ui="{
+        container: 'gap-2',
+        item: [
+          'w-16 sm:w-32',
+          'h-16 sm:h-32',
+          'rounded-lg sm:rounded-3xl',
+          ' overflow-hidden relative cursor-pointer hover:opacity-90'
+        ]
+      }">
         <template #default="{ item, index }">
           <div class="h-full" @click="handleClickTab(index)">
             <p :class="['label']">{{ item.label.toUpperCase() }}</p>

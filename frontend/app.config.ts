@@ -51,6 +51,7 @@ export default defineAppConfig({
       position: 'top-0 bottom-[unset] left-0 right-[unset]'
     },
     button: {
+      rounded: 'rounded-full',
       color: {
         orange: {
           solid:
