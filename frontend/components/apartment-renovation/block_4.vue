@@ -101,7 +101,9 @@
 
 .choicer {
   width: 50%;
+  min-height: 100%;
   display: flex;
+  align-self: stretch;
   flex-direction: column;
   gap: 1.5rem;
   align-items: flex-start;
