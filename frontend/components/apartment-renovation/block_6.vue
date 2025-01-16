@@ -61,6 +61,7 @@ import { hrefCalculater } from 'assets/variables'
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+    padding: 20px;
 
     a {
       width: 100%;
@@ -72,10 +73,10 @@ import { hrefCalculater } from 'assets/variables'
     text-align: center;
 
     h4 {
-      font-size: 30px;
+      font-size: 28px;
     }
     h5 {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
 }
