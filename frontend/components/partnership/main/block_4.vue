@@ -31,7 +31,7 @@ const gallery2 = Array(5).fill(carousel2[0])
         arrows
         indicators
         :ui="{
-          container: 'rounded-3xl',
+          container: 'rounded-3xl gap-4',
           indicators: {
             wrapper: 'justify-end',
             base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
@@ -154,12 +154,16 @@ const gallery2 = Array(5).fill(carousel2[0])
       position: relative;
       border-radius: 24px;
 
+      @media (max-width: 1700px) {
+        max-width: 45vw;
+      }
+
       img {
         border-radius: 24px;
       }
 
       .text {
-        max-width: calc(100% - 34px);
+        max-width: 26vw;
         position: absolute;
         bottom: 40px;
         left: 40px;
@@ -169,7 +173,7 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         h4 {
           margin-bottom: 12px;
-          font-size: 1.875rem;
+          font-size: 27px;
           font-weight: bold;
         }
 
@@ -182,8 +186,23 @@ const gallery2 = Array(5).fill(carousel2[0])
   }
 }
 
+@media (max-width: 1200px) {
+  .wrapper .carousel .item .text {
+    h4 {
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+}
+
 @media (max-width: 800px) {
-  /*TODO: сделать нормальный адаптив */
+  h1 {
+    text-align: center;
+  }
+
   .wrapper {
     flex-direction: column;
 
@@ -193,7 +212,7 @@ const gallery2 = Array(5).fill(carousel2[0])
       margin: 0 auto;
 
       .item {
-        width: 42%;
+        max-width: 92vw;
 
         img {
           width: 100%;
@@ -202,6 +221,7 @@ const gallery2 = Array(5).fill(carousel2[0])
         }
 
         .text {
+          max-width: 85%;
           bottom: 17px;
           left: 17px;
           padding: 0;
@@ -217,10 +237,6 @@ const gallery2 = Array(5).fill(carousel2[0])
         }
       }
     }
-  }
-
-  h1 {
-    text-align: center;
   }
 }
 </style>
