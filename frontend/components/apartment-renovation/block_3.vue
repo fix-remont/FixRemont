@@ -69,6 +69,19 @@ let elementContent = [
   align-items: center;
   justify-content: space-between;
   margin-bottom: 3rem;
+
+  @media (max-width: 1200px) {
+    gap: 8rem;
+
+    button {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .left {
@@ -97,13 +110,32 @@ let elementContent = [
   display: flex;
   flex-direction: column;
   gap: 2em;
+
+  @media (max-width: 1400px) {
+    .element h4 {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 900px) {
+    width: 100%;
+
+    .element {
+      text-align: center;
+
+      h4 {
+        width: 100%;
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
 }
 
 @media (max-width: 800px) {
-  .upper {
-    flex-direction: column;
-  }
-
   .title {
     font-size: 40px;
   }
@@ -124,23 +156,6 @@ let elementContent = [
 
       a {
         width: 100%;
-      }
-    }
-  }
-
-  .right {
-    width: 100%;
-
-    .element {
-      text-align: center;
-
-      h4 {
-        width: 100%;
-        font-size: 24px;
-      }
-
-      p {
-        font-size: 16px;
       }
     }
   }
