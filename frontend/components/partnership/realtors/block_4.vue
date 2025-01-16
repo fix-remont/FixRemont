@@ -193,6 +193,17 @@ const infoCheckboxes = [
     @media (max-width: 640px) {
       display: none;
     }
+    @media (max-width: 1200px) {
+      right: -135px;
+      bottom: -15px;
+    }
+    @media (max-width: 1400px) {
+      bottom: -5px;
+    }
+
+    @media (max-width: 1700px) {
+      right: -180px;
+    }
   }
 }
 </style>
