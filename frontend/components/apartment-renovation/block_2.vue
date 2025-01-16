@@ -78,12 +78,18 @@ const comments = Array(7).fill(commentsRaw[0])
     text-align: center;
   }
 
+  .wrapper {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
   .comment-box {
+    max-width: 94vw;
     display: flex;
     justify-content: center;
     align-items: center;
     img {
-      width: 90%;
+      width: 100%;
     }
   }
 }
