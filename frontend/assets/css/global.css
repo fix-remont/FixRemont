@@ -42,6 +42,7 @@ a {
 
 #app {
   max-width: 1920px;
+  /* min-width: 320px; */
   min-height: 100dvh;
   margin-left: auto;
   margin-right: auto;

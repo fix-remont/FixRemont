@@ -11,7 +11,9 @@ type paths = ['portfolio', 'contacts']
 const labels = {
   portfolio: 'Портфолио',
   contacts: 'Контакты',
-  about_company: 'О компании'
+  about_company: 'О компании',
+  blog: 'Блог',
+  'feedback-from-clients': 'Отзывы'
 }
 /////////////////////////////////////////
 

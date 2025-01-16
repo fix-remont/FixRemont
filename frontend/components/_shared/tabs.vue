@@ -21,15 +21,23 @@ watch(selectedIndex, (index) => emit('selectedTabIndex', index))
 
 <template>
   <article>
-    <div class="tabs-container sm:gap10 mb-10 flex gap-5 sm:mb-16">
+    <UCarousel
+      class="tabs-container sm:gap10 mb-10 flex gap-5 sm:mb-16"
+      v-slot="{ item, index }"
+      :items="tabs"
+    >
       <div
-        v-for="(tab, index) in tabs"
-        :class="['tab', 'radius-glob', { hover: !tab.selected }, { 'tab-selected': tab.selected }]"
+        :class="[
+          'tab',
+          'radius-glob',
+          { hover: !item.selected },
+          { 'tab-selected': item.selected }
+        ]"
         @click="selectedIndex = index"
       >
-        {{ tab.label }}
+        {{ item.label }}
       </div>
-    </div>
+    </UCarousel>
   </article>
 </template>
 

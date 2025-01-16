@@ -112,7 +112,9 @@ const videos = Array(4).fill(videosRaw[0])
     </UCarousel>
   </div>
   <div class="margin-glob">
-    <SharedButton>Смотреть все отзывы</SharedButton>
+    <UButton class="hover py-6 text-lg" to="/feedback-from-clients" color="white" block
+      >Смотреть все отзывы</UButton
+    >
   </div>
 </template>
 

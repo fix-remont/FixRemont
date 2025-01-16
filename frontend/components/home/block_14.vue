@@ -35,18 +35,6 @@ const items = [
         <UCarousel
           class="carousel"
           :items="items"
-          :ui="{
-            container: 'gap-[9px] sm:gap-[50px] w-full sm:w-[initial]',
-            indicators: {
-              wrapper: 'justify-end',
-              base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
-              active: 'bg-[var(--c-black)]',
-              inactive: 'bg-[var(--c-gray)]'
-            },
-            arrows: {
-              wrapper: 'flex gap-2 justify-start mt-2'
-            }
-          }"
           :arrows="width <= 640"
           :indicators="width <= 640"
         >
@@ -55,45 +43,40 @@ const items = [
               <img class="img" :src="item.img" alt="img" />
               <div class="content">
                 <div class="remont hover">Ремонт</div>
-                <div class="text">{{ item.text }}</div>
+                <NuxtLink class="text" to="/blog/test_id">{{ item.text }}</NuxtLink>
               </div>
             </div>
           </template>
 
           <template #prev="{ onClick, disabled }">
-            <img
-              :class="[
-                'arrow cursor-pointer',
-                'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
-                { 'opacity-60': disabled }
-              ]"
-              src="/images/arrow-prev.svg"
-              @click="onClick"
-              draggable="false"
-            />
+            <SharedArrowPrevCarousel :onClick="onClick" :disabled="disabled" />
           </template>
 
           <template #next="{ onClick, disabled }">
-            <img
-              :class="[
-                'arrow cursor-pointer',
-                'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
-                { 'opacity-60': disabled }
-              ]"
-              src="/images/arrow-next.svg"
-              @click="onClick"
-              draggable="false"
-            />
+            <SharedArrowNextCarousel :onClick="onClick" :disabled="disabled" />
           </template>
         </UCarousel>
-        <SharedButton>Перейти в блог</SharedButton>
+        <UButton
+          class="hover py-2 text-base sm:py-5 sm:text-2xl"
+          to="/blog"
+          color="white"
+          block
+          size="xl"
+          >Перейти в блог</UButton
+        >
       </div>
       <div class="youtube-wrapper">
         <div class="video-wrapper">
           <img class="img" src="/images/home/block_14_for-video.png" alt="" />
           <img class="icon hover" src="/icons/play-button.svg" alt="icon" />
         </div>
-        <SharedButton youtube>Перейти в YouTube</SharedButton>
+        <UButton
+          class="hover bg-[var(--c-white)] py-2 text-base text-red-600 ring-2 ring-red-600 focus:bg-[var(--c-white)] sm:py-5 sm:text-2xl"
+          color="red"
+          block
+          size="xl"
+          >Перейти в YouTube</UButton
+        >
       </div>
     </div>
   </div>

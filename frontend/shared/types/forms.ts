@@ -18,5 +18,14 @@ export const ConsultationFormSchema = z.object({
   messenger: z.string({ required_error: 'Обязательное поле' })
 })
 
+export const ConsultationFormFromBlogSchema = z.object({
+  phone: phoneShema,
+  messenger: z.string({ required_error: 'Обязательное поле' }),
+  isAgree: z
+    .boolean()
+    .refine((value) => value === true, { message: 'Вы должны согласиться с условиями' })
+})
+
 export type FeedBackForm = z.infer<typeof FeedBackFormschema>
 export type ConsultationForm = z.infer<typeof ConsultationFormSchema>
+export type ConsultationFormFromBlog = z.infer<typeof ConsultationFormFromBlogSchema>

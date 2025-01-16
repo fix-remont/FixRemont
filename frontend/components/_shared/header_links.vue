@@ -3,9 +3,10 @@ const open = ref(false)
 
 const items = [
   [
+    { label: 'О компании', link: '/about_company' },
     { label: 'Наши объекты', link: '/portfolio' },
-    { label: 'Контакты', link: '/contacts' },
-    { label: 'О компании', link: '/about_company' }
+    { label: 'Блог', link: '/blog' },
+    { label: 'Контакты', link: '/contacts' }
   ]
 ]
 </script>

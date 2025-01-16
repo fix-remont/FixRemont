@@ -3,16 +3,12 @@
 <template>
   <NuxtLayout>
     <SharedBreadCrumbs />
-    <AboutCompanyBlock1 />
-    <HomeBlock13 />
-    <AboutCompanyBlock2 />
-    <AboutCompanyBlock3 />
-    <AboutCompanyBlock4 />
+    <PortfolioBlock1 />
     <HomeBlock10 />
     <HomeBlock11 />
-    <HomeBlock5 />
-    <HomeBlock12 />
     <PortfolioBlock2 />
     <HomeBlock16 />
   </NuxtLayout>
 </template>
+
+<style scoped></style>

@@ -244,6 +244,7 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/v
       margin-left: auto;
       margin-right: auto;
       font-size: 10px;
+      text-align: center;
     }
   }
 }
