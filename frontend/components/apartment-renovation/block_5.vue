@@ -92,6 +92,11 @@ const gallery = Array(5).fill(items[0])
 </template>
 
 <style scoped>
+/* === Общие базовые стили === */
+.container {
+  padding: 2rem;
+}
+
 .titles {
   display: flex;
   flex-direction: column;
@@ -99,78 +104,107 @@ const gallery = Array(5).fill(items[0])
   margin-bottom: 3rem;
 }
 
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.highlight {
+  color: var(--c-orange);
+}
+
+/* === Галерея === */
 .gallery-box {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  div {
-    border-radius: 24px;
-  }
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .text-part {
   width: 35%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2rem;
   padding: 20px;
+}
 
-  h4 {
-    color: var(--c-black);
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 1.2;
-  }
+.text-part h4 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
-  ul {
-    list-style-type: disc;
-  }
+.text-part ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
 
-  li {
-    color: #818181;
-    margin-left: 20px;
-    width: 80%;
-    margin-bottom: 0.5rem;
-  }
+.text-part li {
+  font-size: 1rem;
+  color: #818181;
+  margin-bottom: 0.5rem;
 }
 
 .img-part {
-  width: 40%;
-  height: 100%;
+  width: calc(35% + 5%);
+  height: auto;
 }
 
-/*TODO: исправить центровку элементов в мобилке*/
+.img-part img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* === Медиа-запросы === */
+
+/* Мобильные устройства */
 @media (max-width: 800px) {
-  .gallery {
-    width: 100%;
+  .gallery-box {
+    flex-direction: column;
   }
 
+  .text-part,
+  .img-part {
+    width: 100%;
+  }
+}
+
+/* Планшеты */
+@media (max-width: 1200px) {
   .gallery-box {
-    display: flex;
+    width: 90vw;
     flex-direction: column;
     gap: 1rem;
-    width: fit-content;
   }
 
   .text-part {
-    order: 1;
-    display: flex;
-    align-items: center;
-
-    h4 {
-      font-size: 24px;
-    }
+    width: 80%;
   }
 
   .img-part {
-    order: 0;
-    object-fit: cover;
+    width: calc(80% + 5%);
+  }
+}
+
+/* Десктопы */
+@media (min-width: 1201px) {
+  .gallery-box {
+    max-width: 93vw;
+    justify-content: space-around;
   }
 
-  .titles {
-    text-align: center;
+  .text-part {
+    width: 35%;
+  }
+
+  .img-part {
+    width: calc(40% + 5%);
   }
 }
 </style>
