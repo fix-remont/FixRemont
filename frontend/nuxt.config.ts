@@ -24,12 +24,7 @@ export default defineNuxtConfig({
   image: {
     format: ['avif', 'webp']
   },
-  modules: [
-    '@nuxtjs/google-fonts',
-    '@nuxt/ui',
-    '@nuxt/image',
-    '@pinia/nuxt'
-  ],
+  modules: ['@nuxtjs/google-fonts', '@nuxt/ui', '@nuxt/image', '@pinia/nuxt'],
   runtimeConfig: {
     public: {
       apiBase: 'http://158.160.151.235:7000'

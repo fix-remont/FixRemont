@@ -45,6 +45,7 @@ const { width } = useViewport()
 $radius: 35px;
 .upper {
   position: relative;
+  background-color: #ffffff;
 }
 
 .content {

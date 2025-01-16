@@ -29,65 +29,65 @@ const gallery = Array(5).fill(items[0])
       <p class="subtitle-glob">3 примера непредвиденного роста затрат:</p>
     </div>
 
-      <UCarousel
-        class="gallery"
-        :items="gallery"
-        arrows
-        indicators
-        :ui="{
-          container: 'gap-5',
-          indicators: {
-            wrapper: 'justify-end',
-            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
-            active: 'bg-[var(--c-black)]',
-            inactive: 'bg-[var(--c-gray)]'
-          },
-          arrows: {
-            wrapper: 'flex gap-2 justify-start mt-2'
-          }
-        }"
-      >
-        <template #default="{ item }">
-          <div class="gallery-box">
-            <div class="text-part">
-              <h4>{{ item.title }}</h4>
-              <ul>
-                <li v-for="(point, index) in item.points" :key="index">{{ point }}</li>
-              </ul>
-              <h4><span class="orange">Итог: </span> {{ item.final }}</h4>
-            </div>
-            <div class="img-part">
-              <img :src="item.image" alt="img" draggable="false" />
-            </div>
+    <UCarousel
+      class="gallery"
+      :items="gallery"
+      arrows
+      indicators
+      :ui="{
+        container: 'gap-5',
+        indicators: {
+          wrapper: 'justify-end',
+          base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
+          active: 'bg-[var(--c-black)]',
+          inactive: 'bg-[var(--c-gray)]'
+        },
+        arrows: {
+          wrapper: 'flex gap-2 justify-start mt-2'
+        }
+      }"
+    >
+      <template #default="{ item }">
+        <div class="gallery-box">
+          <div class="text-part">
+            <h4>{{ item.title }}</h4>
+            <ul>
+              <li v-for="(point, index) in item.points" :key="index">{{ point }}</li>
+            </ul>
+            <h4><span class="orange">Итог: </span> {{ item.final }}</h4>
           </div>
-        </template>
+          <div class="img-part">
+            <img :src="item.image" alt="img" draggable="false" />
+          </div>
+        </div>
+      </template>
 
-        <template #prev="{ onClick, disabled }">
-          <img
-            :class="[
-              'arrow cursor-pointer',
-              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
-              { 'opacity-60': disabled }
-            ]"
-            src="/images/arrow-prev.svg"
-            @click="onClick"
-            draggable="false"
-          />
-        </template>
+      <template #prev="{ onClick, disabled }">
+        <img
+          :class="[
+            'arrow cursor-pointer',
+            'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+            { 'opacity-60': disabled }
+          ]"
+          src="/images/arrow-prev.svg"
+          @click="onClick"
+          draggable="false"
+        />
+      </template>
 
-        <template #next="{ onClick, disabled }">
-          <img
-            :class="[
-              'arrow cursor-pointer',
-              'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
-              { 'opacity-60': disabled }
-            ]"
-            src="/images/arrow-next.svg"
-            @click="onClick"
-            draggable="false"
-          />
-        </template>
-      </UCarousel>
+      <template #next="{ onClick, disabled }">
+        <img
+          :class="[
+            'arrow cursor-pointer',
+            'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
+            { 'opacity-60': disabled }
+          ]"
+          src="/images/arrow-next.svg"
+          @click="onClick"
+          draggable="false"
+        />
+      </template>
+    </UCarousel>
   </div>
 </template>
 
@@ -146,7 +146,6 @@ const gallery = Array(5).fill(items[0])
   .gallery {
     width: 100%;
   }
-
 
   .gallery-box {
     display: flex;
