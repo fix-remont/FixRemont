@@ -5,6 +5,7 @@ const items = [
   [
     { label: 'О компании', link: '/about_company' },
     { label: 'Наши объекты', link: '/portfolio' },
+    { label: 'Отзывы', link: '/feedback-from-clients' },
     { label: 'Блог', link: '/blog' },
     { label: 'Контакты', link: '/contacts' }
   ]
