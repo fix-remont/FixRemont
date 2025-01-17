@@ -99,24 +99,54 @@ class ArticleSchema(BaseModel):
         from_attributes = True
 
 
+# class PortfolioPostSchema(BaseModel):
+#     id: int
+#     title: str
+#     deadline: str
+#     cost: int
+#     square: int
+#     project_type: ProjectTypeSchema
+#     preview_image: str
+#     main_image: str
+#     result_image: str
+#     description: Optional[List[Optional[ArticleSchema]]] = None
+#     task: str
+#     result_video: str
+#     client_video: str
+#
+#     class Config:
+#         from_attributes = True
+#         orm_mode = True
+
+
+class PortfolioPostVideoSchema(BaseModel):
+    id: int
+    duration: str
+    link: str
+    portfolio_post_id: Optional[int]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
 class PortfolioPostSchema(BaseModel):
     id: int
     title: str
-    deadline: str
-    cost: int
-    square: int
-    project_type: ProjectTypeSchema
-    preview_image: str
-    main_image: str
-    result_image: str
-    description: Optional[List[Optional[ArticleSchema]]] = None
-    task: str
-    result_video: str
-    client_video: str
+    img_main: str
+    img_result: str
+    price_amount: str
+    object_area: str
+    work_completion_time: str
+    type_of_work: ProjectTypeSchema
+    texts: Optional[List[str]] = None
+    images: Optional[List[str]] = None
+    overview: Optional[str] = None
+    videos: Optional[List[PortfolioPostVideoSchema]] = None
 
     class Config:
-        from_attributes = True
         orm_mode = True
+        from_attributes = True
 
 
 class PostSchema(BaseModel):

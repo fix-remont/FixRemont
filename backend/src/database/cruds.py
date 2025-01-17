@@ -1287,6 +1287,7 @@ def get_blogs(db: AsyncSession):
 
     return blog_list
 
+
 # Get a single blog by ID
 def get_blog(id: int, db: AsyncSession):
     result = db.execute(select(models.Blog).where(models.Blog.id == id))
@@ -1419,3 +1420,98 @@ def create_blog_paragraph(blog_paragraph: schemas.BlogParagraphSchema, db: Async
     db.commit()
     db.refresh(new_blog_paragraph)
     return new_blog_paragraph
+
+
+def get_portfolio_posts(db: AsyncSession):
+    result = db.execute(select(models.PortfolioPost))
+    portfolio_posts = result.scalars().all()
+
+    portfolio_posts_list = []
+    for portfolio_post in portfolio_posts:
+        portfolio_posts_list.append({
+            "id": portfolio_post.id,
+            "title": portfolio_post.title,
+            "img_main": portfolio_post.img_main,
+            "img_result": portfolio_post.img_result,
+            "price_amount": portfolio_post.price_amount,
+            "object_area": portfolio_post.object_area,
+            "work_completion_time": portfolio_post.work_completion_time,
+            "type_of_work": portfolio_post.project_type,
+            "texts": portfolio_post.texts,
+            "images": portfolio_post.images,
+            "overview": portfolio_post.overview,
+            "videos": portfolio_post.videos,
+        })
+
+    return portfolio_posts_list
+
+
+def get_portfolio_post(id: int, db: AsyncSession):
+    result = db.execute(select(models.PortfolioPost).where(models.PortfolioPost.id == id))
+    portfolio_post = result.scalars().first()
+    if portfolio_post is None:
+        raise HTTPException(status_code=404, detail="PortfolioPost not found")
+
+    portfolio_post_response = {
+        "id": portfolio_post.id,
+        "title": portfolio_post.title,
+        "img_main": portfolio_post.img_main,
+        "img_result": portfolio_post.img_result,
+        "price_amount": portfolio_post.price_amount,
+        "object_area": portfolio_post.object_area,
+        "work_completion_time": portfolio_post.work_completion_time,
+        "type_of_work": portfolio_post.project_type,
+        "texts": portfolio_post.texts,
+        "images": portfolio_post.images,
+        "overview": portfolio_post.overview,
+        "videos": portfolio_post.videos,
+    }
+
+    return portfolio_post_response
+
+
+def create_portfolio_post(portfolio_post: schemas.PortfolioPostSchema, db: AsyncSession):
+    new_portfolio_post = models.PortfolioPost(
+        title=portfolio_post.title,
+        img_main=portfolio_post.img_main,
+        img_result=portfolio_post.img_result,
+        price_amount=portfolio_post.price_amount,
+        object_area=portfolio_post.object_area,
+        work_completion_time=portfolio_post.work_completion_time,
+        type_of_work=portfolio_post.type_of_work,
+        texts=portfolio_post.texts,
+        images=portfolio_post.images,
+        project_type_id=portfolio_post.project_type_id
+    )
+    db.add(new_portfolio_post)
+    db.commit()
+    db.refresh(new_portfolio_post)
+    return new_portfolio_post
+
+
+def create_portfolio_post_video(portfolio_post_video: schemas.PortfolioPostVideoSchema, db: AsyncSession):
+    new_portfolio_post_video = models.PortfolioPostVideo(
+        duration=portfolio_post_video.duration,
+        link=portfolio_post_video.link,
+        portfolio_post_id=portfolio_post_video.portfolio_post_id
+    )
+    db.add(new_portfolio_post_video)
+    db.commit()
+    db.refresh(new_portfolio_post_video)
+    return new_portfolio_post_video
+
+
+def create_directory_for_last_portfolio_post_id(db: AsyncSession, base_path):
+    last_id = get_last_portfolio_post_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_portfolio_post_id(db: AsyncSession):
+    result = db.execute(select(models.PortfolioPost.id).order_by(models.PortfolioPost.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id

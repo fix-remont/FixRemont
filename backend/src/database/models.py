@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import os
 from fastapi_storages import FileSystemStorage
 from fastapi_storages.integrations.sqlalchemy import FileType
+from sqlalchemy import JSON
 
 Base = declarative_base()
 pwd_context = CryptContext(schemes=["bcrypt", "argon2", "pbkdf2_sha256"], deprecated="auto")
@@ -24,7 +25,7 @@ class ProjectType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    works = relationship("Work", back_populates="project_type")
+    portfolio_posts = relationship("PortfolioPost", back_populates="project_type")
 
     def __str__(self):
         return self.name
@@ -74,8 +75,8 @@ class Work(Base):
     __tablename__ = 'works'
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
-    project_type_id = Column(Integer, ForeignKey('project_type.id'))
-    project_type = relationship("ProjectType", back_populates="works")
+    # project_type_id = Column(Integer, ForeignKey('project_type.id'))
+    # project_type = relationship("ProjectType", back_populates="works")
     deadline = Column(String)
     cost = Column(Integer)
     square = Column(Integer)
@@ -423,6 +424,43 @@ class Blog(Base):
     def __repr__(self):
         return self.title
 
+
+class PortfolioPostVideo(Base):
+    __tablename__ = 'portfolio_post_videos'
+    id = Column(Integer, primary_key=True, index=True)
+    duration = Column(String)
+    link = Column(String)
+    portfolio_post_id = Column(Integer, ForeignKey('portfolio_posts.id'))
+    portfolio_post = relationship("PortfolioPost", back_populates="videos")
+
+    def __str__(self):
+        return "Видео " + str(self.id)
+
+    def __repr__(self):
+        return "Видео " + str(self.id)
+
+
+class PortfolioPost(Base):
+    __tablename__ = 'portfolio_posts'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    img_main = Column(String)
+    img_result = Column(String)
+    price_amount = Column(String)
+    object_area = Column(String)
+    work_completion_time = Column(String)
+    project_type_id = Column(Integer, ForeignKey('project_type.id'))
+    project_type = relationship("ProjectType", back_populates="portfolio_posts")
+    texts = Column(ARRAY(String), nullable=True)
+    images = Column(ARRAY(String), nullable=True)
+    overview = Column(String, nullable=True)
+    videos = relationship("PortfolioPostVideo", back_populates="portfolio_post")
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
 
 
 load_dotenv()

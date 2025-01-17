@@ -392,7 +392,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from fastapi_storages import FileSystemStorage
 from src.database.schemas import PostTypeEnum, PortfolioPostSchema, ProjectTypeSchema, ArticleSchema, \
-    ContractNotificationStatusEnum
+    ContractNotificationStatusEnum, PortfolioPostVideoSchema
 import aiofiles
 
 db = get_db()
@@ -557,125 +557,125 @@ class PostAdmin(ModelView, model=Post):
         await create_post(post_data, get_db())
 
 
-class WorkAdmin(ModelView, model=Work):
-    name = "Портфолио"
-    name_plural = "Портфолио"
-    icon = "fa-solid fa-building-circle-check"
-    column_list = [Work.title, Work.project_type, Work.deadline, Work.cost, Work.square, Work.task, Work.description,
-                   Work.result_video, Work.client_video, Work.preview_image, Work.main_image, Work.result_image]
-    column_searchable_list = [Work.title]
-    column_filters = [Work.project_type]
-    column_sortable_list = [Work.id, Work.title, Work.cost, Work.square, Work.deadline]
-    can_create = True
-    can_edit = True
-    can_delete = True
-    column_labels = dict(title="Заголовок", project_type="Тип проекта", deadline="Дедлайн", cost="Стоимость",
-                         square="Площадь", task="Задача", description="Описание", id="ID",
-                         project_type_id="Тип проекта", result_video="Видео результата", client_video="Видео клиента",
-                         preview_image="Превью", main_image="Главное изображение",
-                         result_image="Изображение результата")
-
-    form_overrides = {
-        'preview_image': FileField,
-        'main_image': FileField,
-        'result_image': FileField,
-    }
-
-    column_formatters = {
-        'preview_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.preview_image}" width="100" />') if m.preview_image else 'Вложение отсутствует',
-        'main_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.main_image}" width="100" />') if m.main_image else 'Вложение отсутствует',
-        'result_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.result_image}" width="100" />') if m.result_image else 'Вложение отсутствует',
-        'project_type_id': lambda m, p: m.project_type.name,
-        'description': lambda m, p: Markup(
-            ''.join(
-                f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
-                for article in m.description
-            ) if m.description else 'Описание отсутствует'),
-        'task': lambda m, p: Markup(
-            f'<p>{m.task[:30]}...</p>' if len(m.task) > 30 else f'<p>{m.task}</p>'
-        )
-    }
-
-    column_formatters_detail = {
-        'preview_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.preview_image}" width="100" />') if m.preview_image else 'Вложение отсутствует',
-        'main_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.main_image}" width="100" />') if m.main_image else 'Вложение отсутствует',
-        'result_image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.result_image}" width="100" />') if m.result_image else 'Вложение отсутствует',
-        'project_type_id': lambda m, p: m.project_type.name,
-        'description': lambda m, p: Markup(
-            ''.join(
-                f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
-                for article in m.description
-            ) if m.description else 'Описание отсутствует'),
-
-        'task': lambda m, p: Markup(
-            f'<p style="display: inline-block; max-width: 300px; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; margin: 0; padding: 0;" id="task-{m.id}">{m.task}</p>'
-            f'<script>'
-            f'  const taskElement = document.getElementById("task-{m.id}");'
-            f'  let text = taskElement.innerText;'
-            f'  let breakPoint = 70;'
-            f'  while (breakPoint < text.length) {{'
-            f'    const spaceIndex = text.lastIndexOf(" ", breakPoint);'
-            f'    if (spaceIndex !== -1) {{'
-            f'      text = text.slice(0, spaceIndex) + "<wbr>" + text.slice(spaceIndex + 1);'
-            f'      breakPoint = spaceIndex + 71;'
-            f'    }} else {{'
-            f'      breakPoint += 70;'
-            f'    }}'
-            f'  }}'
-            f'  taskElement.innerHTML = text;'
-            f'</script>'
-        )
-    }
-
-    async def on_model_change(self, data, model, is_created, request):
-        preview_image = data.get('preview_image')
-        main_image = data.get('main_image')
-        result_image = data.get('result_image')
-        current_dir = create_directory_for_last_work_id(get_db(), PATH + "/portfolio/") + "/"
-
-        preview_image_path = os.path.join(current_dir, preview_image.filename)
-        async with aiofiles.open(preview_image_path, mode='wb+') as out_file:
-            while content := await preview_image.read(1024):
-                await out_file.write(content)
-
-        main_image_path = os.path.join(current_dir, main_image.filename)
-        async with aiofiles.open(main_image_path, mode='wb+') as out_file:
-            while content := await main_image.read(1024):
-                await out_file.write(content)
-
-        result_image_path = os.path.join(current_dir, result_image.filename)
-        async with aiofiles.open(result_image_path, mode='wb+') as out_file:
-            while content := await result_image.read(1024):
-                await out_file.write(content)
-
-        description = data.get('description')
-        articles = []
-        for block in description:
-            key, value = block.split(":")
-            articles.append(ArticleSchema(title=key.strip(), body=value.strip()))
-
-        work_data = PortfolioPostSchema(
-            id=0,
-            title=data.get('title'),
-            project_type=get_project_type_by_id(db, data.get('project_type')),
-            deadline=data.get('deadline'),
-            cost=data.get('cost'),
-            square=data.get('square'),
-            task=data.get('task'),
-            description=articles,
-            preview_image=preview_image_path,
-            main_image=main_image_path,
-            result_image=result_image_path,
-            result_video=data.get('result_video'),
-            client_video=data.get('client_video')
-        )
-        await create_portfolio_post(work_data, get_db())
+# class WorkAdmin(ModelView, model=Work):
+#     name = "Портфолио"
+#     name_plural = "Портфолио"
+#     icon = "fa-solid fa-building-circle-check"
+#     column_list = [Work.title, Work.project_type, Work.deadline, Work.cost, Work.square, Work.task, Work.description,
+#                    Work.result_video, Work.client_video, Work.preview_image, Work.main_image, Work.result_image]
+#     column_searchable_list = [Work.title]
+#     column_filters = [Work.project_type]
+#     column_sortable_list = [Work.id, Work.title, Work.cost, Work.square, Work.deadline]
+#     can_create = True
+#     can_edit = True
+#     can_delete = True
+#     column_labels = dict(title="Заголовок", project_type="Тип проекта", deadline="Дедлайн", cost="Стоимость",
+#                          square="Площадь", task="Задача", description="Описание", id="ID",
+#                          project_type_id="Тип проекта", result_video="Видео результата", client_video="Видео клиента",
+#                          preview_image="Превью", main_image="Главное изображение",
+#                          result_image="Изображение результата")
+#
+#     form_overrides = {
+#         'preview_image': FileField,
+#         'main_image': FileField,
+#         'result_image': FileField,
+#     }
+#
+#     column_formatters = {
+#         'preview_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.preview_image}" width="100" />') if m.preview_image else 'Вложение отсутствует',
+#         'main_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.main_image}" width="100" />') if m.main_image else 'Вложение отсутствует',
+#         'result_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.result_image}" width="100" />') if m.result_image else 'Вложение отсутствует',
+#         'project_type_id': lambda m, p: m.project_type.name,
+#         'description': lambda m, p: Markup(
+#             ''.join(
+#                 f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
+#                 for article in m.description
+#             ) if m.description else 'Описание отсутствует'),
+#         'task': lambda m, p: Markup(
+#             f'<p>{m.task[:30]}...</p>' if len(m.task) > 30 else f'<p>{m.task}</p>'
+#         )
+#     }
+#
+#     column_formatters_detail = {
+#         'preview_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.preview_image}" width="100" />') if m.preview_image else 'Вложение отсутствует',
+#         'main_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.main_image}" width="100" />') if m.main_image else 'Вложение отсутствует',
+#         'result_image': lambda m, p: Markup(
+#             f'<img src="data:image/png;base64,{m.result_image}" width="100" />') if m.result_image else 'Вложение отсутствует',
+#         'project_type_id': lambda m, p: m.project_type.name,
+#         'description': lambda m, p: Markup(
+#             ''.join(
+#                 f"<b>{article.split(':')[0]}</b> <br> <p>{article.split(':')[1]}</p>"
+#                 for article in m.description
+#             ) if m.description else 'Описание отсутствует'),
+#
+#         'task': lambda m, p: Markup(
+#             f'<p style="display: inline-block; max-width: 300px; word-wrap: break-word; overflow-wrap: break-word; hyphens: auto; margin: 0; padding: 0;" id="task-{m.id}">{m.task}</p>'
+#             f'<script>'
+#             f'  const taskElement = document.getElementById("task-{m.id}");'
+#             f'  let text = taskElement.innerText;'
+#             f'  let breakPoint = 70;'
+#             f'  while (breakPoint < text.length) {{'
+#             f'    const spaceIndex = text.lastIndexOf(" ", breakPoint);'
+#             f'    if (spaceIndex !== -1) {{'
+#             f'      text = text.slice(0, spaceIndex) + "<wbr>" + text.slice(spaceIndex + 1);'
+#             f'      breakPoint = spaceIndex + 71;'
+#             f'    }} else {{'
+#             f'      breakPoint += 70;'
+#             f'    }}'
+#             f'  }}'
+#             f'  taskElement.innerHTML = text;'
+#             f'</script>'
+#         )
+#     }
+#
+#     async def on_model_change(self, data, model, is_created, request):
+#         preview_image = data.get('preview_image')
+#         main_image = data.get('main_image')
+#         result_image = data.get('result_image')
+#         current_dir = create_directory_for_last_work_id(get_db(), PATH + "/portfolio/") + "/"
+#
+#         preview_image_path = os.path.join(current_dir, preview_image.filename)
+#         async with aiofiles.open(preview_image_path, mode='wb+') as out_file:
+#             while content := await preview_image.read(1024):
+#                 await out_file.write(content)
+#
+#         main_image_path = os.path.join(current_dir, main_image.filename)
+#         async with aiofiles.open(main_image_path, mode='wb+') as out_file:
+#             while content := await main_image.read(1024):
+#                 await out_file.write(content)
+#
+#         result_image_path = os.path.join(current_dir, result_image.filename)
+#         async with aiofiles.open(result_image_path, mode='wb+') as out_file:
+#             while content := await result_image.read(1024):
+#                 await out_file.write(content)
+#
+#         description = data.get('description')
+#         articles = []
+#         for block in description:
+#             key, value = block.split(":")
+#             articles.append(ArticleSchema(title=key.strip(), body=value.strip()))
+#
+#         work_data = PortfolioPostSchema(
+#             id=0,
+#             title=data.get('title'),
+#             project_type=get_project_type_by_id(db, data.get('project_type')),
+#             deadline=data.get('deadline'),
+#             cost=data.get('cost'),
+#             square=data.get('square'),
+#             task=data.get('task'),
+#             description=articles,
+#             preview_image=preview_image_path,
+#             main_image=main_image_path,
+#             result_image=result_image_path,
+#             result_video=data.get('result_video'),
+#             client_video=data.get('client_video')
+#         )
+#         await create_portfolio_post(work_data, get_db())
 
 
 class NotificationAdmin(ModelView, model=Notification):
@@ -1210,3 +1210,117 @@ class BlogParagraphAdmin(ModelView, model=BlogParagraph):
     can_edit = True
     can_delete = True
     column_labels = dict(id="ID", title="Заголовок", items="Элементы", blog_block="Блок блога")
+
+
+class PortfolioPostAdmin(ModelView, model=PortfolioPost):
+    name = "Портфолио"
+    name_plural = "Портфолио"
+    icon = "fa-solid fa-building-circle-check"
+    column_list = [
+        PortfolioPost.id, PortfolioPost.title, PortfolioPost.img_main, PortfolioPost.img_result,
+        PortfolioPost.price_amount, PortfolioPost.object_area, PortfolioPost.work_completion_time,
+        PortfolioPost.project_type, PortfolioPost.texts, PortfolioPost.images, PortfolioPost.videos, PortfolioPost.overview
+    ]
+    column_searchable_list = [PortfolioPost.title]
+    column_filters = [PortfolioPost.project_type]
+    column_sortable_list = [PortfolioPost.id, PortfolioPost.title, PortfolioPost.price_amount,
+                            PortfolioPost.object_area, PortfolioPost.work_completion_time]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = {
+        "title": "Заголовок", "img_main": "Главное изображение", "img_result": "Изображение результата",
+        "price_amount": "Стоимость", "object_area": "Площадь объекта",
+        "work_completion_time": "Время завершения работы",
+        "project_type": "Тип проекта", "texts": "Тексты", "images": "Изображения", "videos": "Видео"
+    }
+
+    form_overrides = {
+        'img_main': FileField,
+        'img_result': FileField,
+        'images': MultipleFileField,
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        img_main = data.get('img_main')
+        img_result = data.get('img_result')
+        images = data.get('images')
+        current_dir = create_directory_for_last_portfolio_post_id(get_db(), PATH + "/portfolio/") + "/"
+
+        if img_main:
+            img_main_path = os.path.join(current_dir, img_main.filename)
+            async with aiofiles.open(img_main_path, mode='wb+') as out_file:
+                while content := await img_main.read(1024):
+                    await out_file.write(content)
+            data['img_main'] = img_main_path
+
+        if img_result:
+            img_result_path = os.path.join(current_dir, img_result.filename)
+            async with aiofiles.open(img_result_path, mode='wb+') as out_file:
+                while content := await img_result.read(1024):
+                    await out_file.write(content)
+            data['img_result'] = img_result_path
+
+        if images:
+            images_paths = []
+            for image in images:
+                image_path = os.path.join(current_dir, image.filename)
+                async with aiofiles.open(image_path, mode='wb+') as out_file:
+                    while content := await image.read(1024):
+                        await out_file.write(content)
+                images_paths.append(image_path)
+            data['images'] = images_paths
+
+        # portfolio_post_data = PortfolioPostSchema(
+        #     id=0,
+        #     title=data.get('title'),
+        #     img_main=data.get('img_main'),
+        #     img_result=data.get('img_result'),
+        #     price_amount=data.get('price_amount'),
+        #     object_area=data.get('object_area'),
+        #     work_completion_time=data.get('work_completion_time'),
+        #     project_type_id=data.get('project_type_id'),
+        #     texts=data.get('texts'),
+        #     images=data.get('images'),
+        #     videos=data.get('videos')
+        # )
+        # create_portfolio_post(portfolio_post_data, get_db())
+
+
+class PortfolioPostVideoAdmin(ModelView, model=PortfolioPostVideo):
+    name = "Видео портфолио"
+    name_plural = "Видео портфолио"
+    icon = "fa-solid fa-video"
+    column_list = [
+        PortfolioPostVideo.id, PortfolioPostVideo.duration, PortfolioPostVideo.link, PortfolioPostVideo.portfolio_post
+    ]
+    column_searchable_list = [PortfolioPostVideo.link]
+    column_sortable_list = [PortfolioPostVideo.id, PortfolioPostVideo.duration]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = {
+        "id": "ID", "duration": "Длительность", "link": "Ссылка", "portfolio_post": "Пост портфолио"
+    }
+
+    form_overrides = {
+        'link': FileField,
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        video_file = data.get('link')
+        if video_file:
+            current_dir = create_directory_for_last_portfolio_post_id(get_db(), PATH + "/portfolio_videos/") + "/"
+            video_path = os.path.join(current_dir, video_file.filename)
+            async with aiofiles.open(video_path, mode='wb+') as out_file:
+                while content := await video_file.read(1024):
+                    await out_file.write(content)
+            data['link'] = video_path
+
+        portfolio_post_video_data = PortfolioPostVideoSchema(
+            id=0,
+            duration=data.get('duration'),
+            link=data.get('link'),
+            portfolio_post_id=data.get('portfolio_post_id')
+        )
+        # create_portfolio_post_video(portfolio_post_video_data, get_db())

@@ -13,13 +13,13 @@ router = APIRouter()
 
 @router.get("/portfolio_posts", response_model=List[PortfolioPostSchema],
             tags=["GET", "Главная", "Портфолио", "Работа из портфолио"])
-async def get_portfolio_posts(db: AsyncSession = Depends(get_db)):
-    return await cruds.get_portfolio_posts(db)
+def get_portfolio_posts(db: AsyncSession = Depends(get_db)):
+    return cruds.get_portfolio_posts(db)
 
 
 @router.post("/portfolio_posts", response_model=PortfolioPostSchema, tags=["fixed"])
-async def create_portfolio_post(portfolio_post: PortfolioPostSchema, db: AsyncSession = Depends(get_db)):
-    return await cruds.create_portfolio_post(portfolio_post, db)
+def create_portfolio_post(portfolio_post: PortfolioPostSchema, db: AsyncSession = Depends(get_db)):
+    return cruds.create_portfolio_post(portfolio_post, db)
 
 
 @router.post("/project_types", response_model=ProjectTypeSchema, tags=["fixed"])
@@ -272,7 +272,6 @@ async def get_communication_types(db: AsyncSession = Depends(get_db)):
 @router.post("/consultations", response_model=ConsultationsListSchema, tags=["Портфолио", "Работа из портфолио"])
 async def create_consultation(consultation: ConsultationsListSchema, db: AsyncSession = Depends(get_db)):
     return cruds.create_consultation(consultation, db)
-
 
 
 @router.get("/blogs", response_model=List[schemas.BlogSchema], tags=["GET", "Blog"])
