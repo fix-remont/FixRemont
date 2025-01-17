@@ -70,14 +70,6 @@
 </template>
 
 <style scoped>
-/*
- .block-choice {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
- */
-
 .titles {
   display: flex;
   flex-direction: column;
@@ -200,11 +192,4 @@
     text-align: center;
   }
 }
-/*
-@media (max-width: 800px) {
-  .choice-title {
-    text-align: center;
-  }
-}
- */
 </style>
