@@ -3,6 +3,7 @@ const open = ref(false)
 
 const items = [
   [
+    { label: 'Услуги', link: '/services' },
     { label: 'О компании', link: '/about_company' },
     { label: 'Наши объекты', link: '/portfolio' },
     { label: 'Отзывы', link: '/feedback-from-clients' },

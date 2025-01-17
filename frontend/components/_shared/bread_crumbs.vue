@@ -13,7 +13,8 @@ const labels = {
   contacts: 'Контакты',
   about_company: 'О компании',
   blog: 'Блог',
-  'feedback-from-clients': 'Отзывы'
+  'feedback-from-clients': 'Отзывы',
+  services: 'Услуги'
 }
 /////////////////////////////////////////
 

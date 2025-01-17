@@ -8,7 +8,7 @@ const items = ref([
     title: 'Ремонт',
     text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    href: 'apartment-renovation',
+    href: '/apartment-renovation',
     hovered: false
   },
   {
@@ -48,7 +48,7 @@ const items = ref([
           </NuxtLink>
         </div>
       </div>
-      <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-2' }">
+      <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-6' }">
         <template #default="{ item }">
           <NuxtLink
             :to="item.href"

@@ -63,7 +63,7 @@ export default defineAppConfig({
       }
     },
     carousel: {
-      container: 'gap-[9px] sm:gap-[50px] w-full sm:w-[initial]',
+      // container: 'gap-[9px] sm:gap-[50px] w-full sm:w-[initial]',
       indicators: {
         wrapper: 'justify-end',
         base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
