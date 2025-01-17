@@ -146,7 +146,7 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -169,7 +169,14 @@
   }
 
   .choice-title {
+    width: 85%;
+  }
+}
+
+@media (max-width: 900px) {
+  .choice-title {
     font-size: 30px;
+    text-align: center;
   }
 
   .reasons {
@@ -193,4 +200,11 @@
     text-align: center;
   }
 }
+/*
+@media (max-width: 800px) {
+  .choice-title {
+    text-align: center;
+  }
+}
+ */
 </style>
