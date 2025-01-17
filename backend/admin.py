@@ -396,7 +396,7 @@ from src.database.schemas import PostTypeEnum, PortfolioPostSchema, ProjectTypeS
 import aiofiles
 
 db = get_db()
-
+# PATH = 'C:/Users/Кирилл/PycharmProjects/FixRemont/tmp'
 PATH = '/var/www/fixremont-uploads/'
 storage = FileSystemStorage(path=PATH)
 
@@ -540,7 +540,7 @@ class PostAdmin(ModelView, model=Post):
             raise ValueError(f"'{post_type_value}' is not a valid PostTypeEnum")
         images = data.get('images')
         images_paths = []
-        current_dir = create_directory_for_last_post_id(get_db(), PATH + "/blog/") + "/"
+        current_dir = create_directory_for_last_post_id(get_db(), PATH + "/post/") + "/"
         for image in images:
             image_path = os.path.join(current_dir, image.filename)
             async with aiofiles.open(image_path, mode='wb+') as out_file:
@@ -1129,3 +1129,84 @@ class ConsultationListAdmin(ModelView, model=ConsultationList):
     column_formatters_detail = {
         'answered': lambda m, p: "Да" if m.answered else "Нет"
     }
+
+
+class BlogAdmin(ModelView, model=Blog):
+    name = "Блог"
+    name_plural = "Блог"
+    icon = "fa-solid fa-newspaper"
+    column_list = [Blog.id, Blog.title, Blog.img_main, Blog.text_main, Blog.blog_blocks]
+    column_searchable_list = [Blog.title]
+    column_sortable_list = [Blog.id, Blog.title]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", title="Заголовок", img_main="Главное изображение", text_main="Основной текст")
+
+    form_overrides = {
+        'img_main': FileField,
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        img_main = data.get('img_main')
+        if img_main:
+            current_dir = create_directory_for_last_blog_id(get_db(), PATH + "/blog/") + "/"
+            img_main_path = os.path.join(current_dir, img_main.filename)
+            async with aiofiles.open(img_main_path, mode='wb+') as out_file:
+                while content := await img_main.read(1024):
+                    await out_file.write(content)
+            data['img_main'] = img_main_path
+
+        blog_data = schemas.BlogSchema(
+            id=0,
+            title=data.get('title'),
+            img_main=data.get('img_main'),
+            text_main=data.get('text_main'),
+            blocks=data.get('blocks')
+        )
+        # create_blog(blog_data, get_db())
+
+
+class BlogBlockAdmin(ModelView, model=BlogBlock):
+    name = "Блок блога"
+    name_plural = "Блоки блога"
+    icon = "fa-solid fa-newspaper"
+    column_list = [BlogBlock.id, BlogBlock.images, BlogBlock.blog, BlogBlock.paragraphs]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", images="Изображения", blog="Блог", paragraphs="Параграфы")
+
+    form_overrides = {
+        'images': MultipleFileField,
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        print(data)
+        images = data.get('images')
+        images_paths = []
+        if images:
+            current_dir = create_directory_for_last_blog_block_id(get_db(), PATH + "/blog_block/") + "/"
+            for image in images:
+                image_path = os.path.join(current_dir, image.filename)
+                async with aiofiles.open(image_path, mode='wb+') as out_file:
+                    while content := await image.read(1024):
+                        await out_file.write(content)
+                images_paths.append(image_path)
+            data['images'] = images_paths
+        # blog_block_data = schemas.BlogBlockSchema(
+        #     images=data.get('images'),
+        #     paragraphs=get_blog_paragraph(int(data.get('paragraphs')), get_db()),
+        # )
+        # create_blog_block(blog_block_data, get_db())
+
+
+class BlogParagraphAdmin(ModelView, model=BlogParagraph):
+    name = "Параграф блога"
+    name_plural = "Параграфы блога"
+    icon = "fa-solid fa-newspaper"
+    column_list = [BlogParagraph.id, BlogParagraph.title, BlogParagraph.items, BlogParagraph.blog_block]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", title="Заголовок", items="Элементы", blog_block="Блок блога")

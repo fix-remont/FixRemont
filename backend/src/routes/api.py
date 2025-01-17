@@ -11,7 +11,8 @@ from src.database.schemas import *
 router = APIRouter()
 
 
-@router.get("/portfolio_posts", response_model=List[PortfolioPostSchema], tags=["GET", "Главная", "Портфолио", "Работа из портфолио"])
+@router.get("/portfolio_posts", response_model=List[PortfolioPostSchema],
+            tags=["GET", "Главная", "Портфолио", "Работа из портфолио"])
 async def get_portfolio_posts(db: AsyncSession = Depends(get_db)):
     return await cruds.get_portfolio_posts(db)
 
@@ -262,7 +263,8 @@ async def get_blog_videos(db: AsyncSession = Depends(get_db)):
     return cruds.get_blog_videos(db)
 
 
-@router.get("/communications_types", response_model=List[CommunicationTypeSchema], tags=["GET", "Портфолио", "Работа из портфолио"])
+@router.get("/communications_types", response_model=List[CommunicationTypeSchema],
+            tags=["GET", "Портфолио", "Работа из портфолио"])
 async def get_communication_types(db: AsyncSession = Depends(get_db)):
     return cruds.get_communication_types(db)
 
@@ -270,3 +272,19 @@ async def get_communication_types(db: AsyncSession = Depends(get_db)):
 @router.post("/consultations", response_model=ConsultationsListSchema, tags=["Портфолио", "Работа из портфолио"])
 async def create_consultation(consultation: ConsultationsListSchema, db: AsyncSession = Depends(get_db)):
     return cruds.create_consultation(consultation, db)
+
+
+
+@router.get("/blogs", response_model=List[schemas.BlogSchema], tags=["GET", "Blog"])
+async def get_blogs(db: AsyncSession = Depends(get_db)):
+    return cruds.get_blogs(db)
+
+
+@router.get("/blogs/{id}", response_model=schemas.BlogSchema, tags=["GET", "Blog"])
+async def get_blog(id: int, db: AsyncSession = Depends(get_db)):
+    return cruds.get_blog(id, db)
+
+
+@router.post("/blogs", response_model=schemas.BlogSchema, tags=["POST", "Blog"])
+async def create_blog(blog: schemas.BlogSchema, db: AsyncSession = Depends(get_db)):
+    return cruds.create_blog(blog, db)

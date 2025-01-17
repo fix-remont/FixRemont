@@ -99,7 +99,9 @@ admin.add_view(PagesAdmin)
 admin.add_view(SEOTextAdmin)
 admin.add_view(CommunicationTypeAdmin)
 admin.add_view(ConsultationListAdmin)
-
+admin.add_view(BlogAdmin)
+admin.add_view(BlogBlockAdmin)
+admin.add_view(BlogParagraphAdmin)
 # app.include_router(user_routes.router)
 app.include_router(routes.meta())
 

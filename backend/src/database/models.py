@@ -11,7 +11,6 @@ import os
 from fastapi_storages import FileSystemStorage
 from fastapi_storages.integrations.sqlalchemy import FileType
 
-
 Base = declarative_base()
 pwd_context = CryptContext(schemes=["bcrypt", "argon2", "pbkdf2_sha256"], deprecated="auto")
 
@@ -368,7 +367,7 @@ class CommunicationType(Base):
         return self.title
 
     def __repr__(self):
-        return self.name
+        return self.title
 
 
 class ConsultationList(Base):
@@ -378,6 +377,52 @@ class ConsultationList(Base):
     answered = Column(Boolean, default=False)
     communication_type_id = Column(Integer, ForeignKey('communication_type.id'))
     communication_type = relationship("CommunicationType", back_populates="consultation_list")
+
+
+class BlogParagraph(Base):
+    __tablename__ = 'blog_paragraphs'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=True)
+    items = Column(ARRAY(String), nullable=True)
+    blog_block_id = Column(Integer, ForeignKey('blog_blocks.id'), nullable=True)
+    blog_block = relationship("BlogBlock", back_populates="paragraphs")
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
+
+
+class BlogBlock(Base):
+    __tablename__ = 'blog_blocks'
+    id = Column(Integer, primary_key=True, index=True)
+    images = Column(ARRAY(String), nullable=True)
+    blog_id = Column(Integer, ForeignKey('blogs.id'), nullable=True)
+    blog = relationship("Blog", back_populates="blog_blocks")
+    paragraphs = relationship("BlogParagraph", uselist=False, back_populates="blog_block")
+
+    def __str__(self):
+        return "Блок " + str(self.id)
+
+    def __repr__(self):
+        return "Блок " + str(self.id)
+
+
+class Blog(Base):
+    __tablename__ = 'blogs'
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    img_main = Column(String)
+    text_main = Column(String)
+    blog_blocks = relationship("BlogBlock", back_populates="blog")
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
+
 
 
 load_dotenv()

@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from psycopg2 import paramstyle
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -1254,3 +1255,167 @@ def get_last_social_networks_id(db):
     except:
         last_id = 0
     return last_id
+
+
+# Get all blogs
+def get_blogs(db: AsyncSession):
+    result = db.execute(select(models.Blog))
+    blogs = result.scalars().all()
+
+    blog_list = []
+    for blog in blogs:
+        blocks = []
+        for block in blog.blog_blocks:
+            texts = []
+            if block.paragraphs:
+                texts.append({
+                    "title": block.paragraphs.title,
+                    "items": block.paragraphs.items
+                })
+            blocks.append({
+                "images": block.images,
+                "texts": texts,
+                "paragraphs": block.paragraphs if block.paragraphs else []
+            })
+        blog_list.append({
+            "id": blog.id,
+            "title": blog.title,
+            "img_main": blog.img_main,
+            "text_main": blog.text_main,
+            "blocks": blocks
+        })
+
+    return blog_list
+
+# Get a single blog by ID
+def get_blog(id: int, db: AsyncSession):
+    result = db.execute(select(models.Blog).where(models.Blog.id == id))
+    blog = result.scalars().first()
+    if blog is None:
+        raise HTTPException(status_code=404, detail="Blog not found")
+    blocks = []
+    for block in blog.blog_blocks:
+        texts = []
+        if block.paragraphs:
+            texts.append({
+                "title": block.paragraphs.title,
+                "items": block.paragraphs.items
+            })
+        blocks.append({
+            "images": block.images,
+            "texts": texts,
+            "paragraphs": block.paragraphs if block.paragraphs else []
+        })
+    result_blog = {
+        "id": blog.id,
+        "title": blog.title,
+        "img_main": blog.img_main,
+        "text_main": blog.text_main,
+        "blocks": blocks
+    }
+    return result_blog
+
+
+# Create a new blog
+async def create_blog(blog: schemas.BlogSchema, db: AsyncSession):
+    new_blog = models.Blog(
+        title=blog.title,
+        img_main=blog.img_main,
+        text_main=blog.text_main
+    )
+    db.add(new_blog)
+    await db.commit()
+    await db.refresh(new_blog)
+    return schemas.BlogSchema.from_orm(new_blog)
+
+
+def get_last_blog_id(db: AsyncSession):
+    result = db.execute(select(models.Blog.id).order_by(models.Blog.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def create_directory_for_last_blog_id(db: AsyncSession, base_path):
+    last_id = get_last_blog_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def create_directory_for_last_blog_block_id(db: AsyncSession, base_path):
+    last_id = get_last_blog_block_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_blog_block_id(db: AsyncSession):
+    result = db.execute(select(models.BlogBlock.id).order_by(models.BlogBlock.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+# Get all blog blocks
+def get_blog_blocks(db: AsyncSession):
+    result = db.execute(select(models.BlogBlock))
+    blog_blocks = result.scalars().all()
+    return [schemas.BlogBlockSchema.from_orm(blog_block) for blog_block in blog_blocks]
+
+
+# Get a single blog block by ID
+def get_blog_block(id: int, db: AsyncSession):
+    result = db.execute(select(models.BlogBlock).where(models.BlogBlock.id == id))
+    blog_block = result.scalars().first()
+    if blog_block is None:
+        raise HTTPException(status_code=404, detail="BlogBlock not found")
+    return schemas.BlogBlockSchema.from_orm(blog_block)
+
+
+# Create a new blog block
+def create_blog_block(blog_block: schemas.BlogBlockSchema, db: AsyncSession):
+    new_blog_block = models.BlogBlock(
+        images=blog_block.images
+    )
+    db.add(new_blog_block)
+    db.commit()
+    db.refresh(new_blog_block)
+    # block_paragraph = db.execute(select(models.BlogParagraph).where(models.BlogParagraph.id == blog_block.paragraphs))
+    # block_paragraph.blog_block_id = new_blog_block.id
+    # db.commit()
+    # db.refresh(block_paragraph)
+    return new_blog_block
+
+
+# Get all blog paragraphs
+def get_blog_paragraphs(db: AsyncSession):
+    result = db.execute(select(models.BlogParagraph))
+    blog_paragraphs = result.scalars().all()
+    return [schemas.BlogParagraphSchema.from_orm(blog_paragraph) for blog_paragraph in blog_paragraphs]
+
+
+# Get a single blog paragraph by ID
+def get_blog_paragraph(id: int, db: AsyncSession):
+    result = db.execute(select(models.BlogParagraph).where(models.BlogParagraph.id == id))
+    blog_paragraph = result.scalars().first()
+    if blog_paragraph is None:
+        raise HTTPException(status_code=404, detail="BlogParagraph not found")
+    return schemas.BlogParagraphSchema.from_orm(blog_paragraph)
+
+
+# Create a new blog paragraph
+def create_blog_paragraph(blog_paragraph: schemas.BlogParagraphSchema, db: AsyncSession):
+    new_blog_paragraph = models.BlogParagraph(
+        title=blog_paragraph.title,
+        items=blog_paragraph.items,
+        blog_block_id=blog_paragraph.blog_block_id
+    )
+    db.add(new_blog_paragraph)
+    db.commit()
+    db.refresh(new_blog_paragraph)
+    return new_blog_paragraph

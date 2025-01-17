@@ -486,3 +486,34 @@ class ConsultationsListSchema(BaseModel):
     class Config:
         orm_mode = True
         from_attributes = True
+
+
+class BlogParagraphSchema(BaseModel):
+    title: Optional[str]
+    items: Optional[List[str]]
+    blog_block_id: Optional[int]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class BlogBlockSchema(BaseModel):
+    images: Optional[List[str]]
+    paragraphs: Optional[BlogParagraphSchema]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class BlogSchema(BaseModel):
+    id: int
+    title: str
+    img_main: str
+    text_main: str
+    blocks: Optional[List[BlogBlockSchema]]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
