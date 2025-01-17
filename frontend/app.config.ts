@@ -1,6 +1,6 @@
 export default defineAppConfig({
   ui: {
-    primary: 'yellow',
+    primary: 'orange',
     // primary: '#f9af15',
     input: {
       // color: {
@@ -53,13 +53,14 @@ export default defineAppConfig({
       position: 'top-0 bottom-[unset] left-0 right-[unset]'
     },
     button: {
+      base: 'text-center',
+      font: 'font-semibold',
       rounded: 'rounded-full',
-      color: {
-        orange: {
-          solid:
-            'shadow-sm text-white bg-orange hover:bg-orange-600 disabled:bg-gray-900 aria-disabled:bg-gray-900 dark:bg-white dark:hover:bg-gray-100 dark:disabled:bg-white dark:aria-disabled:bg-white focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-          link: 'text-white-900 dark:text-white underline-offset-4 hover:underline focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400'
-        }
+      size: {
+        custom: 'text-xs sm:text-xl'
+      },
+      padding: {
+        custom: 'px-3 py-2 sm:px-6 sm:py-6'
       }
     },
     carousel: {

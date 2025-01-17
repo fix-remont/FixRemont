@@ -39,7 +39,9 @@ const infoCheckboxes = [
         Мы всё предусмотрели: материалы закуплены заранее, а бригады готовы выехать на объект в
         любой момент.
       </p>
-      <NuxtLink :to="hrefCalculater" :class="['hover', 'button']">Расчитать стоимость</NuxtLink>
+      <UButton class="mt-auto justify-center sm:w-max" :to="hrefCalculater" size="custom"
+        >Расчитать стоимость</UButton
+      >
       <img class="tassel-img" src="/images/home/tassel.png" alt="tassel" />
     </div>
   </div>

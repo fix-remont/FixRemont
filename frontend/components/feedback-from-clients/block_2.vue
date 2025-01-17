@@ -7,7 +7,7 @@
   </WBlock>
   <HomeBlock7 />
   <WBlock>
-    <UButton class="hover py-4" size="xl" to="/portfolio" color="white" block
+    <UButton size="custom" to="/portfolio" color="white" block variant="outline"
       >Смотреть все работы</UButton
     >
   </WBlock>

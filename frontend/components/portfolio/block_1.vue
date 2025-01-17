@@ -42,11 +42,11 @@ const showMore = items.value.length > viewItems.value.length
     </div>
 
     <UButton
-      class="py-4 hover:text-gray-700"
       v-if="showMore"
       @click="viewItemsAmount = viewItemsAmount + 2"
       color="white"
       variant="outline"
+      size="custom"
       block
       >Показать больше</UButton
     >

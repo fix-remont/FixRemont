@@ -37,6 +37,9 @@ const items = [
           :items="items"
           :arrows="width <= 640"
           :indicators="width <= 640"
+          :ui="{
+            container: 'gap-5'
+          }"
         >
           <template #default="{ item }">
             <div class="item-box">
@@ -56,12 +59,7 @@ const items = [
             <SharedArrowNextCarousel :onClick="onClick" :disabled="disabled" />
           </template>
         </UCarousel>
-        <UButton
-          class="hover py-2 text-base sm:py-5 sm:text-2xl"
-          to="/blog"
-          color="white"
-          block
-          size="xl"
+        <UButton block to="/blog" color="white" variant="outline" size="custom"
           >Перейти в блог</UButton
         >
       </div>
@@ -70,11 +68,7 @@ const items = [
           <img class="img" src="/images/home/block_14_for-video.png" alt="" />
           <img class="icon hover" src="/icons/play-button.svg" alt="icon" />
         </div>
-        <UButton
-          class="hover bg-[var(--c-white)] py-2 text-base text-red-600 ring-2 ring-red-600 focus:bg-[var(--c-white)] sm:py-5 sm:text-2xl"
-          color="red"
-          block
-          size="xl"
+        <UButton block to="#" color="red" variant="outline" size="custom"
           >Перейти в YouTube</UButton
         >
       </div>

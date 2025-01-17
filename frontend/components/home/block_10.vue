@@ -21,7 +21,9 @@ const items = [
         </div>
       </div>
     </div>
-    <SharedButton>Оставить заявку на консультацию от специалиста</SharedButton>
+    <UButton block :to="'#'" color="white" variant="outline" size="custom"
+      >Оставить заявку на консультацию от специалиста</UButton
+    >
   </div>
 </template>
 

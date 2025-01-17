@@ -21,7 +21,7 @@ const isOpened = ref(false)
         <li class="item" v-for="(item, index) in items" :key="index">{{ item }}</li>
       </ul>
     </div>
-    <div class="toggle" @click="isOpened = !isOpened">
+    <div class="toggle hover" @click="isOpened = !isOpened">
       <span>Раскрыть полностью</span>
       <img :class="['arrow', { 'arrow-opened': isOpened }]" src="/arrow-down.svg" alt="arrow" />
     </div>

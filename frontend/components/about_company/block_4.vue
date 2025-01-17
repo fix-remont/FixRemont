@@ -25,8 +25,13 @@
         клиента
       </div>
       <div class="buttons">
-        <SharedButton fillBlack>Зарегистрироваться в личном кабинете партнёра</SharedButton>
-        <SharedButton> Узнать подробнее </SharedButton>
+        <UButton block to="#" color="black" variant="solid" size="custom">
+          Зарегистрироваться в личном кабинете партнёра</UButton
+        >
+
+        <UButton block to="#" color="white" variant="outline" size="custom">
+          Узнать подробнее</UButton
+        >
       </div>
       <img src="/images/about_company/block_4-percent.png" alt="img" />
     </div>

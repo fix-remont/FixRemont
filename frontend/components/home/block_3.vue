@@ -119,9 +119,14 @@ watch(
         <div class="to-calculator">
           <p class="text">Стоимость:</p>
           <p class="title">Фикс</p>
-          <NuxtLink :to="hrefCalculater" :class="['hover', 'btn', 'btn-calculator']">
+
+          <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
+            >Отлайн калькулятор</UButton
+          >
+
+          <!-- <NuxtLink :to="hrefCalculater" :class="['hover', 'btn', 'btn-calculator']">
             Онлайн-калькулятор
-          </NuxtLink>
+          </NuxtLink> -->
         </div>
       </div>
     </div>

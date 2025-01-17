@@ -40,12 +40,10 @@ const items = ref([
       <div class="box-buttons radius-glob">
         <p>Воплотим вашу мечту в реальность без визитов на объект</p>
         <div :class="['buttons']">
-          <NuxtLink :to="hrefCalculater">
-            <SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
-          </NuxtLink>
-          <NuxtLink :to="hrefBecomePartner">
-            <SharedButton>Стать партнёром</SharedButton>
-          </NuxtLink>
+          <UButton :to="hrefCalculater" size="custom" block>Отлайн калькулятор</UButton>
+          <UButton :to="hrefBecomePartner" variant="outline" color="white" size="custom" block
+            >Стать партнёром</UButton
+          >
         </div>
       </div>
       <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-6' }">
