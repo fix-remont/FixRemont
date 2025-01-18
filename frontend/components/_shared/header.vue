@@ -44,10 +44,10 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/v
       </a>
     </address>
 
-    <div :class="['profile', 'hover']">
+    <NuxtLink to="/cabinet" :class="['profile', 'hover']">
       <p class="red">Личный кабинет</p>
       <img src="/icons/profile.svg" alt="profile" />
-    </div>
+    </NuxtLink>
 
     <SharedHeaderLinks />
   </header>
@@ -69,6 +69,7 @@ import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone } from '~/assets/v
   justify-content: space-between;
   margin-top: 30px;
   margin-bottom: 30px;
+
   @media (max-width: 640px) {
     height: 52px;
     gap: 10px;

@@ -29,10 +29,7 @@ const statusMap = (status: string) => {
 
     <div class="radius-glob table-wrap" v-if="items.length > 0">
       <div class="table">
-        <div
-          v-for="(item, index) in items"
-          :class="['row', { 'is-not-last': index !== items.length - 1 }]"
-        >
+        <div v-for="(item, index) in items" :class="['row', { 'is-not-last': index !== items.length - 1 }]">
           <div class="operation-type">
             <div class="operation-type-label">Операция:</div>
             <div class="operation-type-value">{{ item.operationType }}</div>
@@ -53,7 +50,8 @@ const statusMap = (status: string) => {
             <div class="status-value">{{ item.status }}</div>
           </div>
 
-          <SharedButton class="button">Скачать чек</SharedButton>
+
+          <UButton class="justify-center" color="white" variant="outline">Скачать чек</UButton>
         </div>
       </div>
     </div>
@@ -77,6 +75,7 @@ const statusMap = (status: string) => {
     padding: 30px 20px;
     max-height: 600px;
     overflow: scroll;
+
     @media (max-width: 1600px) {
       max-height: 500px;
     }
@@ -87,6 +86,7 @@ const statusMap = (status: string) => {
       }
 
       width: 100%;
+
       .row {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 2fr 2fr;
@@ -112,12 +112,15 @@ const statusMap = (status: string) => {
         .status {
           grid-area: status;
         }
+
         .date {
           grid-area: date;
         }
+
         .amount {
           grid-area: amount;
         }
+
         .operation-type {
           grid-area: operation-type;
         }
@@ -142,6 +145,7 @@ const statusMap = (status: string) => {
           font-size: 16px;
           font-weight: 500;
           color: #686868;
+
           @media (max-width: 640px) {
             font-size: 12px;
           }
@@ -154,6 +158,7 @@ const statusMap = (status: string) => {
           font-size: 24px;
           font-weight: 600;
           color: var(--c-black);
+
           @media (max-width: 640px) {
             font-size: 16px;
           }
@@ -161,18 +166,23 @@ const statusMap = (status: string) => {
 
         .status {
           border-radius: 20px;
+
           &-finished {
             background-color: green;
+
             div {
               color: white !important;
             }
           }
+
           &-canceled {
             background-color: red;
+
             div {
               color: white !important;
             }
           }
+
           &-handling {
             background-color: var(--c-gray);
           }
@@ -184,6 +194,7 @@ const statusMap = (status: string) => {
       }
     }
   }
+
   .table-empty {
     background-color: white;
     min-height: 210px;

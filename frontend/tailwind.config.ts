@@ -31,6 +31,12 @@ export default <Partial<Config>>{
           800: '#a1130b',
           900: '#82130c',
           950: '#460504'
+        },
+        status: {
+          red: '#E02350',
+          orange: '#E0C223',
+          'light-gray': '#E4E4E4',
+          black: '#161616'
         }
       }
     }

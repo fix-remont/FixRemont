@@ -61,6 +61,9 @@ export default defineAppConfig({
       },
       padding: {
         custom: 'px-3 py-2 sm:px-6 sm:py-6'
+      },
+      default: {
+        size: 'custom'
       }
     },
     carousel: {

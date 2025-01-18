@@ -38,6 +38,7 @@ const handleClickDetails = () => {
     openDetails.value = true
   }
 }
+
 </script>
 
 <template>
@@ -84,14 +85,12 @@ const handleClickDetails = () => {
       </div>
     </div>
   </header>
-  <header
-    :class="[
-      'box-small',
-      'margin-glob',
-      { 'opened-navigation': openNavigation },
-      { 'opened-details': openDetails }
-    ]"
-  >
+  <header :class="[
+    'box-small',
+    'margin-glob',
+    { 'opened-navigation': openNavigation },
+    { 'opened-details': openDetails }
+  ]">
     <div class="first-line">
       <NuxtLink class="logo-container" :to="hrefLogo">
         <img class="logo hover" src="/icons/logo-without-text.svg" alt="logo" />
@@ -106,21 +105,11 @@ const handleClickDetails = () => {
             Халитов
           </b>
         </p>
-        <img
-          class="arrow hover"
-          @click="handleClickDetails"
-          :src="openDetails ? '/icons/arrow-black-up.svg' : '/icons/arrow-white-down.svg'"
-          alt="arrow"
-        />
+        <img class="arrow hover" @click="handleClickDetails"
+          :src="openDetails ? '/icons/arrow-black-up.svg' : '/icons/arrow-white-down.svg'" alt="arrow" />
       </div>
-      <img
-        class="toggle-navigation hover"
-        :src="openNavigation ? '/icons/close-button.svg' : '/icons/burger.svg'"
-        alt="close-button"
-        draggable="false"
-        loading="eager"
-        @click="handleClickNavigation"
-      />
+      <img class="toggle-navigation hover" :src="openNavigation ? '/icons/close-button.svg' : '/icons/burger.svg'"
+        alt="close-button" draggable="false" loading="eager" @click="handleClickNavigation" />
     </div>
 
     <NuxtLink class="make-order hover" :to="hrefMakeOrder"> Оформить заказ </NuxtLink>
@@ -190,6 +179,7 @@ const handleClickDetails = () => {
 <style scoped>
 .box-small {
   display: none;
+
   @media (max-width: 1800px) {
     display: flex;
     flex-direction: column;
@@ -228,19 +218,23 @@ const handleClickDetails = () => {
         width: 30px;
         height: 30px;
       }
+
       .arrow {
         width: 15px;
       }
+
       .text {
         font-weight: 600;
         font-size: 12px;
       }
     }
+
     .toggle-navigation {
       width: 52px;
       height: 100%;
     }
   }
+
   .make-order {
     display: block;
     color: white;
@@ -293,6 +287,7 @@ const handleClickDetails = () => {
       font-weight: 600;
       font-size: 22px;
     }
+
     .social {
       background-color: white;
       width: 100%;
@@ -309,11 +304,13 @@ const handleClickDetails = () => {
       width: 100%;
       border-radius: 20px;
       padding: 10px;
+
       .actions-block {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         font-weight: 600;
+
         .actions {
           text-decoration: underline;
           color: var(--c-orange);
@@ -322,6 +319,7 @@ const handleClickDetails = () => {
     }
   }
 }
+
 .opened-details {
   position: fixed;
   margin: 0;
@@ -345,12 +343,14 @@ const handleClickDetails = () => {
     background-color: white !important;
     color: var(--c-black) !important;
   }
+
   .opened-details-block {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 20px 0;
     flex-grow: 1;
+
     .links {
       display: grid;
       color: white;
@@ -373,15 +373,18 @@ const handleClickDetails = () => {
       .bell-box {
         grid-area: bell-box;
       }
+
       .support-box {
         grid-area: support-box;
       }
+
       .profile-box {
         grid-area: profile-box;
       }
     }
   }
 }
+
 .box-large {
   display: flex;
   height: 80px;
@@ -396,6 +399,7 @@ const handleClickDetails = () => {
     width: 215px;
     line-height: 18px;
   }
+
   .right-part {
     margin-left: auto;
     align-items: center;
@@ -413,8 +417,7 @@ const handleClickDetails = () => {
       gap: 10px;
       border-radius: 20px;
 
-      .text {
-      }
+      .text {}
     }
 
     .bell-container {

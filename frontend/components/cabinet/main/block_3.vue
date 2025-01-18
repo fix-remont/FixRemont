@@ -5,6 +5,9 @@ const props = defineProps<{
 
 const balance = 123345
 const inWork = 13345
+
+const route = useRoute()
+const showToWalletButton = !route.fullPath.includes('/wallet')
 </script>
 
 <template>
@@ -27,8 +30,14 @@ const inWork = 13345
         </div>
       </div>
       <div class="wrap-buttons">
-        <SharedButton class="button-wallet" fillOrange>Вывести средства</SharedButton>
-        <SharedButton class="button-wallet">Перейти в кошелёк</SharedButton>
+        <UButton :class="[showToWalletButton ? 'flex-grow' : 'ms-auto', 'justify-center']">Вывести средства</UButton>
+        <UButton v-if="showToWalletButton" to="/cabinet/wallet" class="flex-grow justify-center" color="white"
+          variant="outline">Перейти в кошелёк
+        </UButton>
+
+
+        <!-- <SharedButton class="button-wallet" fillOrange>Вывести средства</SharedButton>
+        <SharedButton class="button-wallet">Перейти в кошелёк</SharedButton> -->
       </div>
     </article>
   </div>
@@ -40,6 +49,7 @@ const inWork = 13345
     font-size: 18px;
     font-weight: 500;
   }
+
   margin-bottom: 20px;
 }
 
@@ -63,17 +73,20 @@ const inWork = 13345
     display: flex;
     gap: 20px;
   }
+
   .in-work,
   .balance {
     .label {
       color: #686868;
       font-weight: 500;
       font-size: 16px;
+
       @media (max-width: 640px) {
         font-size: 12px;
       }
     }
   }
+
   .wrap-buttons {
     display: flex;
     gap: 20px;
@@ -84,6 +97,7 @@ const inWork = 13345
       width: initial;
       min-width: 300px;
       flex-grow: 1;
+
       @media (max-width: 640px) {
         min-width: initial;
         width: 100%;

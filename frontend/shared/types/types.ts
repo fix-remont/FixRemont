@@ -59,3 +59,43 @@ type BlogItem = {
     }
   }[]
 }
+
+export type Contract = {
+  id: number
+  object_type: string
+  order_type: string
+  tariff: string
+  amount_of_area: string
+  object_location: string
+  progress_of_work: {
+    step: string
+    finished: boolean
+  }[]
+  costs: {
+    your_reward: number
+    materials: number
+    work_process: number
+    [key: string]: number
+  }
+  client_info: {
+    name: string
+    phone: string
+    email: string
+    order_date: string
+  }
+  notifications: {
+    type: string
+    text?: string
+    status: string
+  }[]
+  payments: {
+    amount: number
+    status: string
+    text: string
+  }[]
+  documents: {
+    type: string
+    status: string
+    text: string
+  }[]
+}

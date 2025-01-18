@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
   <article class="margin-b-glob article radius-glob">
@@ -6,9 +8,11 @@
       <span class="orange"> Есть вопросы? </span> <br />
       Обратитесь в нашу службу поддержки
     </h2>
-    <div class="buttons">
-      <SharedButton fillBlack>Задать вопрос</SharedButton>
-      <SharedButton>Найти ответ на вопрос в FAQ</SharedButton>
+    <div class="buttons h-max mt-auto">
+      <UButton class="flex-grow justify-center lg:w-[initial] w-full" color="black">Задать вопрос</UButton>
+      <UButton class="flex-grow justify-center lg:w-[initial] w-full" color="white" variant="outline">Найти ответ на
+        вопрос в FAQ
+      </UButton>
     </div>
   </article>
 </template>
@@ -32,20 +36,21 @@
     font-size: 32px;
     font-weight: 600;
   }
+
   .buttons {
     display: flex;
     flex-grow: 1;
     gap: 20px;
     min-width: 800px;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1024px) {
       min-width: initial;
       flex-direction: column;
     }
 
-    button {
+    /* button {
       align-self: center;
-    }
+    } */
   }
 }
 </style>

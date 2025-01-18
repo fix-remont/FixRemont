@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
   <section class="margin-b-glob block">
@@ -12,15 +14,16 @@
             <p class="link hover">ref.fix-remont.ru/8GTS7LX82390</p>
             <hr />
           </div>
-          <SharedButton fillBlack style="align-self: end">Скопировать ссылку</SharedButton>
+          <UButton color="black" class="self-end flex-grow h-max justify-center">Скопировать ссылку</UButton>
+
         </div>
       </div>
-      <div class="box2 radius-glob">
+      <div class=" box2 radius-glob">
         <div class="wrapper">
           <img class="qr-code" src="/images/header-signed/qr-code.png" alt="qr-code" />
           <p>Мой QR-код для приглашения</p>
         </div>
-        <SharedButton fillOrange>Открыть</SharedButton>
+        <UButton block>Открыть</UButton>
       </div>
     </div>
   </section>
@@ -29,6 +32,7 @@
 <style scoped>
 .block {
   margin-top: 20px;
+
   .boxes {
     display: flex;
     gap: 20px;
@@ -53,6 +57,7 @@
         display: flex;
         gap: 20px;
         margin-bottom: 20px;
+
         .qr-code {
           padding: 5px;
           background-color: white;
@@ -60,9 +65,11 @@
           width: 120px;
           height: 120px;
         }
+
         p {
           font-size: 32px;
           font-weight: 600;
+
           @media (max-width: 640px) {
             font-size: 18px;
           }
@@ -75,23 +82,29 @@
       color: white;
       padding: 50px 40px;
       font-weight: 600;
+
       @media (max-width: 640px) {
         padding: 15px 10px;
       }
+
       .title {
         font-size: 32px;
         width: 70%;
         margin-bottom: 20px;
+
         @media (max-width: 1400px) {
           width: initial;
         }
+
         @media (max-width: 640px) {
           font-size: 22px;
         }
       }
+
       .wrap {
         display: flex;
         gap: 30px;
+
         @media (max-width: 1400px) {
           flex-direction: column;
         }
@@ -100,13 +113,16 @@
           display: flex;
           flex-direction: column;
           gap: 20px;
+
           .text {
             font-size: 18px;
             font-weight: 500;
+
             @media (max-width: 640px) {
               font-size: 12px;
             }
           }
+
           .link {
             font-size: 20px;
 
