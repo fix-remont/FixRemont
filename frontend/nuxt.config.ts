@@ -27,7 +27,8 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/google-fonts', '@nuxt/ui', '@nuxt/image', '@pinia/nuxt'],
   runtimeConfig: {
     public: {
-      apiBase: 'http://158.160.151.235:7000'
+      apiBase: 'http://158.160.151.235:7000',
+      mediaPath: 'http://158.160.151.235:5000/media/'
     }
   },
   googleFonts: {
