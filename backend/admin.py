@@ -397,8 +397,8 @@ import aiofiles
 
 db = get_db()
 # PATH = 'C:/Users/Кирилл/PycharmProjects/FixRemont/tmp'
-PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
-# PATH = '/var/www/fixremont-uploads/'
+# PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
+PATH = '/var/www/fixremont-uploads/'
 storage = FileSystemStorage(path=PATH)
 
 
