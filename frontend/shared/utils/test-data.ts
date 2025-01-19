@@ -1,8 +1,8 @@
-import type { Contract, PorfolioItemShort } from '../types/types'
+import type { Contract, Tariff } from '../types/responses'
 
 let id = 0
 
-export const portfolioItemsShort: PorfolioItemShort[] = [
+export const portfolioItemsShort = [
   {
     id: id++,
     title: 'Дом из кирпича 560м на Барвихе',
@@ -160,3 +160,30 @@ export const contract: Contract = {
     }
   ]
 }
+
+export const tariffs: Tariff[] = [
+  {
+    cost: 'Фикс',
+    name: 'Базовый',
+    image: '/images/home/package-comfort.png',
+    description: 'asdas'
+  },
+  {
+    cost: 'Фикс',
+    name: 'Стандарт',
+    image: '/images/home/package-comfort.png',
+    description: ''
+  },
+  {
+    cost: 'Фикс',
+    name: 'Комфорт',
+    image: '/images/home/package-comfort.png',
+    description: ''
+  },
+  {
+    cost: 'Фикс',
+    name: 'Бизнес',
+    image: '/images/home/package-comfort.png',
+    description: ''
+  }
+]

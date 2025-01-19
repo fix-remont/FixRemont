@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { portfolioItemsShort as items } from '~/shared/utils/data'
+import { portfolioItemsShort as items } from '~/shared/utils/test-data'
 
 // const { items } = storeToRefs(usePortfolioPostsStore())
 </script>

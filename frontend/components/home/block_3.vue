@@ -1,26 +1,33 @@
 <script setup>
 import { ref } from 'vue'
 import { hrefCalculater } from '~/assets/variables'
+const config = useRuntimeConfig()
 
-// import useTariffsStore from '~/stores/tariffs.ts'
-// import { storeToRefs } from 'pinia'
+import useTariffsStore from '~/stores/tariffs.ts'
+import { storeToRefs } from 'pinia'
 
-// const { items } = storeToRefs(useTariffsStore())
-const items = ref([
-  { label: 'Базовый', img: '/images/home/package-comfort.png', selected: false },
-  { label: 'Стандарт', img: '/images/home/package-comfort.png', selected: false },
-  { label: 'Комфорт', img: '/images/home/package-comfort.png', selected: false },
-  { label: 'Бизнес', img: '/images/home/package-comfort.png', selected: false }
-])
+// import { tariffs } from '~/shared/utils/test-data'
+// const itemsLocal = ref(tariffs)
+
+const { items } = storeToRefs(useTariffsStore())
+const itemsLocal = ref(items)
 
 const carouselRef1 = ref(null)
 const carouselRef2 = ref(null)
 const currentActiveIndex = ref(0)
 
 const itemsWithSelected = computed(() => {
-  return items.value.map((item, index) => {
-    item.selected = index === currentActiveIndex.value
-    return item
+  return itemsLocal.value.map((item, index) => {
+    const updatedItem = { ...item } // Создаем новый объект
+    updatedItem.selected = index === currentActiveIndex.value
+
+    const indexImage = updatedItem.image.indexOf('//')
+    updatedItem.image =
+      indexImage === -1
+        ? updatedItem.image
+        : `${config.public.mediaPath}${updatedItem.image.slice(indexImage + 2)}`
+
+    return updatedItem
   })
 })
 
@@ -41,7 +48,7 @@ watch(
 </script>
 
 <template>
-  <div :class="['margin-glob', 'box']">
+  <div v-if="items.length > 0" :class="['margin-glob', 'box']">
     <div class="text-area">
       <p>
         Занимайтесь
@@ -52,7 +59,7 @@ watch(
     <UCarousel
       class="carousel-area"
       ref="carouselRef1"
-      :items="items"
+      :items="itemsWithSelected"
       :ui="{
         item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
         container: 'gap-2 relative h-full',
@@ -61,7 +68,7 @@ watch(
       arrows
     >
       <template #default="{ item }">
-        <img class="slide" :src="item.img" draggable="false" />
+        <img class="slide" :src="item.image" draggable="false" />
       </template>
 
       <template #prev="{ onClick, disabled }">
@@ -69,6 +76,7 @@ watch(
           :class="['arrow cursor-pointer', { arrow_disabled: disabled }]"
           src="/images/arrow-prev.svg"
           @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)"
+          draggable="false"
         />
       </template>
 
@@ -78,6 +86,7 @@ watch(
           src="/images/arrow-next.svg"
           :disabled="disabled"
           @click="handleUpdateCarouselByButton(onClick, 'next', disabled)"
+          draggable="false"
         />
       </template>
     </UCarousel>
@@ -102,8 +111,8 @@ watch(
       >
         <template #default="{ item, index }">
           <div class="h-full" @click="handleClickTab(index)">
-            <p :class="['label']">{{ item.label.toUpperCase() }}</p>
-            <img :class="['img']" :src="item.img" alt="img" />
+            <p :class="['label']">{{ item.name.toUpperCase() }}</p>
+            <img :class="['img']" :src="item.image" alt="img" draggable="false" />
             <div :class="['blanket', { blanket_selected: item.selected }]"></div>
           </div>
         </template>
@@ -113,12 +122,12 @@ watch(
     <div class="info-area">
       <div class="block">
         <div class="info">
-          <p class="title">{{ items[currentActiveIndex]?.label }}</p>
-          <p class="text">Для ценителей дорогого минималистичного стиля</p>
+          <p class="title">{{ items[currentActiveIndex]?.name }}</p>
+          <p class="text">{{ items[currentActiveIndex]?.description }}</p>
         </div>
         <div class="to-calculator">
           <p class="text">Стоимость:</p>
-          <p class="title">Фикс</p>
+          <p class="title">{{ items[currentActiveIndex]?.cost }}</p>
 
           <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
             >Отлайн калькулятор</UButton

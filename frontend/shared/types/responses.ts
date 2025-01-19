@@ -1,24 +1,16 @@
-export interface PorfolioItemShort {
-  id: number
-  title: string
-  images: (string | null)[]
-  project_type: {
-    name: 'Строительство домов' | 'Ремонт квартир'
-  }
-}
+import z from 'zod'
 
-export interface PortfolioItemFull extends PorfolioItemShort {
-  deadline: string
-  cost: number
-  square: number
-  video_link: string
-  video_duration: string
-  articles: ({
-    title: string
-    body: string
-  } | null)[]
-}
-
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+export const TariffSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  cost: z.string(),
+  image: z.string()
+})
+export type Tariff = z.infer<typeof TariffSchema>
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 type Video = {
   duration: string
   link: string

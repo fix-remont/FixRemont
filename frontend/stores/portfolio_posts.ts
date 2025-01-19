@@ -1,4 +1,4 @@
-import { useCustomFetch } from '~/composables/custom-fetch'
+import { useCustomFetch } from '~/composables/get-set-notify-fetch'
 import { z } from 'zod'
 import { revalidationResponseInMilliseconds } from '~/assets/variables'
 
