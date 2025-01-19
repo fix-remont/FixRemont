@@ -8,8 +8,6 @@ import string
 import enum
 from dotenv import load_dotenv
 import os
-from fastapi_storages import FileSystemStorage
-from fastapi_storages.integrations.sqlalchemy import FileType
 from sqlalchemy import JSON
 
 Base = declarative_base()
