@@ -726,9 +726,9 @@ CREATE TABLE public.portfolio_posts (
     object_area character varying,
     work_completion_time character varying,
     project_type_id integer,
-    texts character varying[],
-    images character varying[],
-    overview character varying
+    task character varying,
+    steps_of_work character varying[],
+    images character varying[]
 );
 
 
@@ -1128,7 +1128,6 @@ ALTER SEQUENCE public.work_status_id_seq OWNED BY public.work_status.id;
 CREATE TABLE public.works (
     id integer NOT NULL,
     title character varying,
-    project_type_id integer,
     deadline character varying,
     cost integer,
     square integer,
@@ -1382,7 +1381,6 @@ COPY public.additional_options (id, name, description) FROM stdin;
 --
 
 COPY public.blog_blocks (id, images, blog_id) FROM stdin;
-47	{"C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog_block/47/Tests Report.png"}	1
 \.
 
 
@@ -1391,7 +1389,6 @@ COPY public.blog_blocks (id, images, blog_id) FROM stdin;
 --
 
 COPY public.blog_paragraphs (id, title, items, blog_block_id) FROM stdin;
-39	Заголовок	{Элементы}	47
 \.
 
 
@@ -1408,7 +1405,6 @@ COPY public.blog_videos (id, video_link, video_duration, author, object) FROM st
 --
 
 COPY public.blogs (id, title, img_main, text_main) FROM stdin;
-1	Как рассчитать стоимость через калькулятор FIX-ремонт? 	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog/1/base.png	В мире современных бизнес-коммуникаций, успешные встречи и конференции играют важную роль. Все чаще мы видим, как виртуальные пространства объединяют людей из разных уголков мира, позволяя им общаться и сотрудничать, не покидая своих рабочих мест. Конференц-залы стали незаменимой частью этой эволюции, и их аудио-визуальные системы играют ключевую роль в обеспечении комфорта и эффективности современных деловых встреч.
 \.
 
 
@@ -1465,7 +1461,6 @@ COPY public.flats (id, square, address, number_of_rooms, number_of_doors, number
 --
 
 COPY public.intro_videos (id, video, video_duration, author, object) FROM stdin;
-1	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/intro_videos/1/Screencast from 14.01.2025 15_20_14.webm	1.11	2	2
 \.
 
 
@@ -1514,7 +1509,6 @@ COPY public.platform_news (id, title, date, label) FROM stdin;
 --
 
 COPY public.portfolio_post_videos (id, duration, link, portfolio_post_id) FROM stdin;
-4	длительность	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio_videos/3/Assignment 4 - Google Chrome 2024-06-27 16-57-10.mp4	2
 \.
 
 
@@ -1522,8 +1516,7 @@ COPY public.portfolio_post_videos (id, duration, link, portfolio_post_id) FROM s
 -- Data for Name: portfolio_posts; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.portfolio_posts (id, title, img_main, img_result, price_amount, object_area, work_completion_time, project_type_id, texts, images, overview) FROM stdin;
-2	заголовок	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/SD-01_Important.png	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/SD-01_Flood.png	1	2	3	1	{выфвыфвыфв,выфавыафыва}	{C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/797b25b5-47dd-4b28-bad7-575ae91da19a.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/portfolio/1/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg}	овервью
+COPY public.portfolio_posts (id, title, img_main, img_result, price_amount, object_area, work_completion_time, project_type_id, task, steps_of_work, images) FROM stdin;
 \.
 
 
@@ -1532,7 +1525,6 @@ COPY public.portfolio_posts (id, title, img_main, img_result, price_amount, obje
 --
 
 COPY public.posts (id, title, post_type, images) FROM stdin;
-1	b1	blog	{C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog/1/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog/1/797b25b5-47dd-4b28-bad7-575ae91da19a.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog/1/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg,C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/blog/1/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg}
 \.
 
 
@@ -1541,7 +1533,6 @@ COPY public.posts (id, title, post_type, images) FROM stdin;
 --
 
 COPY public.project_type (id, name) FROM stdin;
-1	tmp
 \.
 
 
@@ -1558,7 +1549,6 @@ COPY public.seo_texts (id, text, page_tag_id) FROM stdin;
 --
 
 COPY public.social_media_accounts (id, name, logo, link, subscribers) FROM stdin;
-1	vk	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/social_networks/1/SD-01_Important.png	vk.com	1500
 \.
 
 
@@ -1575,8 +1565,6 @@ COPY public.styles (id, name, description) FROM stdin;
 --
 
 COPY public.tariffs (id, name, description, cost, image) FROM stdin;
-1	t1	o1	c1	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/tariff/1/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg
-2	t1	o1	c1	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/tariff/2/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg
 \.
 
 
@@ -1585,7 +1573,6 @@ COPY public.tariffs (id, name, description, cost, image) FROM stdin;
 --
 
 COPY public.user_comments (id, image) FROM stdin;
-1	C:/Users/Кирилл/PycharmProjects/FixRemont/tmp/user_comments/3/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg
 \.
 
 
@@ -1602,7 +1589,6 @@ COPY public.user_type (id, name) FROM stdin;
 --
 
 COPY public.users (id, email, hashed_password, name, surname, patronymic, phone, user_type_id, user_referral_code, others_referral_code, notification_status_id, is_verified, is_superuser, avatar) FROM stdin;
-1	user@example.com	$2b$12$7NUEj5tANKPNPJsRj.kKreTGrzp.NC14aLVYjWECYX0UYWsse3X0C	\N	\N	\N	\N	\N	ERWUPDUMDXCB3NEV	\N	\N	f	t	\N
 \.
 
 
@@ -1618,12 +1604,7 @@ COPY public.work_status (id, title, document, status, contract_id) FROM stdin;
 -- Data for Name: works; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.works (id, title, project_type_id, deadline, cost, square, task, description, preview_image, main_image, result_image, result_video, client_video) FROM stdin;
-1	4	1	4	4	4	4	{}	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg	4	4
-2	4	1	4	4	4	4	{}	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/1/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg	4	4
-3	4	1	4	4	4	4	{}	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/3/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/3/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/3/98dbdd94-3cef-4cad-b98e-56730bfc5b89.jpg	4	4
-4	4	1	4	4	4	4	{}	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/4/SD-01_Important.png	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/4/SD-01_Important.png	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/4/SD-01_Important.png	4	4
-5	5	1	5	5	5	5	{}	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/5/SD-01_Flood.png	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/5/2d01db8c-3bb6-4839-aef5-0cab4d9c68f5.jpg	C:/Users/Кирилл/PycharmProjects/FixRemont/tmpp/portfolio/5/63dc6daa-c590-4ec3-bf05-8433274c85df.jpg	4	4
+COPY public.works (id, title, deadline, cost, square, task, description, preview_image, main_image, result_image, result_video, client_video) FROM stdin;
 \.
 
 
@@ -1638,14 +1619,14 @@ SELECT pg_catalog.setval('public.additional_options_id_seq', 1, false);
 -- Name: blog_blocks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.blog_blocks_id_seq', 47, true);
+SELECT pg_catalog.setval('public.blog_blocks_id_seq', 1, false);
 
 
 --
 -- Name: blog_paragraphs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.blog_paragraphs_id_seq', 39, true);
+SELECT pg_catalog.setval('public.blog_paragraphs_id_seq', 1, false);
 
 
 --
@@ -1659,7 +1640,7 @@ SELECT pg_catalog.setval('public.blog_videos_id_seq', 1, false);
 -- Name: blogs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.blogs_id_seq', 1, true);
+SELECT pg_catalog.setval('public.blogs_id_seq', 1, false);
 
 
 --
@@ -1701,7 +1682,7 @@ SELECT pg_catalog.setval('public.flats_id_seq', 1, false);
 -- Name: intro_videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.intro_videos_id_seq', 1, true);
+SELECT pg_catalog.setval('public.intro_videos_id_seq', 1, false);
 
 
 --
@@ -1743,28 +1724,28 @@ SELECT pg_catalog.setval('public.platform_news_id_seq', 1, false);
 -- Name: portfolio_post_videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.portfolio_post_videos_id_seq', 4, true);
+SELECT pg_catalog.setval('public.portfolio_post_videos_id_seq', 1, false);
 
 
 --
 -- Name: portfolio_posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.portfolio_posts_id_seq', 2, true);
+SELECT pg_catalog.setval('public.portfolio_posts_id_seq', 1, false);
 
 
 --
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.posts_id_seq', 1, true);
+SELECT pg_catalog.setval('public.posts_id_seq', 1, false);
 
 
 --
 -- Name: project_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.project_type_id_seq', 1, true);
+SELECT pg_catalog.setval('public.project_type_id_seq', 1, false);
 
 
 --
@@ -1778,7 +1759,7 @@ SELECT pg_catalog.setval('public.seo_texts_id_seq', 1, false);
 -- Name: social_media_accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.social_media_accounts_id_seq', 1, true);
+SELECT pg_catalog.setval('public.social_media_accounts_id_seq', 1, false);
 
 
 --
@@ -1792,14 +1773,14 @@ SELECT pg_catalog.setval('public.styles_id_seq', 1, false);
 -- Name: tariffs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tariffs_id_seq', 2, true);
+SELECT pg_catalog.setval('public.tariffs_id_seq', 1, false);
 
 
 --
 -- Name: user_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.user_comments_id_seq', 1, true);
+SELECT pg_catalog.setval('public.user_comments_id_seq', 1, false);
 
 
 --
@@ -1813,7 +1794,7 @@ SELECT pg_catalog.setval('public.user_type_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
@@ -1827,7 +1808,7 @@ SELECT pg_catalog.setval('public.work_status_id_seq', 1, false);
 -- Name: works_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.works_id_seq', 5, true);
+SELECT pg_catalog.setval('public.works_id_seq', 1, false);
 
 
 --
@@ -2391,6 +2372,22 @@ ALTER TABLE ONLY public.notifications
 
 
 --
+-- Name: paragraphs paragraphs_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.paragraphs
+    ADD CONSTRAINT paragraphs_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id);
+
+
+--
+-- Name: portfolio_post_videos portfolio_post_videos_portfolio_post_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.portfolio_post_videos
+    ADD CONSTRAINT portfolio_post_videos_portfolio_post_id_fkey FOREIGN KEY (portfolio_post_id) REFERENCES public.portfolio_posts(id);
+
+
+--
 -- Name: portfolio_posts portfolio_posts_project_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2428,14 +2425,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.work_status
     ADD CONSTRAINT work_status_contract_id_fkey FOREIGN KEY (contract_id) REFERENCES public.contracts(id);
-
-
---
--- Name: works works_project_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.works
-    ADD CONSTRAINT works_project_type_id_fkey FOREIGN KEY (project_type_id) REFERENCES public.project_type(id);
 
 
 --
