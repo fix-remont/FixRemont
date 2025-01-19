@@ -431,7 +431,8 @@ class PortfolioPostVideo(Base):
     duration = Column(String)
     link = Column(String)
     portfolio_post_id = Column(Integer, ForeignKey('portfolio_posts.id'))
-    portfolio_post = relationship("PortfolioPost", back_populates="videos")
+    portfolio_post = relationship("PortfolioPost", back_populates="overview", overlaps="others,portfolio_post_others")
+    portfolio_post_others = relationship("PortfolioPost", back_populates="others", overlaps="overview,portfolio_post")
 
     def __str__(self):
         return "Видео " + str(self.id)
@@ -451,10 +452,13 @@ class PortfolioPost(Base):
     work_completion_time = Column(String)
     project_type_id = Column(Integer, ForeignKey('project_type.id'))
     project_type = relationship("ProjectType", back_populates="portfolio_posts")
-    texts = Column(ARRAY(String), nullable=True)
+    task = Column(String, nullable=True)
+    steps_of_work = Column(ARRAY(String), nullable=True)
     images = Column(ARRAY(String), nullable=True)
-    overview = Column(String, nullable=True)
-    videos = relationship("PortfolioPostVideo", back_populates="portfolio_post")
+    overview = relationship("PortfolioPostVideo", back_populates="portfolio_post", uselist=False,
+                            overlaps="others,portfolio_post_others")
+    others = relationship("PortfolioPostVideo", back_populates="portfolio_post_others",
+                          overlaps="overview,portfolio_post")
 
     def __str__(self):
         return self.title

@@ -397,9 +397,17 @@ import aiofiles
 
 db = get_db()
 # PATH = 'C:/Users/Кирилл/PycharmProjects/FixRemont/tmp'
-PATH = '/var/www/fixremont-uploads/'
+PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
+# PATH = '/var/www/fixremont-uploads/'
 storage = FileSystemStorage(path=PATH)
 
+
+def validate_path(path):
+    if PATH in path:
+        return path.replace(PATH, "")
+    if '//' in path:
+        return path.replace('//', '/')
+    return path
 
 async def get_all_model_values(db: AsyncSession, model):
     result = await db.execute(select(model.name))
@@ -503,34 +511,10 @@ class PostAdmin(ModelView, model=Post):
     }
 
     column_formatters_detail = {
-        'images': lambda m, p: Markup(
-            ''.join(
-                f'<img src="data:image/png;base64,{image}" width="100" />'
-                for image in m.images
-            )
-        ) if m.images else 'Вложения отсутствует',
-        # 'image1': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image1}" width="100" />') if m.image1 else 'Вложение отсутствует',
-        # 'image2': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image2}" width="100" />') if m.image2 else 'Вложение отсутствует',
-        # 'image3': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image3}" width="100" />') if m.image3 else 'Вложение отсутствует',
         'post_type': lambda m, p: m.post_type.value,
     }
 
     column_formatters = {
-        'images': lambda m, p: Markup(
-            ''.join(
-                f'<img src="data:image/png;base64,{image}" width="100" />'
-                for image in m.images
-            )
-        ) if m.images else 'Вложения отсутствует',
-        # 'image1': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image1}" width="100" />') if m.image1 else 'Вложение отсутствует',
-        # 'image2': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image2}" width="100" />') if m.image2 else 'Вложение отсутствует',
-        # 'image3': lambda m, p: Markup(
-        #     f'<img src="data:image/png;base64,{m.image3}" width="100" />') if m.image3 else 'Вложение отсутствует',
         'post_type': lambda m, p: m.post_type.value,
     }
 
@@ -546,6 +530,8 @@ class PostAdmin(ModelView, model=Post):
             async with aiofiles.open(image_path, mode='wb+') as out_file:
                 while content := await image.read(1024):
                     await out_file.write(content)
+
+            image_path = validate_path(image_path)
             images_paths.append(image_path)
         post_data = schemas.PostSchema(
             id=0,
@@ -849,16 +835,6 @@ class TariffAdmin(ModelView, model=Tariff):
         'image': FileField
     }
 
-    column_formatters_detail = {
-        'image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
-
-    }
-
-    column_formatters = {
-        'image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
-    }
 
     async def on_model_change(self, data, model, is_created, request):
         image = data.get('image')
@@ -868,7 +844,7 @@ class TariffAdmin(ModelView, model=Tariff):
         async with aiofiles.open(image_path, mode='wb+') as out_file:
             while content := await image.read(1024):
                 await out_file.write(content)
-
+        image_path = validate_path(image_path)
         tariff_data = schemas.TariffSchema(
             image=image_path,
             name=data.get('name'),
@@ -932,16 +908,6 @@ class UserCommentsAdmin(ModelView, model=UserComments):
         'image': FileField
     }
 
-    column_formatters_detail = {
-        'image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
-    }
-
-    column_formatters = {
-        'image': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.image}" width="100" />') if m.image else 'Вложение отсутствует',
-    }
-
     async def on_model_change(self, data, model, is_created, request):
         image = data.get('image')
         current_dir = create_directory_for_last_user_comment_id(get_db(), PATH + "/user_comments/") + "/"
@@ -950,7 +916,7 @@ class UserCommentsAdmin(ModelView, model=UserComments):
         async with aiofiles.open(image_path, mode='wb+') as out_file:
             while content := await image.read(1024):
                 await out_file.write(content)
-
+        image_path = validate_path(image_path)
         user_comment_data = schemas.UserCommentsSchema(
             image=image_path
         )
@@ -983,7 +949,7 @@ class IntroVideoAdmin(ModelView, model=IntroVideos):
         async with aiofiles.open(video_path, mode='wb+') as out_file:
             while content := await video.read(1024):
                 await out_file.write(content)
-
+        video_path = validate_path(video_path)
         intro_video_data = schemas.IntroVideosSchema(
             video=video_path,
             video_duration=data.get('video_duration'),
@@ -1010,16 +976,6 @@ class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
         'logo': FileField
     }
 
-    column_formatters_detail = {
-        'logo': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.logo}" width="100" />') if m.logo else 'Вложение отсутствует',
-    }
-
-    column_formatters = {
-        'logo': lambda m, p: Markup(
-            f'<img src="data:image/png;base64,{m.logo}" width="100" />') if m.logo else 'Вложение отсутствует',
-    }
-
     async def on_model_change(self, data, model, is_created, request):
         logo = data.get('logo')
         current_dir = create_directory_for_last_social_networks_id(get_db(), PATH + "/social_networks/") + "/"
@@ -1028,7 +984,7 @@ class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
         async with aiofiles.open(logo_path, mode='wb+') as out_file:
             while content := await logo.read(1024):
                 await out_file.write(content)
-
+        logo_path = validate_path(logo_path)
         social_media_data = schemas.SocialMediaAccountsSchema(
             name=data.get('name'),
             link=data.get('link'),
@@ -1155,6 +1111,7 @@ class BlogAdmin(ModelView, model=Blog):
             async with aiofiles.open(img_main_path, mode='wb+') as out_file:
                 while content := await img_main.read(1024):
                     await out_file.write(content)
+            img_main_path = validate_path(img_main_path)
             data['img_main'] = img_main_path
 
         blog_data = schemas.BlogSchema(
@@ -1192,6 +1149,7 @@ class BlogBlockAdmin(ModelView, model=BlogBlock):
                 async with aiofiles.open(image_path, mode='wb+') as out_file:
                     while content := await image.read(1024):
                         await out_file.write(content)
+                image_path = validate_path(image_path)
                 images_paths.append(image_path)
             data['images'] = images_paths
         # blog_block_data = schemas.BlogBlockSchema(
@@ -1219,7 +1177,7 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
     column_list = [
         PortfolioPost.id, PortfolioPost.title, PortfolioPost.img_main, PortfolioPost.img_result,
         PortfolioPost.price_amount, PortfolioPost.object_area, PortfolioPost.work_completion_time,
-        PortfolioPost.project_type, PortfolioPost.texts, PortfolioPost.images, PortfolioPost.videos, PortfolioPost.overview
+        PortfolioPost.project_type, PortfolioPost.steps_of_work, PortfolioPost.images, PortfolioPost.overview, PortfolioPost.others
     ]
     column_searchable_list = [PortfolioPost.title]
     column_filters = [PortfolioPost.project_type]
@@ -1232,13 +1190,16 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
         "title": "Заголовок", "img_main": "Главное изображение", "img_result": "Изображение результата",
         "price_amount": "Стоимость", "object_area": "Площадь объекта",
         "work_completion_time": "Время завершения работы",
-        "project_type": "Тип проекта", "texts": "Тексты", "images": "Изображения", "videos": "Видео"
+        "project_type": "Тип проекта", "texts": "Тексты", "images": "Изображения", "videos": "Видео",
+        "overview": "Обзорное видео", "others": "Другие видео", "steps_of_work": "Этапы работы"
     }
 
     form_overrides = {
         'img_main': FileField,
         'img_result': FileField,
         'images': MultipleFileField,
+        # 'overview': FileField,
+        # 'others': MultipleFileField
     }
 
     async def on_model_change(self, data, model, is_created, request):
@@ -1252,6 +1213,7 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
             async with aiofiles.open(img_main_path, mode='wb+') as out_file:
                 while content := await img_main.read(1024):
                     await out_file.write(content)
+            img_main_path = validate_path(img_main_path)
             data['img_main'] = img_main_path
 
         if img_result:
@@ -1259,6 +1221,7 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
             async with aiofiles.open(img_result_path, mode='wb+') as out_file:
                 while content := await img_result.read(1024):
                     await out_file.write(content)
+            img_result_path = validate_path(img_result_path)
             data['img_result'] = img_result_path
 
         if images:
@@ -1268,8 +1231,28 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
                 async with aiofiles.open(image_path, mode='wb+') as out_file:
                     while content := await image.read(1024):
                         await out_file.write(content)
+                image_path = validate_path(image_path)
                 images_paths.append(image_path)
             data['images'] = images_paths
+
+        # if overview:
+        #     overview_path = os.path.join(current_dir, overview.filename)
+        #     async with aiofiles.open(overview_path, mode='wb+') as out_file:
+        #         while content := await overview.read(1024):
+        #             await out_file.write(content)
+        #     overview_path = validate_path(overview_path)
+        #     data['overview'] = overview_path
+        #
+        # if others:
+        #     others_paths = []
+        #     for other in others:
+        #         other_path = os.path.join(current_dir, other.filename)
+        #         async with aiofiles.open(other_path, mode='wb+') as out_file:
+        #             while content := await other.read(1024):
+        #                 await out_file.write(content)
+        #         other_path = validate_path(other_path)
+        #         others_paths.append(other_path)
+        #     data['others'] = others_paths
 
         # portfolio_post_data = PortfolioPostSchema(
         #     id=0,
@@ -1315,6 +1298,7 @@ class PortfolioPostVideoAdmin(ModelView, model=PortfolioPostVideo):
             async with aiofiles.open(video_path, mode='wb+') as out_file:
                 while content := await video_file.read(1024):
                     await out_file.write(content)
+            video_path = validate_path(video_path)
             data['link'] = video_path
 
         portfolio_post_video_data = PortfolioPostVideoSchema(

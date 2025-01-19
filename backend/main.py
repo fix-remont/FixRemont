@@ -105,7 +105,7 @@ admin.add_view(BlogParagraphAdmin)
 admin.add_view(PortfolioPostAdmin)
 admin.add_view(PortfolioPostVideoAdmin)
 # app.include_router(user_routes.router)
-app.include_router(routes.meta())
+app.include_router(routes.meta(), prefix="/api")
 
 
 @app.post("/register", response_model=UserResponse)

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import List, Optional
+from typing import List, Optional, Union, Dict
 from enum import Enum
 import random
 import string
@@ -130,6 +130,15 @@ class PortfolioPostVideoSchema(BaseModel):
         from_attributes = True
 
 
+class PortfolioPostTextsSchema(BaseModel):
+    task: Optional[str] = None
+    steps_of_work: Optional[List[str]] = None
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
 class PortfolioPostSchema(BaseModel):
     id: int
     title: str
@@ -138,11 +147,11 @@ class PortfolioPostSchema(BaseModel):
     price_amount: str
     object_area: str
     work_completion_time: str
-    type_of_work: ProjectTypeSchema
-    texts: Optional[List[str]] = None
+    type_of_work: str
+    texts: Optional[PortfolioPostTextsSchema] = None
     images: Optional[List[str]] = None
-    overview: Optional[str] = None
-    videos: Optional[List[PortfolioPostVideoSchema]] = None
+    overview: Optional[PortfolioPostVideoSchema] = None
+    others: Optional[List[PortfolioPostVideoSchema]] = None
 
     class Config:
         orm_mode = True

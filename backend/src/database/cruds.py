@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from psycopg2 import paramstyle
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from src.auth.auth_routes import get_password_hash
 from src.database import models
@@ -1423,7 +1424,10 @@ def create_blog_paragraph(blog_paragraph: schemas.BlogParagraphSchema, db: Async
 
 
 def get_portfolio_posts(db: AsyncSession):
-    result = db.execute(select(models.PortfolioPost))
+    result = db.execute(select(models.PortfolioPost).options(
+        selectinload(models.PortfolioPost.overview),
+        selectinload(models.PortfolioPost.others)
+    ))
     portfolio_posts = result.scalars().all()
 
     portfolio_posts_list = []
@@ -1436,18 +1440,36 @@ def get_portfolio_posts(db: AsyncSession):
             "price_amount": portfolio_post.price_amount,
             "object_area": portfolio_post.object_area,
             "work_completion_time": portfolio_post.work_completion_time,
-            "type_of_work": portfolio_post.project_type,
-            "texts": portfolio_post.texts,
+            "type_of_work": str(portfolio_post.project_type),
+            "texts": {
+                "task": portfolio_post.task,
+                "steps_of_work": portfolio_post.steps_of_work,
+            },
             "images": portfolio_post.images,
-            "overview": portfolio_post.overview,
-            "videos": portfolio_post.videos,
+            "overview": {
+                "id": portfolio_post.overview.id,
+                "duration": portfolio_post.overview.duration,
+                "link": portfolio_post.overview.link,
+                "portfolio_post_id": portfolio_post.overview.portfolio_post_id
+            } if portfolio_post.overview else None,
+            "others": [
+                {
+                    "id": other.id,
+                    "duration": other.duration,
+                    "link": other.link,
+                    "portfolio_post_id": other.portfolio_post_id
+                } for other in portfolio_post.others
+            ] if portfolio_post.others else []
         })
 
     return portfolio_posts_list
 
 
 def get_portfolio_post(id: int, db: AsyncSession):
-    result = db.execute(select(models.PortfolioPost).where(models.PortfolioPost.id == id))
+    result = db.execute(select(models.PortfolioPost).where(models.PortfolioPost.id == id).options(
+        selectinload(models.PortfolioPost.overview),
+        selectinload(models.PortfolioPost.others)
+    ))
     portfolio_post = result.scalars().first()
     if portfolio_post is None:
         raise HTTPException(status_code=404, detail="PortfolioPost not found")
@@ -1460,11 +1482,26 @@ def get_portfolio_post(id: int, db: AsyncSession):
         "price_amount": portfolio_post.price_amount,
         "object_area": portfolio_post.object_area,
         "work_completion_time": portfolio_post.work_completion_time,
-        "type_of_work": portfolio_post.project_type,
-        "texts": portfolio_post.texts,
+        "type_of_work": str(portfolio_post.project_type),
+        "texts": {
+            "task": portfolio_post.task,
+            "steps_of_work": portfolio_post.steps_of_work,
+        },
         "images": portfolio_post.images,
-        "overview": portfolio_post.overview,
-        "videos": portfolio_post.videos,
+        "overview": {
+            "id": portfolio_post.overview.id,
+            "duration": portfolio_post.overview.duration,
+            "link": portfolio_post.overview.link,
+            "portfolio_post_id": portfolio_post.overview.portfolio_post_id
+        } if portfolio_post.overview else None,
+        "others": [
+            {
+                "id": other.id,
+                "duration": other.duration,
+                "link": other.link,
+                "portfolio_post_id": other.portfolio_post_id
+            } for other in portfolio_post.others
+        ] if portfolio_post.others else []
     }
 
     return portfolio_post_response
@@ -1481,7 +1518,10 @@ def create_portfolio_post(portfolio_post: schemas.PortfolioPostSchema, db: Async
         type_of_work=portfolio_post.type_of_work,
         texts=portfolio_post.texts,
         images=portfolio_post.images,
-        project_type_id=portfolio_post.project_type_id
+        project_type_id=portfolio_post.project_type_id,
+        overview=portfolio_post.overview,
+        videos=portfolio_post.videos
+
     )
     db.add(new_portfolio_post)
     db.commit()
