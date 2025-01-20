@@ -1,195 +1,303 @@
 <script setup lang="ts">
-import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
-import { hrefBecomePartner, hrefCabinet } from 'assets/variables'
+import { hrefBecomePartner, hrefCabinet, hrefCalculater } from 'assets/variables'
 
 const items = ref([
   {
     id: 1,
     title: 'Риэлторам',
-    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    text: 'Без визитов на объект. Заезжайте в готовую квартиру уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false,
-    href: `${hrefBecomePartner}/realtors`
+    href: `${hrefBecomePartner}/realtors`,
+    hovered: false
   },
   {
     id: 2,
     title: 'Застройщикам',
-    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    text: 'Без визитов на объект. Заезжайте в готовую квартиру уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false,
-    href: `${hrefBecomePartner}/builders`
+    href: `${hrefBecomePartner}/builders`,
+    hovered: false
   },
   {
     id: 3,
-    title: 'Физическим <br/> лицам',
-    text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
+    title: 'Физическим лицам',
+    text: 'Без визитов на объект. Заезжайте в готовую квартиру уже через 6-8 месяцев',
     imgSrc: '/images/home/block1-img1.png',
-    hovered: false,
-    href: `${hrefBecomePartner}/individuals`
+    href: `${hrefBecomePartner}/individuals`,
+    hovered: false
   }
 ])
 </script>
 
 <template>
-  <div class="margin-glob block">
-    <div class="crumb-container">
-      <Bread_crumbs />
+  <WBlock class="bg-orange radius-glob relative">
+    <div class="radius-glob block-image relative">
+      <SharedBreadCrumbs class="breadcrumbs" />
+      <img class="background-image" src="/images/partnership/block_1.png" alt="background" />
+      <h1 class="title-boxing">Зарабатывайте 10% комиссию с каждой сделки FIX-ремонт</h1>
     </div>
-    <div class="content">
-      <h1>
-        Зарабатывайте 10%
-        <br />
-        комиссию с каждой
-        <br />
-        сделки FIX-ремонт
-      </h1>
+
+    <div class="black-box-wrap">
+      <div class="black-box">
+        <h3 class="bb-title">
+          Обеспечим ваших клиентов сервисом и услугой высшего уровня без рисков для репутации
+        </h3>
+        <NuxtLink class="orange-link"> Подробнее </NuxtLink>
+        <UButton class="register-button" :to="hrefCalculater" size="custom" block>
+          Зарегистрироваться как партнер
+        </UButton>
+      </div>
     </div>
-    <div class="black-box">
-      <h3>
-        Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с
-        фиксированной ценой
-      </h3>
-      <NuxtLink :to="hrefCabinet">
-        <SharedButton fillOrange> Зарегистрироваться, как партнёр </SharedButton>
-      </NuxtLink>
+
+    <div class="cards-wrapper">
+      <UCarousel class="cards" v-if="items" :items="items" :ui="{ container: 'gap-6' }">
+        <template #default="{ item }">
+          <NuxtLink
+            class="item"
+            :to="item.href"
+            @mouseover="item.hovered = true"
+            @mouseout="item.hovered = false"
+            :class="{ 'item-hovered': item.hovered }"
+            @click="item.hovered = true"
+          >
+            <span class="title">{{ item.title }}</span>
+            <span class="text">{{ item.text }}</span>
+            <img :src="item.imgSrc" alt="img" />
+            <div class="wrap-arrow">
+              <SharedArrowHover :hovered="item.hovered" />
+            </div>
+          </NuxtLink>
+        </template>
+      </UCarousel>
     </div>
-    <UCarousel class="third" v-if="items" :items="items" :ui="{ container: 'gap-2' }">
-      <template #default="{ item }">
-        <NuxtLink
-          :to="item.href"
-          @mouseover="item.hovered = true"
-          @mouseout="item.hovered = false"
-          :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
-          @click="item.hovered = true"
-        >
-          <span v-html="item.title" :class="['title']"></span>
-          <span :class="['text']">{{ item.text }}</span>
-          <img :src="item.imgSrc" alt="img" />
-          <div :class="['wrap-arrow']">
-            <SharedArrowHover :hovered="item.hovered" />
-          </div>
-        </NuxtLink>
-      </template>
-    </UCarousel>
-  </div>
+  </WBlock>
 </template>
 
 <style scoped lang="postcss">
 $radius: 35px;
 
-.block {
-  min-height: 50rem;
-  background-image: url('/images/partnership/block_1.png');
-  background-repeat: no-repeat;
-  position: relative;
-  overflow: hidden;
-  align-self: stretch;
-}
-
-.crumb-container {
-  position: absolute;
-  display: inline-block;
+.black-box-wrap {
+  background-color: var(--c-white);
   top: 0;
-  left: 0;
-  padding: 20px;
-  z-index: 1;
+  right: 0;
+  position: absolute;
+  padding: 2rem 2rem 5rem;
+
+  @media (max-width: 1245px) {
+    border-bottom-left-radius: $radius;
+  }
+
+  @media (max-width: 1024px) {
+    position: static;
+    padding: 1rem;
+    border-radius: 0;
+  }
 }
 
-.content {
-  display: inline-block;
+.block-image {
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  position: relative;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 0;
+  }
+}
+
+.breadcrumbs {
+  position: absolute;
+  top: 10px;
+  z-index: 10;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.background-image {
+  max-height: 700px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: $radius;
+}
+
+.title-boxing {
+  font-size: 45px;
+  font-weight: bold;
+  line-height: 60px;
+  color: white;
   position: absolute;
   bottom: 5rem;
-  left: 100px;
-  color: #fff;
+  left: 5rem;
+  width: 35%;
 
-  h1 {
-    font-size: 55px;
-    font-weight: 600;
-    line-height: 70px;
-    letter-spacing: -1px;
+  @media (max-width: 1500px) {
+    font-size: 40px;
+    line-height: 50px;
+    bottom: 4rem;
+    left: 4rem;
+  }
+
+  @media (max-width: 1400px) {
+    font-size: 35px;
+    line-height: 45px;
+    bottom: 3rem;
+    left: 3rem;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 30px;
+    line-height: 40px;
+    bottom: 2rem;
+    left: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 40px;
+    line-height: 60px;
+    bottom: 3rem;
+    left: 3rem;
+    width: 60%;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    line-height: 25px;
+    bottom: 1rem;
+    left: 1rem;
   }
 }
 
 .black-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7rem;
-  position: absolute;
-  right: 0;
-  top: 1rem;
-  z-index: 1;
-  padding: 45px;
-  width: 31rem;
+  background-color: #161616;
+  padding: 50px;
   border-radius: $radius;
-  color: #fff;
-  background-color: var(--c-black);
+  color: var(--c-white);
+  width: 35em;
 
-  h3 {
-    display: inline-block;
-    font-size: 30px;
-    font-weight: 500;
-    line-height: 40px;
+  @media (max-width: 1024px) {
+    width: initial;
   }
 
-  button {
+  @media (max-width: 600px) {
+    padding: 35px;
+  }
+
+  @media (max-width: 450px) {
     padding: 30px;
-    font-size: 19px;
+  }
+
+  .bb-title {
+    font-size: 30px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: white;
+    width: 75%;
+
+    @media (max-width: 1200px) {
+      font-size: 24px;
+      margin-bottom: 1.5rem;
+      width: 80%;
+    }
+
+    @media (max-width: 1030px) {
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
   }
 }
 
-.third {
-  position: absolute;
-  bottom: 1rem;
+.orange-link {
+  color: var(--c-orange);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.register-button {
+  margin-top: 1rem;
+}
+
+.cards-wrapper {
+  max-width: 50.2vw;
+  background-color: var(--c-white);
+  border-top-left-radius: $radius;
+  bottom: 0;
   right: 0;
+  position: absolute;
+  padding: 2rem 2rem 0;
 
-  .static-slides {
-    width: 890px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    height: 100%;
-    flex-grow: 1;
-
-    @media (max-width: 1500px) {
-      width: 100%;
-      gap: 0;
-      display: flex;
-      justify-content: space-between;
-    }
+  @media (max-width: 1200px) {
+    padding-top: 4rem;
+    border-radius: 0;
   }
 
+  @media (max-width: 1030px) {
+    padding-top: 6rem;
+  }
+
+  @media (max-width: 1024px) {
+    position: relative;
+    padding-top: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.cards {
+  @media (max-width: 1024px) {
+    max-width: 90vw;
+  }
   .item {
     position: relative;
     display: flex;
     flex-direction: column;
     color: white;
-    border-radius: 35px;
+    border-radius: $radius;
     overflow: hidden;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
     background-color: white;
-    /* background-color: var(--c-black); */
+    width: 280px;
+    min-height: 180px;
 
-    width: 260px;
-    height: 230px;
-    @media (max-width: 1500px) {
+    @media (max-width: 1400px) {
+      min-height: 200px;
     }
 
-    /* @media (max-width: 1000px) {
-				width: initial;
-				} */
+    @media (max-width: 1200px) {
+      min-height: 220px;
+    }
+
+    @media (max-width: 800px) {
+      min-height: 130px;
+    }
 
     .title {
       font-weight: 500;
       font-size: 24px;
       margin: 25px 0 10px 25px;
       line-height: 32px;
-      transition: all 1s linear;
+      transition: all 0.3s linear;
       color: var(--c-black);
+
+      @media (max-width: 800px) {
+        font-size: 20px;
+      }
     }
 
     .text {
-      width: 160px;
+      width: 180px;
       font-size: 16px;
       font-weight: 400;
       margin-left: 25px;
@@ -212,11 +320,9 @@ $radius: 35px;
 
   .item-hovered {
     background: none;
-    /* background: #efefef; */
 
     .title {
       color: white;
-      /* color: var(--c-black); */
     }
 
     .text {
