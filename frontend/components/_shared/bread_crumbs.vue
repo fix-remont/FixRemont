@@ -16,7 +16,9 @@ const labels = {
   'feedback-from-clients': 'Отзывы',
   services: 'Услуги',
   'apartment-renovation': 'Ремонт квартир',
-  'building-houses': 'Строительство Домов'
+  'building-houses': 'Строительство Домов',
+  partnership: 'Партнёрская программа',
+  realtors: 'Риелторам'
 }
 /////////////////////////////////////////
 
