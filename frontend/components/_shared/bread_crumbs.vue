@@ -15,7 +15,8 @@ const labels = {
   blog: 'Блог',
   'feedback-from-clients': 'Отзывы',
   services: 'Услуги',
-  'apartment-renovation': 'Ремонт квартир'
+  'apartment-renovation': 'Ремонт квартир',
+  'building-houses': 'Строительство Домов'
 }
 /////////////////////////////////////////
 
