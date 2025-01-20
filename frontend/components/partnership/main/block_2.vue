@@ -51,6 +51,7 @@ const setActiveIndex = (index: number) => {
       <div class="manipulate">
         <p class="subtitle">Кто вы:</p>
         <UCarousel
+          class="choices"
           :items="names"
           :ui="{
             container: 'md:gap-12 gap-2'
@@ -90,13 +91,8 @@ const setActiveIndex = (index: number) => {
       </UCarousel>
 
       <div class="link-buttons">
-        <NuxtLink>
-          <SharedButton fill-orange> Присоединиться к программе </SharedButton>
-        </NuxtLink>
-
-        <NuxtLink class="button2">
-          <SharedButton> Подробнее </SharedButton>
-        </NuxtLink>
+        <UButton size="custom" color="orange" block> Присоединиться к программе </UButton>
+        <UButton size="custom" color="white" variant="outline" block> Подробнее </UButton>
       </div>
     </div>
   </div>
@@ -126,6 +122,10 @@ const setActiveIndex = (index: number) => {
       font-weight: bold;
       text-decoration: underline;
     }
+
+    .choices {
+      max-width: 80%;
+    }
   }
 }
 
@@ -135,6 +135,36 @@ const setActiveIndex = (index: number) => {
   border-radius: 24px;
   background-color: #efefef;
   padding: 40px;
+
+  .link-buttons {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-around;
+
+    @media (max-width: 1200px) {
+      flex-direction: column;
+      width: 100%;
+    }
+    a {
+      flex: 1;
+    }
+  }
+  p {
+    width: 300px;
+
+    @media (max-width: 1500px) {
+      width: 100%;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 800px) {
+      line-height: 16px;
+      font-size: 16px;
+    }
+  }
 }
 
 .button-box {
@@ -162,19 +192,7 @@ const setActiveIndex = (index: number) => {
   }
 }
 
-.link-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-around;
-
-  .button2 {
-    width: 40%;
-  }
-}
-
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .block {
     flex-direction: column;
   }
@@ -205,10 +223,6 @@ const setActiveIndex = (index: number) => {
   .link-buttons {
     flex-direction: column;
     gap: 10px;
-
-    .button2 {
-      width: 100%;
-    }
   }
 }
 </style>
