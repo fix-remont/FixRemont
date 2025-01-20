@@ -18,7 +18,8 @@ const labels = {
   'apartment-renovation': 'Ремонт квартир',
   'building-houses': 'Строительство Домов',
   partnership: 'Партнёрская программа',
-  realtors: 'Риелторам'
+  realtors: 'Риелторам',
+  builders: 'Застройщикам'
 }
 /////////////////////////////////////////
 
