@@ -38,7 +38,6 @@ const handleClickDetails = () => {
     openDetails.value = true
   }
 }
-
 </script>
 
 <template>
@@ -85,12 +84,14 @@ const handleClickDetails = () => {
       </div>
     </div>
   </header>
-  <header :class="[
-    'box-small',
-    'margin-glob',
-    { 'opened-navigation': openNavigation },
-    { 'opened-details': openDetails }
-  ]">
+  <header
+    :class="[
+      'box-small',
+      'margin-glob',
+      { 'opened-navigation': openNavigation },
+      { 'opened-details': openDetails }
+    ]"
+  >
     <div class="first-line">
       <NuxtLink class="logo-container" :to="hrefLogo">
         <img class="logo hover" src="/icons/logo-without-text.svg" alt="logo" />
@@ -105,11 +106,21 @@ const handleClickDetails = () => {
             Халитов
           </b>
         </p>
-        <img class="arrow hover" @click="handleClickDetails"
-          :src="openDetails ? '/icons/arrow-black-up.svg' : '/icons/arrow-white-down.svg'" alt="arrow" />
+        <img
+          class="arrow hover"
+          @click="handleClickDetails"
+          :src="openDetails ? '/icons/arrow-black-up.svg' : '/icons/arrow-white-down.svg'"
+          alt="arrow"
+        />
       </div>
-      <img class="toggle-navigation hover" :src="openNavigation ? '/icons/close-button.svg' : '/icons/burger.svg'"
-        alt="close-button" draggable="false" loading="eager" @click="handleClickNavigation" />
+      <img
+        class="toggle-navigation hover"
+        :src="openNavigation ? '/icons/close-button.svg' : '/icons/burger.svg'"
+        alt="close-button"
+        draggable="false"
+        loading="eager"
+        @click="handleClickNavigation"
+      />
     </div>
 
     <NuxtLink class="make-order hover" :to="hrefMakeOrder"> Оформить заказ </NuxtLink>
@@ -417,7 +428,8 @@ const handleClickDetails = () => {
       gap: 10px;
       border-radius: 20px;
 
-      .text {}
+      .text {
+      }
     }
 
     .bell-container {

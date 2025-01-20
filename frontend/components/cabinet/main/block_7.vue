@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <article class="margin-b-glob article radius-glob">
@@ -8,10 +6,15 @@
       <span class="orange"> Есть вопросы? </span> <br />
       Обратитесь в нашу службу поддержки
     </h2>
-    <div class="buttons h-max mt-auto">
-      <UButton class="flex-grow justify-center lg:w-[initial] w-full" color="black">Задать вопрос</UButton>
-      <UButton class="flex-grow justify-center lg:w-[initial] w-full" color="white" variant="outline">Найти ответ на
-        вопрос в FAQ
+    <div class="buttons mt-auto h-max">
+      <UButton class="w-full flex-grow justify-center lg:w-[initial]" color="black"
+        >Задать вопрос</UButton
+      >
+      <UButton
+        class="w-full flex-grow justify-center lg:w-[initial]"
+        color="white"
+        variant="outline"
+        >Найти ответ на вопрос в FAQ
       </UButton>
     </div>
   </article>

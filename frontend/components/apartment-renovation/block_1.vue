@@ -11,10 +11,10 @@ const { width } = useViewport()
       <SharedBreadCrumbs class="top-10 z-10 hidden lg:absolute lg:block" />
       <img
         class="radius-glob max-h-[700px] w-full object-cover"
-        src="/images/home/package-comfort.png"
+        src="/images/apartment-renovation/block_1.png"
         alt="background"
       />
-      <h1 class="text:2xl absolute bottom-10 left-10 font-bold text-white xl:text-4xl">
+      <h1 class="title-boxing">
         Ремотн квартир
         <br />
         под ключ по готовым
@@ -29,15 +29,7 @@ const { width } = useViewport()
       class="black-box-wrap bottom-0 right-0 block w-full pl-0 pt-0 lg:absolute lg:w-[initial] lg:pl-8 lg:pt-8"
     >
       <div class="black-box w-full">
-        <h3 class="text:2xl mb-4 font-bold text-white xl:text-3xl">
-          Заселитесь в
-          <br />
-          квартиру мечты с
-          <br />
-          мебелью в течение
-          <br />
-          3-х месяцев
-        </h3>
+        <h3 class="bb-title">Заселитесь в квартиру мечты с мебелью в течение 3-х месяцев</h3>
         <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
           >Отлайн калькулятор</UButton
         >
@@ -88,17 +80,36 @@ $radius: 35px;
   border-radius: $radius;
   color: var(--c-white);
   width: 35em;
-  @media (max-width: 1024px) {
+  @media (max-width: 1025px) {
     width: initial;
   }
-  /* h3 {
-    font-size: 25px;
-    font-weight: 500;
-    line-height: 40px;
-    margin-bottom: 10px;
-    @media (max-width: 1500px) {
-      font-size: 30px;
+  @media (max-width: 600px) {
+    padding: 35px;
+  }
+  @media (max-width: 450px) {
+    padding: 30px;
+  }
+
+  .bb-title {
+    font-size: 30px;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: white;
+    width: 75%;
+
+    @media (max-width: 1100px) {
+      font-size: 24px;
+      margin-bottom: 1.5rem;
+      width: 80%;
     }
-  } */
+
+    @media (max-width: 1030px) {
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
 }
 </style>

@@ -29,7 +29,10 @@ const statusMap = (status: string) => {
 
     <div class="radius-glob table-wrap" v-if="items.length > 0">
       <div class="table">
-        <div v-for="(item, index) in items" :class="['row', { 'is-not-last': index !== items.length - 1 }]">
+        <div
+          v-for="(item, index) in items"
+          :class="['row', { 'is-not-last': index !== items.length - 1 }]"
+        >
           <div class="operation-type">
             <div class="operation-type-label">Операция:</div>
             <div class="operation-type-value">{{ item.operationType }}</div>
@@ -49,7 +52,6 @@ const statusMap = (status: string) => {
             <div class="status-label">Статус:</div>
             <div class="status-value">{{ item.status }}</div>
           </div>
-
 
           <UButton class="justify-center" color="white" variant="outline">Скачать чек</UButton>
         </div>

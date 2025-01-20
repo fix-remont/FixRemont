@@ -30,11 +30,17 @@ const showToWalletButton = !route.fullPath.includes('/wallet')
         </div>
       </div>
       <div class="wrap-buttons">
-        <UButton :class="[showToWalletButton ? 'flex-grow' : 'ms-auto', 'justify-center']">Вывести средства</UButton>
-        <UButton v-if="showToWalletButton" to="/cabinet/wallet" class="flex-grow justify-center" color="white"
-          variant="outline">Перейти в кошелёк
+        <UButton :class="[showToWalletButton ? 'flex-grow' : 'ms-auto', 'justify-center']"
+          >Вывести средства</UButton
+        >
+        <UButton
+          class="flex-grow justify-center"
+          v-if="showToWalletButton"
+          to="/cabinet/wallet"
+          color="white"
+          variant="outline"
+          >Перейти в кошелёк
         </UButton>
-
 
         <!-- <SharedButton class="button-wallet" fillOrange>Вывести средства</SharedButton>
         <SharedButton class="button-wallet">Перейти в кошелёк</SharedButton> -->

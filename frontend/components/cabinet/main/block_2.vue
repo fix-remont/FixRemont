@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section class="margin-b-glob block">
@@ -14,11 +12,12 @@
             <p class="link hover">ref.fix-remont.ru/8GTS7LX82390</p>
             <hr />
           </div>
-          <UButton color="black" class="self-end flex-grow h-max justify-center">Скопировать ссылку</UButton>
-
+          <UButton class="h-max flex-grow justify-center self-end" color="black"
+            >Скопировать ссылку</UButton
+          >
         </div>
       </div>
-      <div class=" box2 radius-glob">
+      <div class="box2 radius-glob">
         <div class="wrapper">
           <img class="qr-code" src="/images/header-signed/qr-code.png" alt="qr-code" />
           <p>Мой QR-код для приглашения</p>
