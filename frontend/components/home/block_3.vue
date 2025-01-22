@@ -11,6 +11,8 @@ import { storeToRefs } from 'pinia'
 
 const { items } = storeToRefs(useTariffsStore())
 const itemsLocal = ref(items)
+console.log(items)
+
 
 const carouselRef1 = ref(null)
 const carouselRef2 = ref(null)
@@ -21,11 +23,11 @@ const itemsWithSelected = computed(() => {
     const updatedItem = { ...item } // Создаем новый объект
     updatedItem.selected = index === currentActiveIndex.value
 
-    const indexImage = updatedItem.image.indexOf('//')
-    updatedItem.image =
-      indexImage === -1
-        ? updatedItem.image
-        : `${config.public.mediaPath}${updatedItem.image.slice(indexImage + 2)}`
+    // const indexImage = updatedItem.image.indexOf('//')
+    // updatedItem.image =
+    //   indexImage === -1
+    //     ? updatedItem.image
+    //     : `${config.public.mediaPath}${updatedItem.image.slice(indexImage + 2)}`
 
     return updatedItem
   })
@@ -56,38 +58,23 @@ watch(
       </p>
     </div>
 
-    <UCarousel
-      class="carousel-area"
-      ref="carouselRef1"
-      :items="itemsWithSelected"
-      :ui="{
-        item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
-        container: 'gap-2 relative h-full',
-        arrows: { wrapper: 'absolute bottom-0' }
-      }"
-      arrows
-    >
+    <UCarousel class="carousel-area" ref="carouselRef1" :items="itemsWithSelected" :ui="{
+      item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
+      container: 'gap-2 relative h-full',
+      arrows: { wrapper: 'absolute bottom-0' }
+    }" arrows>
       <template #default="{ item }">
-        <img class="slide" :src="item.image" draggable="false" />
+        <img class="slide" :src="`${config.public.mediaPath}${item.image}`" draggable="false" />
       </template>
 
       <template #prev="{ onClick, disabled }">
-        <img
-          :class="['arrow cursor-pointer', { arrow_disabled: disabled }]"
-          src="/images/arrow-prev.svg"
-          @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)"
-          draggable="false"
-        />
+        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg"
+          @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" draggable="false" />
       </template>
 
       <template #next="{ onClick, disabled }">
-        <img
-          :class="['arrow cursor-pointer', { arrow_disabled: disabled }]"
-          src="/images/arrow-next.svg"
-          :disabled="disabled"
-          @click="handleUpdateCarouselByButton(onClick, 'next', disabled)"
-          draggable="false"
-        />
+        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-next.svg"
+          :disabled="disabled" @click="handleUpdateCarouselByButton(onClick, 'next', disabled)" draggable="false" />
       </template>
     </UCarousel>
 
@@ -95,24 +82,19 @@ watch(
       <p :class="['text']">
         4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:
       </p>
-      <UCarousel
-        class="tabs-container"
-        ref="carouselRef2"
-        :items="itemsWithSelected"
-        :ui="{
-          container: 'gap-2',
-          item: [
-            'w-16 sm:w-32',
-            'h-16 sm:h-32',
-            'rounded-lg sm:rounded-3xl',
-            ' overflow-hidden relative cursor-pointer hover:opacity-90'
-          ]
-        }"
-      >
+      <UCarousel class="tabs-container" ref="carouselRef2" :items="itemsWithSelected" :ui="{
+        container: 'gap-2',
+        item: [
+          'w-16 sm:w-32',
+          'h-16 sm:h-32',
+          'rounded-lg sm:rounded-3xl',
+          ' overflow-hidden relative cursor-pointer hover:opacity-90'
+        ]
+      }">
         <template #default="{ item, index }">
           <div class="h-full" @click="handleClickTab(index)">
             <p :class="['label']">{{ item.name.toUpperCase() }}</p>
-            <img :class="['img']" :src="item.image" alt="img" draggable="false" />
+            <img :class="['img']" :src="`${config.public.mediaPath}${item.image}`" alt="img" draggable="false" />
             <div :class="['blanket', { blanket_selected: item.selected }]"></div>
           </div>
         </template>
@@ -129,9 +111,7 @@ watch(
           <p class="text">Стоимость:</p>
           <p class="title">{{ items[currentActiveIndex]?.cost }}</p>
 
-          <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
-            >Отлайн калькулятор</UButton
-          >
+          <UButton class="mt-auto" :to="hrefCalculater" size="custom" block>Отлайн калькулятор</UButton>
 
           <!-- <NuxtLink :to="hrefCalculater" :class="['hover', 'btn', 'btn-calculator']">
             Онлайн-калькулятор
