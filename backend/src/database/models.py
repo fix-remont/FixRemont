@@ -26,7 +26,7 @@ class ProjectType(Base):
     portfolio_posts = relationship("PortfolioPost", back_populates="project_type")
 
     def __str__(self):
-        return self.name
+        return self.name if self.name else 'Без названия'
 
     def __repr__(self):
         return self.name
@@ -439,6 +439,21 @@ class PortfolioPostVideo(Base):
         return "Видео " + str(self.id)
 
 
+class PortfolioPostText(Base):
+    __tablename__ = 'portfolio_post_texts'
+    id = Column(Integer, primary_key=True, index=True)
+    task = Column(String, nullable=True)
+    steps_of_work = Column(ARRAY(String), nullable=True)
+    portfolio_post_id = Column(Integer, ForeignKey('portfolio_posts.id'))
+    portfolio_post = relationship("PortfolioPost", back_populates="texts")
+
+    def __str__(self):
+        return self.task
+
+    def __repr__(self):
+        return self.task
+
+
 class PortfolioPost(Base):
     __tablename__ = 'portfolio_posts'
     id = Column(Integer, primary_key=True, index=True)
@@ -450,13 +465,14 @@ class PortfolioPost(Base):
     work_completion_time = Column(String)
     project_type_id = Column(Integer, ForeignKey('project_type.id'))
     project_type = relationship("ProjectType", back_populates="portfolio_posts")
-    task = Column(String, nullable=True)
-    steps_of_work = Column(ARRAY(String), nullable=True)
+    # task = Column(String, nullable=True)
+    # steps_of_work = Column(ARRAY(String), nullable=True)
     images = Column(ARRAY(String), nullable=True)
     overview = relationship("PortfolioPostVideo", back_populates="portfolio_post", uselist=False,
                             overlaps="others,portfolio_post_others")
     others = relationship("PortfolioPostVideo", back_populates="portfolio_post_others",
                           overlaps="overview,portfolio_post")
+    texts = relationship("PortfolioPostText", back_populates="portfolio_post")
 
     def __str__(self):
         return self.title

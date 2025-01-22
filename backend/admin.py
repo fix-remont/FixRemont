@@ -397,8 +397,8 @@ import aiofiles
 
 db = get_db()
 # PATH = 'C:/Users/Кирилл/PycharmProjects/FixRemont/tmp'
-# PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
-PATH = '/var/www/fixremont-uploads/'
+PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
+# PATH = '/var/www/fixremont-uploads/'
 storage = FileSystemStorage(path=PATH)
 
 
@@ -408,6 +408,7 @@ def validate_path(path):
     if '//' in path:
         return path.replace('//', '/')
     return path
+
 
 async def get_all_model_values(db: AsyncSession, model):
     result = await db.execute(select(model.name))
@@ -835,7 +836,6 @@ class TariffAdmin(ModelView, model=Tariff):
         'image': FileField
     }
 
-
     async def on_model_change(self, data, model, is_created, request):
         image = data.get('image')
         current_dir = create_directory_for_last_tariff_id(get_db(), PATH + "/tariff/") + "/"
@@ -1170,6 +1170,23 @@ class BlogParagraphAdmin(ModelView, model=BlogParagraph):
     column_labels = dict(id="ID", title="Заголовок", items="Элементы", blog_block="Блок блога")
 
 
+class PortfolioPostTextAdmin(ModelView, model=PortfolioPostText):
+    name = "Текст поста портфолио"
+    name_plural = "Тексты постов портфолио"
+    icon = "fa-solid fa-file-alt"
+    column_list = [PortfolioPostText.id, PortfolioPostText.task, PortfolioPostText.steps_of_work,
+                   PortfolioPostText.portfolio_post]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = {
+        "id": "ID",
+        "task": "Задача",
+        "steps_of_work": "Этапы работы",
+        "portfolio_post": "Пост портфолио"
+    }
+
+
 class PortfolioPostAdmin(ModelView, model=PortfolioPost):
     name = "Портфолио"
     name_plural = "Портфолио"
@@ -1177,7 +1194,8 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
     column_list = [
         PortfolioPost.id, PortfolioPost.title, PortfolioPost.img_main, PortfolioPost.img_result,
         PortfolioPost.price_amount, PortfolioPost.object_area, PortfolioPost.work_completion_time,
-        PortfolioPost.project_type, PortfolioPost.steps_of_work, PortfolioPost.images, PortfolioPost.overview, PortfolioPost.others
+        PortfolioPost.project_type, PortfolioPost.texts, PortfolioPost.images, PortfolioPost.overview,
+        PortfolioPost.others
     ]
     column_searchable_list = [PortfolioPost.title]
     column_filters = [PortfolioPost.project_type]

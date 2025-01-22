@@ -148,7 +148,7 @@ class PortfolioPostSchema(BaseModel):
     object_area: str
     work_completion_time: str
     type_of_work: str
-    texts: Optional[PortfolioPostTextsSchema] = None
+    texts: Optional[List[PortfolioPostTextsSchema]] = None
     images: Optional[List[str]] = None
     overview: Optional[PortfolioPostVideoSchema] = None
     others: Optional[List[PortfolioPostVideoSchema]] = None

@@ -1441,10 +1441,12 @@ def get_portfolio_posts(db: AsyncSession):
             "object_area": portfolio_post.object_area,
             "work_completion_time": portfolio_post.work_completion_time,
             "type_of_work": str(portfolio_post.project_type),
-            "texts": {
-                "task": portfolio_post.task,
-                "steps_of_work": portfolio_post.steps_of_work,
-            },
+            "texts": [
+                {
+                    "task": portfolio_post_text.task,
+                    "steps_of_work": portfolio_post_text.steps_of_work,
+                } for portfolio_post_text in portfolio_post.texts if portfolio_post_text.task and portfolio_post_text.steps_of_work
+            ],
             "images": portfolio_post.images,
             "overview": {
                 "id": portfolio_post.overview.id,
@@ -1483,10 +1485,12 @@ def get_portfolio_post(id: int, db: AsyncSession):
         "object_area": portfolio_post.object_area,
         "work_completion_time": portfolio_post.work_completion_time,
         "type_of_work": str(portfolio_post.project_type),
-        "texts": {
-            "task": portfolio_post.task,
-            "steps_of_work": portfolio_post.steps_of_work,
-        },
+        "texts": [
+            {
+                "task": portfolio_post_text.task,
+                "steps_of_work": portfolio_post_text.steps_of_work,
+            } for portfolio_post_text in portfolio_post.texts
+        ],
         "images": portfolio_post.images,
         "overview": {
             "id": portfolio_post.overview.id,
