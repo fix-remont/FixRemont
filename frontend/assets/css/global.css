@@ -41,7 +41,7 @@ a {
 }
 
 #app {
-  max-width: 1920px;
+  /* max-width: 1920px; */
   /* min-width: 320px; */
   min-height: 100dvh;
   margin-left: auto;
@@ -56,6 +56,10 @@ a {
   &:hover {
     opacity: 0.7;
   }
+}
+
+.margin-glob-new {
+  @apply mx-[6.5vw] mb-[2vw] md:mx-[3vw];
 }
 
 .margin-glob {

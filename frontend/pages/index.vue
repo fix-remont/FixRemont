@@ -2,7 +2,7 @@
 
 <template>
   <NuxtLayout>
-    <HomeBlock1 />
+    <!-- <HomeBlock1 />
     <HomeBlock2 />
     <HomeBlock3 />
     <HomeBlock4 />
@@ -17,7 +17,7 @@
     <HomeBlock13 />
     <HomeBlock14 />
     <HomeBlock15 />
-    <HomeBlock16 />
+    <HomeBlock16 /> -->
   </NuxtLayout>
 </template>
 
