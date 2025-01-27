@@ -166,24 +166,24 @@ export const tariffs: Tariff[] = [
     cost: 'Фикс',
     name: 'Базовый',
     image: '/images/home/package-comfort.png',
-    description: 'asdas'
+    description: 'описание 1'
   },
   {
     cost: 'Фикс',
     name: 'Стандарт',
     image: '/images/home/package-comfort.png',
-    description: ''
+    description: 'описание 2'
   },
   {
     cost: 'Фикс',
     name: 'Комфорт',
     image: '/images/home/package-comfort.png',
-    description: ''
+    description: 'описание 3'
   },
   {
     cost: 'Фикс',
     name: 'Бизнес',
     image: '/images/home/package-comfort.png',
-    description: ''
+    description: 'описание 4'
   }
 ]

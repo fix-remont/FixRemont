@@ -1,83 +1,34 @@
-<script setup lang="ts">
-const src = '/images/home/block_4_2.png'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div :class="['box', 'margin-glob']">
-    <p class="text_1">
-      Подберём для вас <span class="orange"> выгодное </span>кредитное предложение
+  <div
+    class="margin-glob-new rounded-glob-new relative flex flex-col items-start justify-between gap-[6vw] bg-[--c-black] px-[6vw] py-[8vw] pb-[60vw] text-white md:flex-row md:items-center md:px-[4vw] md:py-[3vw]"
+  >
+    <p
+      class="relative z-10 text-[7.7vw] font-semibold leading-[9vw] md:text-[2.6vw] md:leading-[3vw]"
+    >
+      Подберём для вас <br />
+      <span class="text-primary"> выгодное </span>кредитное <br />
+      предложение
     </p>
-    <p class="text_2">
-      <span class="orange">от 5% до 10%</span><br />
+    <p class="relative z-10 text-[5vw] font-medium leading-[6vw] md:text-[2vw] md:leading-[2.5vw]">
+      <span class="text-primary">от 5% до 10%</span><br />
       у банков-партнёров
     </p>
-    <img :src="src" alt="img" />
+    <img
+      :class="['absolute', 'md:inset-0 md:m-auto md:w-[50vw] md:pb-[2vw] md:ps-[8vw]', 'img-small']"
+      src="/images/home/block_4_2.png"
+      alt="img"
+    />
   </div>
 </template>
 
 <style scoped>
-.box {
-  border-radius: 35px;
-  background-color: var(--c-black);
-  padding: 45px 50px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  @media (max-width: 640px) {
-    flex-direction: column;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 15px;
-  }
-}
-
-.text_1 {
-  font-size: 50px;
-  font-weight: 600;
-  line-height: 60px;
-  z-index: 1;
-  width: 40%;
-
-  @media (max-width: 1240px) {
-    font-size: 24px;
-    line-height: 30px;
-  }
-  @media (max-width: 640px) {
-    width: auto;
-  }
-}
-
-.text_2 {
-  font-size: 38px;
-  font-weight: 500;
-  line-height: 50px;
-  z-index: 1;
-  width: max-content;
-  @media (max-width: 1240px) {
-    font-size: 22px;
-    line-height: 30px;
-  }
-  @media (max-width: 640px) {
-    margin-bottom: 220px;
-    width: auto;
-  }
-}
-
-img {
-  position: absolute;
-  z-index: 0;
-  width: 500px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  @media (max-width: 640px) {
-    font-size: 24px;
-    line-height: 30px;
-    top: 80%;
+.img-small {
+  @media (max-width: 768px) {
+    bottom: -12vw;
+    right: -15vw;
+    transform: rotate(-30deg) scale(1.3);
   }
 }
 </style>

@@ -3,16 +3,42 @@ import { ref } from 'vue'
 import { hrefCalculater } from '~/assets/variables'
 const config = useRuntimeConfig()
 
-import useTariffsStore from '~/stores/tariffs.ts'
-import { storeToRefs } from 'pinia'
+// import useTariffsStore from '~/stores/tariffs.ts'
+// import { storeToRefs } from 'pinia'
+// const { items } = storeToRefs(useTariffsStore())
+// const itemsLocal = ref(items)
+// console.log(items)
 
 // import { tariffs } from '~/shared/utils/test-data'
-// const itemsLocal = ref(tariffs)
 
-const { items } = storeToRefs(useTariffsStore())
-const itemsLocal = ref(items)
-console.log(items)
+const tariffs = [
+  {
+    cost: 'Фикс',
+    name: 'Базовый',
+    image: '/images/home/package-comfort.png',
+    description: 'описание 1'
+  },
+  {
+    cost: 'Фикс',
+    name: 'Стандарт',
+    image: '/images/home/package-comfort.png',
+    description: 'описание 2'
+  },
+  {
+    cost: 'Фикс',
+    name: 'Комфорт',
+    image: '/images/home/package-comfort.png',
+    description: 'описание 3'
+  },
+  {
+    cost: 'Фикс',
+    name: 'Бизнес',
+    image: '/images/home/package-comfort.png',
+    description: 'описание 4'
+  }
+]
 
+const itemsLocal = ref(tariffs)
 
 const carouselRef1 = ref(null)
 const carouselRef2 = ref(null)
@@ -33,10 +59,20 @@ const itemsWithSelected = computed(() => {
   })
 })
 
-const handleUpdateCarouselByButton = (onClick, actionType, disabled) => {
-  if (disabled) return
-  onClick()
-}
+// const handleUpdateCarouselByButton = (onClick, actionType, disabled) => {
+//   if (disabled) return
+//   onClick()
+// }
+
+onMounted(() => {
+  setInterval(() => {
+    if (!carouselRef1.value) return
+    if (carouselRef1.value.page === carouselRef1.value.pages) {
+      return carouselRef1.value.select(0)
+    }
+    carouselRef1.value.next()
+  }, 3000)
+})
 
 const handleClickTab = (tabIndex) => {
   carouselRef1.value.select(tabIndex + 1)
@@ -50,265 +86,103 @@ watch(
 </script>
 
 <template>
-  <div v-if="items.length > 0" :class="['margin-glob', 'box']">
-    <div class="text-area">
-      <p>
-        Занимайтесь
-        <span class="orange">любимыми</span> делами, а ремонт мы возьмём на себя.
+  <div
+    class="margin-glob-new grid grid-cols-1 gap-[4vw] md:grid-cols-2 md:gap-[2vw]"
+    v-if="itemsWithSelected.length > 0"
+  >
+    <div class="flex flex-col gap-[2vw] md:gap-0">
+      <p class="text-glob-xl">
+        Занимайтесь <br />
+        <span class="text-primary">любимыми</span> делами, <br />
+        а ремонт мы <br />
+        возьмём на себя.
       </p>
+
+      <div class="mt-auto">
+        <p class="mb-[4vw] text-[4vw] font-medium md:mb-[1vw] md:text-[1.2vw]">
+          4 пакетных решения.
+          <br class="md:hidden" />
+          <b><u>Выбирайте</u></b> для себя лучшее:
+        </p>
+        <UCarousel
+          ref="carouselRef2"
+          :items="itemsWithSelected"
+          :ui="{
+            container: 'gap-[3vw] md:gap-[1vw]'
+          }"
+        >
+          <template #default="{ item, index }">
+            <div
+              class="relative flex h-[24vw] w-[24vw] items-center justify-center overflow-hidden rounded-[4vw] md:h-[6.5vw] md:w-[6.5vw] md:rounded-[1vw]"
+              @click="handleClickTab(index)"
+            >
+              <p class="relative z-10 text-[3vw] font-semibold text-white md:text-[1vw]">
+                {{ item.name.toUpperCase() }}
+              </p>
+              <img
+                class="absolute top-0 h-full w-full object-cover"
+                :src="item.image"
+                alt="img"
+                draggable="false"
+              />
+              <div
+                :class="[
+                  'absolute top-0 h-full w-full',
+                  item.selected ? 'bg-yellow-400/50' : 'bg-black/30'
+                ]"
+              ></div>
+            </div>
+          </template>
+        </UCarousel>
+      </div>
     </div>
+    <div class="flex flex-col gap-[4vw] md:gap-[1vw]">
+      <UCarousel
+        ref="carouselRef1"
+        :items="itemsWithSelected"
+        :ui="{
+          // item: 'w-full h-full rounded-glob-new',
+          container: 'gap-[1vw] relative h-full'
+        }"
+        arrows
+      >
+        <template #default="{ item }">
+          <img class="rounded-glob-new w-[46vw] object-cover" :src="item.image" draggable="false" />
+        </template>
 
-    <UCarousel class="carousel-area" ref="carouselRef1" :items="itemsWithSelected" :ui="{
-      item: 'w-full h-full rounded-xl sm:rounded-3xl overflow-hidden',
-      container: 'gap-2 relative h-full',
-      arrows: { wrapper: 'absolute bottom-0' }
-    }" arrows>
-      <template #default="{ item }">
-        <img class="slide" :src="`${config.public.mediaPath}${item.image}`" draggable="false" />
-      </template>
+        <template #prev="{ onClick, disabled }">
+          <SharedArrowPrevCarousel :onClick="onClick" :disabled="disabled" />
+        </template>
 
-      <template #prev="{ onClick, disabled }">
-        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-prev.svg"
-          @click="handleUpdateCarouselByButton(onClick, 'prev', disabled)" draggable="false" />
-      </template>
-
-      <template #next="{ onClick, disabled }">
-        <img :class="['arrow cursor-pointer', { arrow_disabled: disabled }]" src="/images/arrow-next.svg"
-          :disabled="disabled" @click="handleUpdateCarouselByButton(onClick, 'next', disabled)" draggable="false" />
-      </template>
-    </UCarousel>
-
-    <div class="tabs-area">
-      <p :class="['text']">
-        4 пакетных решения. <b><u>Выбирайте</u></b> для себя лучшее:
-      </p>
-      <UCarousel class="tabs-container" ref="carouselRef2" :items="itemsWithSelected" :ui="{
-        container: 'gap-2',
-        item: [
-          'w-16 sm:w-32',
-          'h-16 sm:h-32',
-          'rounded-lg sm:rounded-3xl',
-          ' overflow-hidden relative cursor-pointer hover:opacity-90'
-        ]
-      }">
-        <template #default="{ item, index }">
-          <div class="h-full" @click="handleClickTab(index)">
-            <p :class="['label']">{{ item.name.toUpperCase() }}</p>
-            <img :class="['img']" :src="`${config.public.mediaPath}${item.image}`" alt="img" draggable="false" />
-            <div :class="['blanket', { blanket_selected: item.selected }]"></div>
-          </div>
+        <template #next="{ onClick, disabled }">
+          <SharedArrowNextCarousel :onClick="onClick" :disabled="disabled" />
         </template>
       </UCarousel>
-    </div>
 
-    <div class="info-area">
-      <div class="block">
-        <div class="info">
-          <p class="title">{{ items[currentActiveIndex]?.name }}</p>
-          <p class="text">{{ items[currentActiveIndex]?.description }}</p>
+      <div
+        class="rounded-glob-new grid grid-cols-1 gap-[4vw] bg-[#EFEFEF] px-[6vw] py-[6vw] md:grid-cols-2 md:gap-[1vw] md:px-[4vw] md:py-[2vw]"
+      >
+        <div class="flex flex-col justify-between">
+          <p class="text-[7.5vw] font-bold md:text-[2.4vw]">
+            {{ itemsWithSelected[currentActiveIndex]?.name }}
+          </p>
+          <p class="text-[3vw] text-[#818181] md:text-[1vw]">
+            {{ itemsWithSelected[currentActiveIndex]?.description }}
+          </p>
         </div>
-        <div class="to-calculator">
-          <p class="text">Стоимость:</p>
-          <p class="title">{{ items[currentActiveIndex]?.cost }}</p>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-[4vw] md:block">
+            <p class="text-[3vw] md:text-[1vw]">Стоимость:</p>
+            <p class="text-[7.5vw] font-bold md:text-[2.4vw]">
+              {{ itemsWithSelected[currentActiveIndex]?.cost }}
+            </p>
+          </div>
 
-          <UButton class="mt-auto" :to="hrefCalculater" size="custom" block>Отлайн калькулятор</UButton>
-
-          <!-- <NuxtLink :to="hrefCalculater" :class="['hover', 'btn', 'btn-calculator']">
-            Онлайн-калькулятор
-          </NuxtLink> -->
+          <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
+            >Отлайн калькулятор</UButton
+          >
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.box {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 500px 290px;
-  grid-template-areas: 'text carousel' 'tabs info';
-  gap: 30px;
-
-  @media (max-width: 1200px) {
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas: 'text' 'tabs' 'carousel' 'info';
-  }
-}
-
-.text-area {
-  grid-area: text;
-  font-size: 65px;
-  font-weight: 600;
-
-  p {
-    line-height: 1.2em;
-
-    @media (max-width: 1200px) {
-      font-size: 0.5em;
-    }
-  }
-}
-
-.carousel-area {
-  grid-area: carousel;
-
-  .slide {
-    object-fit: cover;
-  }
-
-  .arrow {
-    width: 50px;
-    height: 50px;
-    padding-left: 10px;
-    padding-bottom: 10px;
-
-    &_disabled {
-      opacity: 0.5;
-    }
-  }
-}
-
-.tabs-area {
-  grid-area: tabs;
-  align-self: flex-end;
-  font-size: 24px;
-
-  .text {
-    font-weight: 500;
-    margin-bottom: 30px;
-
-    @media (max-width: 1200px) {
-      font-size: 0.5em;
-    }
-  }
-
-  .blanket {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-
-    &_selected {
-      background-color: rgba(249, 175, 21, 0.5);
-    }
-  }
-
-  .label {
-    position: absolute;
-    font-size: 0.7em;
-    font-weight: 600;
-    color: white;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-
-    @media (max-width: 640px) {
-      font-size: 10px;
-    }
-  }
-
-  .img {
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.info-area {
-  grid-area: info;
-  font-size: 50px;
-  width: 100%;
-  height: 100%;
-
-  @media (max-width: 1700px) {
-    font-size: 40px;
-  }
-
-  @media (max-width: 1400px) {
-    font-size: 35px;
-  }
-
-  .block {
-    background-color: #efefef;
-    border-radius: 0.7em;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    padding: 0.9em 1.7em;
-
-    @media (max-width: 640px) {
-      flex-direction: column;
-      padding: 0.4em 0.8em;
-    }
-
-    .info {
-      width: 7em;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      .title {
-        font-weight: 600;
-
-        @media (max-width: 640px) {
-          font-size: 24px;
-        }
-      }
-
-      .text {
-        font-size: 0.4em;
-        color: #818181;
-        font-weight: 600;
-
-        @media (max-width: 640px) {
-          font-size: 14px;
-        }
-      }
-    }
-
-    .to-calculator {
-      display: flex;
-      flex-direction: column;
-      margin-left: auto;
-
-      @media (max-width: 640px) {
-        margin-left: initial;
-      }
-
-      .text {
-        font-size: 0.4em;
-
-        @media (max-width: 640px) {
-          font-size: 14px;
-        }
-      }
-
-      .title {
-        font-weight: 600;
-
-        @media (max-width: 640px) {
-          font-size: 24px;
-        }
-      }
-
-      .btn {
-        border-radius: 2em;
-        padding: 20px;
-        font-size: 0.4em;
-        color: white;
-        text-align: center;
-        background-color: var(--c-orange);
-        margin-top: auto;
-
-        @media (max-width: 640px) {
-          font-size: 12px;
-        }
-      }
-    }
-  }
-}
-</style>

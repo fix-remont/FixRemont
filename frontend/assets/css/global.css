@@ -59,7 +59,19 @@ a {
 }
 
 .margin-glob-new {
-  @apply mx-[6.5vw] mb-[2vw] md:mx-[3vw];
+  @apply mx-[6.5vw] mb-[4vw] md:mx-[3vw];
+}
+
+.rounded-glob-new {
+  @apply overflow-hidden rounded-[6vw] md:rounded-[2vw];
+}
+
+.text-glob-md {
+  @apply text-[4.7vw] font-medium leading-[6vw] md:text-[2.5vw] md:leading-[3.1vw];
+}
+
+.text-glob-xl {
+  @apply text-[9vw] font-semibold leading-[10vw] md:text-[3.3vw] md:leading-[4vw];
 }
 
 .margin-glob {

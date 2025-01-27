@@ -53,21 +53,20 @@ export default defineAppConfig({
       position: 'top-0 bottom-[unset] left-0 right-[unset]'
     },
     button: {
-      base: 'text-center',
+      base: 'text-center justify-center',
       font: 'font-semibold',
       rounded: 'rounded-full',
       size: {
-        custom: 'text-xs sm:text-xl'
+        custom: ' text-[3vw] md:text-[1vw]'
       },
       padding: {
-        custom: 'px-3 py-2 sm:px-6 sm:py-6'
+        custom: 'px-0 py-[4vw] md:py-[1.2vw]'
       },
       default: {
         size: 'custom'
       }
     },
     carousel: {
-      // container: 'gap-[9px] sm:gap-[50px] w-full sm:w-[initial]',
       indicators: {
         wrapper: 'justify-end',
         base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
@@ -75,7 +74,7 @@ export default defineAppConfig({
         inactive: 'bg-[var(--c-gray)]'
       },
       arrows: {
-        wrapper: 'flex gap-2 justify-start mt-2'
+        wrapper: 'absolute bottom-0 flex md:gap-[1vw] gap-[2vw] justify-start m-[3vw] md:m-[1vw]'
       }
     }
   }

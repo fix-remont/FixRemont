@@ -18,16 +18,16 @@ if (props.footerWithoutMargin) marginTop.value = '0'
 
 <template>
   <footer
-    class="flex items-center justify-between rounded-t-[1.5vw] bg-[--c-black] px-[2.2vw] py-[2.2vw] text-[.7vw] font-medium text-white"
+    class="flex flex-col items-center justify-between gap-[5vw] rounded-t-[8vw] bg-[--c-black] px-[2.2vw] py-[12vw] text-[4vw] font-medium text-white md:flex-row md:gap-0 md:rounded-t-[1.5vw] md:py-[2.2vw] md:text-[.7vw]"
     :style="{ marginTop }"
   >
     <NuxtLink :to="hrefLogo">
-      <img src="/icons/logo-for-black.svg" :class="['hover', 'w-[6vw]']" alt="logo" />
+      <img src="/icons/logo-for-black.svg" :class="['hover', 'w-[34vw] md:w-[6vw]']" alt="logo" />
     </NuxtLink>
 
-    <p class="line-clamp-[1vw] hidden text-[.8vw] md:block">
-      Первый онлайн-сервис по <br />
-      ремонту и строительству <br />
+    <p class="line-clamp-[1vw] text-center text-[4vw] md:block md:text-[.8vw]">
+      Первый онлайн-сервис по <br class="hidden md:block" />
+      ремонту и строительству <br class="hidden md:block" />
       <b>с фикс стоимостью</b>
     </p>
 
@@ -37,16 +37,24 @@ if (props.footerWithoutMargin) marginTop.value = '0'
       >Политика конфиденциальности</a
     >
 
-    <address class="hidden items-center gap-[.5vw] rounded-[1vw] pe-[1vw] ps-[2vw] md:flex">
+    <address class="flex items-center gap-[2vw] rounded-[1vw] pe-[1vw] ps-[2vw] md:gap-[.5vw]">
       <p class="with_point text">
         Напишите нам,<br />
         мы сейчас онлайн
       </p>
       <a :href="hrefWatsapp">
-        <img src="/icons/watsapp.svg" :class="['hover', 'h-[3vw] w-[3vw]']" alt="watsapp" />
+        <img
+          src="/icons/watsapp.svg"
+          :class="['hover', 'h-[12vw] w-[12vw] md:h-[3vw] md:w-[3vw]']"
+          alt="watsapp"
+        />
       </a>
       <a :href="hrefTg">
-        <img src="/icons/telegram.svg" :class="['hover', 'h-[3vw] w-[3vw]']" alt="watsapp" />
+        <img
+          src="/icons/telegram.svg"
+          :class="['hover', 'h-[12vw] w-[12vw] md:h-[3vw] md:w-[3vw]']"
+          alt="watsapp"
+        />
       </a>
     </address>
 
@@ -74,6 +82,12 @@ if (props.footerWithoutMargin) marginTop.value = '0'
     position: absolute;
     left: -1vw;
     top: 1vw;
+    @media (max-width: 768px) {
+      width: 2vw;
+      height: 2vw;
+      left: -6vw;
+      top: 5.5vw;
+    }
   }
 }
 </style>

@@ -7,11 +7,7 @@ defineProps<{
 
 <template>
   <img
-    :class="[
-      'arrow cursor-pointer',
-      'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
-      { 'opacity-60': disabled }
-    ]"
+    :class="['cursor-pointer', 'h-[9vw] w-[9vw] md:h-[3vw] md:w-[3vw]', { 'opacity-60': disabled }]"
     src="/images/arrow-next.svg"
     @click="onClick"
     draggable="false"

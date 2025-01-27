@@ -5,7 +5,14 @@ const props = defineProps<{
 </script>
 
 <template>
-  <svg width="51" height="50" viewBox="0 0 51 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    class="h-[6.3vw] w-[6.3vw] md:h-[2.7vw] md:w-[2.7vw]"
+    width="51"
+    height="50"
+    viewBox="0 0 51 50"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <rect
       :class="['circle', { 'circle-hover': hovered }, props.hovered ? 'fill-white' : 'fill-black']"
       x="0.430664"
@@ -28,11 +35,11 @@ const props = defineProps<{
 
 <style scoped>
 .circle {
-  transition: fill 1s linear;
+  transition: fill 0.5s linear;
 }
 
 .arrow {
-  transition: all 1s linear;
+  transition: all 0.5s linear;
   transform-origin: center;
 
   &-hover {
