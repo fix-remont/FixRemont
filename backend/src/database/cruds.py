@@ -1445,7 +1445,8 @@ def get_portfolio_posts(db: AsyncSession):
                 {
                     "task": portfolio_post_text.task,
                     "steps_of_work": portfolio_post_text.steps_of_work,
-                } for portfolio_post_text in portfolio_post.texts if portfolio_post_text.task and portfolio_post_text.steps_of_work
+                } for portfolio_post_text in portfolio_post.texts if
+                portfolio_post_text.task and portfolio_post_text.steps_of_work
             ],
             "images": portfolio_post.images,
             "overview": {

@@ -377,6 +377,7 @@
 
 from asyncio import Future
 from sqladmin.fields import FileField
+from starlette.requests import Request
 from wtforms.fields import MultipleFileField
 
 from src.database.cruds import *
@@ -397,8 +398,8 @@ import aiofiles
 
 db = get_db()
 # PATH = 'C:/Users/Кирилл/PycharmProjects/FixRemont/tmp'
-# PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
-PATH = '/var/www/fixremont-uploads/'
+PATH = 'C:/Users/efimo/PycharmProjects/FixRemont/tmp'
+# PATH = '/var/www/fixremont-uploads/'
 storage = FileSystemStorage(path=PATH)
 
 
@@ -413,6 +414,12 @@ def validate_path(path):
 async def get_all_model_values(db: AsyncSession, model):
     result = await db.execute(select(model.name))
     return [x[0] for x in result.scalars().all()]
+
+
+def remove_empty_dirs(self, path: str) -> None:
+    if not os.listdir(path):
+        os.rmdir(path)
+        self._remove_empty_dirs(os.path.dirname(path))
 
 
 # async def get_project_type_by_id(db_session: AsyncSession, id: int):
@@ -542,6 +549,14 @@ class PostAdmin(ModelView, model=Post):
             images=images_paths
         )
         await create_post(post_data, get_db())
+
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        for image in model.images:
+            os.remove(PATH + image)
+        dir_path = PATH + f"/post/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
 
 
 # class WorkAdmin(ModelView, model=Work):
@@ -853,6 +868,14 @@ class TariffAdmin(ModelView, model=Tariff):
         )
         create_tariff(get_db(), tariff_data)
 
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.image:
+            os.remove(PATH + model.image)
+        dir_path = PATH + f"/tariff/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
 
 class ParagraphAdmin(ModelView, model=Paragraph):
     name = "Параграф"
@@ -922,6 +945,14 @@ class UserCommentsAdmin(ModelView, model=UserComments):
         )
         create_user_comment(get_db(), user_comment_data)
 
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.image:
+            os.remove(PATH + model.image)
+        dir_path = PATH + f"/user_comments/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
 
 class IntroVideoAdmin(ModelView, model=IntroVideos):
     name = "Видео приветствия"
@@ -958,6 +989,14 @@ class IntroVideoAdmin(ModelView, model=IntroVideos):
         )
         create_intro_video(get_db(), intro_video_data)
 
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.video:
+            os.remove(PATH + model.video)
+        dir_path = PATH + f"/intro_videos/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
 
 class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
     name = "Аккаунты социальных сетей"
@@ -993,6 +1032,14 @@ class SocialMediaAccountsAdmin(ModelView, model=SocialMediaAccounts):
         )
         create_social_media_account(get_db(), social_media_data)
 
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.logo:
+            os.remove(PATH + model.logo)
+        dir_path = PATH + f"/social_networks/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
 
 class BlogVideosAdmin(ModelView, model=BlogVideos):
     name = "Видео блог"
@@ -1017,6 +1064,14 @@ class BlogVideosAdmin(ModelView, model=BlogVideos):
         )
         for db_session in get_db():
             await create_blog_video(blog_video_data, db_session)
+
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.video_link:
+            os.remove(PATH + model.video_link)
+        dir_path = PATH + f"/blog_videos/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
 
 
 class PagesAdmin(ModelView, model=PageType):
@@ -1123,6 +1178,14 @@ class BlogAdmin(ModelView, model=Blog):
         )
         # create_blog(blog_data, get_db())
 
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.img_main:
+            os.remove(PATH + model.img_main)
+        dir_path = PATH + f"/blog/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
 
 class BlogBlockAdmin(ModelView, model=BlogBlock):
     name = "Блок блога"
@@ -1152,11 +1215,15 @@ class BlogBlockAdmin(ModelView, model=BlogBlock):
                 image_path = validate_path(image_path)
                 images_paths.append(image_path)
             data['images'] = images_paths
-        # blog_block_data = schemas.BlogBlockSchema(
-        #     images=data.get('images'),
-        #     paragraphs=get_blog_paragraph(int(data.get('paragraphs')), get_db()),
-        # )
-        # create_blog_block(blog_block_data, get_db())
+
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        for image in model.images:
+            os.remove(PATH + image)
+
+        dir_path = PATH + f"/blog_block/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
 
 
 class BlogParagraphAdmin(ModelView, model=BlogParagraph):
@@ -1253,39 +1320,17 @@ class PortfolioPostAdmin(ModelView, model=PortfolioPost):
                 images_paths.append(image_path)
             data['images'] = images_paths
 
-        # if overview:
-        #     overview_path = os.path.join(current_dir, overview.filename)
-        #     async with aiofiles.open(overview_path, mode='wb+') as out_file:
-        #         while content := await overview.read(1024):
-        #             await out_file.write(content)
-        #     overview_path = validate_path(overview_path)
-        #     data['overview'] = overview_path
-        #
-        # if others:
-        #     others_paths = []
-        #     for other in others:
-        #         other_path = os.path.join(current_dir, other.filename)
-        #         async with aiofiles.open(other_path, mode='wb+') as out_file:
-        #             while content := await other.read(1024):
-        #                 await out_file.write(content)
-        #         other_path = validate_path(other_path)
-        #         others_paths.append(other_path)
-        #     data['others'] = others_paths
-
-        # portfolio_post_data = PortfolioPostSchema(
-        #     id=0,
-        #     title=data.get('title'),
-        #     img_main=data.get('img_main'),
-        #     img_result=data.get('img_result'),
-        #     price_amount=data.get('price_amount'),
-        #     object_area=data.get('object_area'),
-        #     work_completion_time=data.get('work_completion_time'),
-        #     project_type_id=data.get('project_type_id'),
-        #     texts=data.get('texts'),
-        #     images=data.get('images'),
-        #     videos=data.get('videos')
-        # )
-        # create_portfolio_post(portfolio_post_data, get_db())
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.img_main:
+            os.remove(PATH + model.img_main)
+        if model.img_result:
+            os.remove(PATH + model.img_result)
+        for image in model.images:
+            os.remove(PATH + image)
+        dir_path = PATH + f"/portfolio/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
 
 
 class PortfolioPostVideoAdmin(ModelView, model=PortfolioPostVideo):
@@ -1325,4 +1370,11 @@ class PortfolioPostVideoAdmin(ModelView, model=PortfolioPostVideo):
             link=data.get('link'),
             portfolio_post_id=data.get('portfolio_post_id')
         )
-        # create_portfolio_post_video(portfolio_post_video_data, get_db())
+
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.link:
+            os.remove(PATH + model.link)
+        dir_path = PATH + f"/portfolio_videos/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
