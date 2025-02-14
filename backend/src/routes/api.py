@@ -92,6 +92,8 @@ async def get_order_client_infos(db: AsyncSession = Depends(get_db)):
     return await cruds.get_order_client_infos(db)
 
 
+# TODO: /api/profiles_roles --- ProfileRoleSchema
+# TODO: /api/user_stories --- UserStorySchema
 @router.get("/order_notifications", response_model=List[OrderNotificationSchema], tags=["deprecated"])
 async def get_order_notifications():
     return []

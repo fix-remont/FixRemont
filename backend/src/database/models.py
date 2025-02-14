@@ -37,6 +37,8 @@ class UserType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    # TODO: description = list of str
+
     users = relationship("User", back_populates="user_type")
 
     def __str__(self):
@@ -480,6 +482,8 @@ class PortfolioPost(Base):
     def __repr__(self):
         return self.title
 
+
+# TODO: user_stories
 
 load_dotenv()
 
