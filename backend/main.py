@@ -80,7 +80,6 @@ admin = Admin(app=app, engine=engine, authentication_backend=CustomAuthBackend(
 admin.add_view(UserAdmin)
 admin.add_view(ContractAdmin)
 admin.add_view(PostAdmin)
-# admin.add_view(WorkAdmin)
 admin.add_view(NotificationAdmin)
 admin.add_view(FlatAdmin)
 admin.add_view(TariffAdmin)
@@ -105,7 +104,6 @@ admin.add_view(BlogParagraphAdmin)
 admin.add_view(PortfolioPostTextAdmin)
 admin.add_view(PortfolioPostAdmin)
 admin.add_view(PortfolioPostVideoAdmin)
-# app.include_router(user_routes.router)
 app.include_router(routes.meta(), prefix="/api")
 
 
@@ -117,7 +115,6 @@ def register(user: UserRegistrationSchema, db: Session = Depends(get_db)):
     return create_user(db, user)
 
 
-# Login Route
 @app.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = get_user_by_email(db, form_data.username)
@@ -128,7 +125,6 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-# Protected Route
 @app.get("/protected")
 def protected_route(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     payload = decode_token(token)
@@ -142,56 +138,7 @@ def protected_route(token: str = Depends(oauth2_scheme), db: Session = Depends(g
     return {"message": f"Hello {user.email}, this is a protected route"}
 
 
-# Logout Route (JWT is stateless, so we don’t need an actual "logout" functionality)
 @app.post("/logout")
 def logout(request: Request):
     request.session.pop("access_token", None)
     return {"message": "Successfully logged out"}
-
-
-# log_stream = StringIO()
-# logging.basicConfig(level=logging.INFO, stream=log_stream,
-#                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-#
-# uvicorn_logger = logging.getLogger("uvicorn")
-# uvicorn_logger.handlers = []
-# uvicorn_logger.addHandler(logging.StreamHandler(log_stream))
-#
-# uvicorn_access_logger = logging.getLogger("uvicorn.access")
-# uvicorn_access_logger.handlers = []
-# uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# # uvicorn_access_logger = logging.getLogger("uvicorn.error")
-# # uvicorn_access_logger.handlers = []
-# # uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# # uvicorn_access_logger = logging.getLogger("uvicorn.asgi")
-# # uvicorn_access_logger.handlers = []
-# # uvicorn_access_logger.addHandler(logging.StreamHandler(log_stream))
-# # Configure other loggers to use the same StringIO buffer
-# fastapi_logger = logging.getLogger("fastapi")
-# fastapi_logger.handlers = []
-# fastapi_logger.addHandler(logging.StreamHandler(log_stream))
-#
-#
-# @app.get("/log")
-# def get_logs():
-#     log_stream.seek(0)
-#     logs = log_stream.read()
-#     log_lines = logs.splitlines()
-#
-#     structured_logs = []
-#     for line in log_lines:
-#         parts = line.split(" - ")
-#         if len(parts) == 2:
-#             log_entry = {
-#                 "ip": parts[0],
-#                 "type": parts[1].split()[0][1:],
-#                 "address": parts[1].split()[1],
-#                 "code": parts[1].split()[3],
-#             }
-#             if log_entry["address"] == "/log":
-#                 continue
-#         else:
-#             log_entry = {"message": line}
-#         structured_logs.append(log_entry)
-#
-#     return {"logs": structured_logs}
