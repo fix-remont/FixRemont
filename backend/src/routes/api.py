@@ -290,3 +290,11 @@ async def get_blog(id: int, db: AsyncSession = Depends(get_db)):
 @router.post("/blogs", response_model=schemas.BlogSchema, tags=["POST", "Blog"])
 async def create_blog(blog: schemas.BlogSchema, db: AsyncSession = Depends(get_db)):
     return cruds.create_blog(blog, db)
+
+@router.get("/user_stories", response_model=List[UserStorySchema], tags=["GET", "Блок 2"])
+async def get_user_stories(db: AsyncSession = Depends(get_db)):
+    return cruds.get_user_stories(db)
+
+@router.get("/profiles_roles", response_model=List[UserTypeSchema], tags=["GET", "Блок 2"])
+async def get_profiles_roles(db: AsyncSession = Depends(get_db)):
+    return cruds.get_profiles_roles(db)

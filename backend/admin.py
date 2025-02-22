@@ -1378,3 +1378,50 @@ class PortfolioPostVideoAdmin(ModelView, model=PortfolioPostVideo):
         if os.path.isdir(dir_path):
             os.rmdir(dir_path)
             remove_empty_dirs(os.path.dirname(dir_path))
+
+
+class UserStoryAdmin(ModelView, model=UserStory):
+    name = "История пользователя"
+    name_plural = "Истории пользователей"
+    icon = "fa-solid fa-user"
+    column_list = [UserStory.id, UserStory.image]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", image="Изображение")
+
+    form_overrides = {
+        'image': FileField
+    }
+
+    async def on_model_change(self, data, model, is_created, request):
+        image = data.get('image')
+        current_dir = create_directory_for_last_user_story_id(get_db(), PATH + "/user_story/") + "/"
+
+        image_path = os.path.join(current_dir, image.filename)
+        async with aiofiles.open(image_path, mode='wb+') as out_file:
+            while content := await image.read(1024):
+                await out_file.write(content)
+        image = validate_path(image_path)
+        data['image'] = image
+
+    async def on_model_delete(self, model: Any, request: Request) -> None:
+        if model.image:
+            os.remove(PATH + model.image)
+        dir_path = PATH + f"/user_story/{model.id}"
+        if os.path.isdir(dir_path):
+            os.rmdir(dir_path)
+            remove_empty_dirs(os.path.dirname(dir_path))
+
+
+class UserTypeAdmin(ModelView, model=UserType):
+    name = "Тип пользователя"
+    name_plural = "Типы пользователей"
+    icon = "fa-solid fa-user"
+    column_list = [UserType.name, UserType.description]
+    column_searchable_list = [UserType.name]
+    column_sortable_list = [UserType.id, UserType.name]
+    can_create = True
+    can_edit = True
+    can_delete = True
+    column_labels = dict(id="ID", name="Название", description="Описание")

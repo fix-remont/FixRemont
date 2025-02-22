@@ -68,6 +68,7 @@ class ProjectTypeSchema(BaseModel):
 
 class UserTypeSchema(BaseModel):
     name: str
+    description: Optional[List[str]] = None
 
     class Config:
         orm_mode = True
@@ -552,6 +553,15 @@ class BlogSchema(BaseModel):
     img_main: str
     text_main: str
     blocks: Optional[List[BlogBlockSchema]]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+
+class UserStorySchema(BaseModel):
+    id: int
+    image: str
 
     class Config:
         orm_mode = True

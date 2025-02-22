@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 from alembic import context
 from src.database.db import Base
-
+import sqlalchemy as sa
 # Load environment variables from .env file
 load_dotenv()
 
@@ -16,8 +16,7 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+fileConfig(config.config_file_name)
 
 # Set the database URL from environment variables
 DB_NAME = os.getenv('DB_NAME')
@@ -72,18 +71,29 @@ def run_migrations_online() -> None:
 
     """
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            process_revision_directives=process_revision_directives,
         )
 
         with context.begin_transaction():
             context.run_migrations()
+
+
+def process_revision_directives(context, revision, directives):
+    """Process revision directives to include CASCADE option for drop_table."""
+    for directive in directives:
+        if hasattr(directive, 'upgrade_ops'):
+            for op in directive.upgrade_ops.ops:
+                if isinstance(op, sa.schema.DropTable):
+                    op.cascade = True
 
 
 if context.is_offline_mode():

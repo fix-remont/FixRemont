@@ -1560,3 +1560,48 @@ def get_last_portfolio_post_id(db: AsyncSession):
     except:
         last_id = 0
     return last_id
+
+
+def get_user_stories(db: AsyncSession):
+    result = db.execute(select(models.UserStory))
+    user_stories = result.scalars().all()
+
+    user_stories_list = []
+    for user_story in user_stories:
+        user_stories_list.append({
+            "id": user_story.id,
+            "image": user_story.image
+        })
+
+    return user_stories_list
+
+
+def create_directory_for_last_user_story_id(db: AsyncSession, base_path):
+    last_id = get_last_user_story_id(db)
+    directory_path = os.path.join(base_path, str(last_id + 1))
+    os.makedirs(directory_path, exist_ok=True)
+    return directory_path
+
+
+def get_last_user_story_id(db: AsyncSession):
+    result = db.execute(select(models.UserStory.id).order_by(models.UserStory.id.desc()).limit(1))
+    try:
+        last_id = result.scalar_one()
+    except:
+        last_id = 0
+    return last_id
+
+
+def get_profiles_roles(db: AsyncSession):
+    result = db.execute(select(models.UserType))
+    profile_roles = result.scalars().all()
+
+    profile_roles_list = []
+    for profile_role in profile_roles:
+        profile_roles_list.append({
+            "id": profile_role.id,
+            "name": profile_role.name,
+            "description": profile_role.description
+        })
+
+    return profile_roles_list

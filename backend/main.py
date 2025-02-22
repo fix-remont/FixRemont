@@ -104,6 +104,8 @@ admin.add_view(BlogParagraphAdmin)
 admin.add_view(PortfolioPostTextAdmin)
 admin.add_view(PortfolioPostAdmin)
 admin.add_view(PortfolioPostVideoAdmin)
+admin.add_view(UserStoryAdmin)
+admin.add_view(UserTypeAdmin)
 app.include_router(routes.meta(), prefix="/api")
 
 
