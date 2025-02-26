@@ -117,7 +117,7 @@ let elementContent = [
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     width: 100%;
 
     .element {
@@ -125,11 +125,11 @@ let elementContent = [
 
       h4 {
         width: 100%;
-        font-size: 24px;
+        font-size: 4vw;
       }
 
       p {
-        font-size: 16px;
+        font-size: 2vw;
       }
     }
   }
@@ -169,15 +169,15 @@ let elementContent = [
   padding: 3rem;
 
   h4 {
-    width: 50%;
-    font-size: 36px;
-    line-height: 40px;
+    width: 80%;
+    font-size: 2.5vw;
+    line-height: 3.5vw;
     font-weight: 600;
   }
 
   p {
     margin-top: 1rem;
-    font-size: 18px;
+    font-size: 1.5vw;
     line-height: 28px;
   }
 }

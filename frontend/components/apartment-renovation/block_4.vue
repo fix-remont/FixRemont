@@ -88,7 +88,11 @@
 
 .choice-title {
   font-weight: bold;
-  font-size: 48px;
+  font-size: 3vw;
+
+  @media (max-width: 768px) {
+    font-size: 4vw;
+  }
 }
 
 .choicer {
@@ -100,7 +104,7 @@
   gap: 1.5rem;
   align-items: flex-start;
   border-radius: 24px;
-  padding: 45px;
+  padding: 3vw;
 }
 
 .left-choice {
@@ -124,9 +128,14 @@
   width: 85%;
 
   h4 {
-    font-size: 30px;
-    line-height: 32px;
+    font-size: 2vw;
+    line-height: 2.2vw;
     font-weight: 450;
+
+    @media (max-width: 768px) {
+      font-size: 3vw;
+      line-height: 3.2vw;
+    }
   }
 
   ul {
@@ -134,11 +143,11 @@
   }
 
   li {
-    margin-left: 20px;
+    margin-left: 1vw;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 768px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -162,34 +171,6 @@
 
   .choice-title {
     width: 85%;
-  }
-}
-
-@media (max-width: 900px) {
-  .choice-title {
-    font-size: 30px;
-    text-align: center;
-  }
-
-  .reasons {
-    align-items: center;
-    text-align: center;
-
-    h4 {
-      font-size: 25px;
-    }
-
-    ul {
-      list-style-type: none;
-    }
-
-    li {
-      margin-left: 0;
-    }
-  }
-
-  .titles {
-    text-align: center;
   }
 }
 </style>
