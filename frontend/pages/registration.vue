@@ -42,7 +42,7 @@ function toggleRepPassword() {
   <NuxtLayout>
     <WBlock class="md:flex md:flex-row md:items-center md:justify-between">
       <section
-        class="radius-glob flex min-h-full md:w-[32vw] w-full flex-col items-center justify-around self-stretch bg-white lg:p-12 md:p-8"
+        class="radius-glob flex min-h-full w-full flex-col items-center justify-around self-stretch bg-white md:w-[32vw] md:p-8 lg:p-12"
       >
         <UForm
           class="form min-h-1/2 flex w-full flex-col items-start gap-5"
@@ -79,11 +79,7 @@ function toggleRepPassword() {
               :placeholder="placeholders.password"
               variant="none"
             />
-            <button
-              class="toggle-button"
-              type="button"
-              @click="togglePassword"
-            >
+            <button class="toggle-button" type="button" @click="togglePassword">
               <img
                 :src="
                   password_state.showPassword ? '/icons/hide-passwd.svg' : '/icons/show-passwd.svg'
@@ -105,11 +101,7 @@ function toggleRepPassword() {
               :placeholder="placeholders.repeat_password"
               variant="none"
             />
-            <button
-              class="toggle-button"
-              type="button"
-              @click="toggleRepPassword"
-            >
+            <button class="toggle-button" type="button" @click="toggleRepPassword">
               <img
                 :src="
                   rep_password_state.showPassword
@@ -146,8 +138,12 @@ function toggleRepPassword() {
           <NuxtLink class="orange underline" to="#">Войдите в аккаунт</NuxtLink>
         </p>
       </section>
-      <section class="radius-glob w-[60vw] h-full md:block hidden">
-        <img class="w-full h-full" alt="registration-picture" src="/images/registration/reg_picture.png" />
+      <section class="radius-glob hidden h-full w-[60vw] md:block">
+        <img
+          class="h-full w-full"
+          alt="registration-picture"
+          src="/images/registration/reg_picture.png"
+        />
       </section>
     </WBlock>
   </NuxtLayout>
@@ -163,6 +159,6 @@ function toggleRepPassword() {
 }
 
 .toggle-button {
-  @apply relative md:left-[23vw] md:bottom-12 -translate-y-1/2 transform left-[70vw] bottom-6;
+  @apply relative bottom-6 left-[70vw] -translate-y-1/2 transform md:bottom-12 md:left-[23vw];
 }
 </style>
