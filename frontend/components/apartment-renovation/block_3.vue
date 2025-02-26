@@ -78,7 +78,7 @@ let elementContent = [
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     flex-direction: column;
     gap: 0;
   }
@@ -117,7 +117,7 @@ let elementContent = [
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     width: 100%;
 
     .element {
@@ -135,7 +135,7 @@ let elementContent = [
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .title {
     font-size: 40px;
   }
