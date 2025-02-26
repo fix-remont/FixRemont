@@ -25,12 +25,12 @@ const comments = Array(7).fill(commentsRaw[0])
           container: 'gap-5',
           indicators: {
             wrapper: 'justify-end',
-            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2',
+            base: 'h-[5px] w-[5px] sm:h-2 sm:w-2]',
             active: 'bg-[var(--c-black)]',
             inactive: 'bg-[var(--c-gray)]'
           },
           arrows: {
-            wrapper: 'flex gap-2 justify-start mt-2'
+            wrapper: 'flex gap-2 justify-start md:m-[-1rem]'
           }
         }"
         arrows
@@ -73,7 +73,7 @@ const comments = Array(7).fill(commentsRaw[0])
 </template>
 
 <style scoped lang="postcss">
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .titles {
     text-align: center;
   }
