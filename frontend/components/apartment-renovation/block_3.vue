@@ -91,7 +91,7 @@ let elementContent = [
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 4.2vw;
   line-height: 1.25;
   font-weight: 600;
 }
@@ -129,7 +129,7 @@ let elementContent = [
       }
 
       p {
-        font-size: 2vw;
+        font-size: 2.8vw;
       }
     }
   }
@@ -137,7 +137,7 @@ let elementContent = [
 
 @media (max-width: 768px) {
   .title {
-    font-size: 40px;
+    font-size: 8vw;
   }
 
   .left {
@@ -170,14 +170,13 @@ let elementContent = [
 
   h4 {
     width: 80%;
-    font-size: 2.5vw;
-    line-height: 3.5vw;
+    font-size: 2.2vw;
     font-weight: 600;
   }
 
   p {
     margin-top: 1rem;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     line-height: 28px;
   }
 }
