@@ -125,6 +125,9 @@ const gallery = Array(3).fill(items[0])
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  padding: 1.5vw;
+  border-radius: 24px;
+  background-color: var(--c-white);
 }
 
 .text-part {
