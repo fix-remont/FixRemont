@@ -39,7 +39,7 @@ let elementContent = [
   <div class="margin-glob upper">
     <div class="left">
       <div class="wrapper">
-        <h2 class="title">
+        <h2 class="text-glob-xl">
           <span class="orange"
             >Избавим вас от <br />
             типичных проблем
@@ -88,12 +88,6 @@ let elementContent = [
   min-height: 100%;
   align-self: stretch;
   display: flex;
-}
-
-.title {
-  font-size: 4.2vw;
-  line-height: 1.25;
-  font-weight: 600;
 }
 
 .wrapper {

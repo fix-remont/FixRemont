@@ -7,7 +7,7 @@ const comments = Array(7).fill(commentsRaw[0])
 <template>
   <div class="margin-glob block">
     <div class="titles">
-      <h1 class="title-glob">
+      <h1 class="text-glob-xl">
         О чём
         <span class="orange">с грустью рассказывают</span>
         те, <br />

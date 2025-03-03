@@ -4,7 +4,7 @@
   <div class="block-choice margin-glob">
     <div class="titles">
       <p class="subtitle-glob">Давайте сравним</p>
-      <h2 class="title-glob">
+      <h2 class="text-glob-xl">
         <span class="orange">Что выгоднее и надёжнее?</span>
         <br />
         Обратиться в FIX-ремонт или нанять бригаду?
