@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const imagePath = 'images/apartment-renovation/block_5__gallery.png'
-let items = [
+const items = [
   {
     title: 'Кухня: внеплановые затраты удвоили стоимость ремонта ',
     points: [
@@ -15,13 +15,13 @@ let items = [
   }
 ]
 
-const gallery = Array(5).fill(items[0])
+const gallery = Array(3).fill(items[0])
 </script>
 
 <template>
   <div class="margin-glob block">
     <div class="titles">
-      <h1 class="title-glob">
+      <h1 class="text-glob-xl">
         При самостоятельном ремонте вы
         <br />
         <span class="orange">рискуете потратить в два раза больше</span>
