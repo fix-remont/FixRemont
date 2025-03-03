@@ -130,8 +130,5 @@ a {
 }
 
 .subtitle-glob {
-  font-size: 16px;
-  font-weight: 450;
-  line-height: 24px;
-  margin-top: 2em;
+  @apply mt-[2em] text-[4vw] font-medium leading-[6vw] md:text-[1vw] md:leading-[1.25vw];
 }
