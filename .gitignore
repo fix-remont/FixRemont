@@ -17,3 +17,4 @@ backend/.idea
 backend/__pycache__
 todo.txt
 /scripts/*
+/node_modules/
