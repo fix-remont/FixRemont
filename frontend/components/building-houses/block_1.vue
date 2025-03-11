@@ -4,7 +4,6 @@ import { hrefCalculater } from '~/assets/variables'
 
 const { width } = useViewport()
 </script>
-
 <template>
   <WBlock class="relative">
     <div class="radius-glob relative mb-10 overflow-hidden lg:mb-0">
@@ -31,8 +30,8 @@ const { width } = useViewport()
       <div class="black-box w-full">
         <h3 class="bb-title">Заселитесь в квартиру мечты с мебелью в течение 3-х месяцев</h3>
         <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
-          >Отлайн калькулятор</UButton
-        >
+          >Отлайн калькулятор
+        </UButton>
       </div>
     </div>
   </WBlock>
@@ -40,12 +39,6 @@ const { width } = useViewport()
 
 <style scoped lang="postcss">
 $radius: 35px;
-.content {
-  position: absolute;
-  bottom: 0;
-  margin-bottom: 5%;
-  left: 100px;
-}
 
 .black-box-wrap {
   background-color: var(--c-white);
@@ -64,10 +57,12 @@ $radius: 35px;
       display: none;
     }
   }
+
   &::before {
     bottom: 0;
     left: -70px;
   }
+
   &::after {
     right: 0;
     top: -70px;
@@ -75,83 +70,49 @@ $radius: 35px;
 }
 
 .title-boxing {
-  font-size: 45px;
+  font-size: 2.5vw;
   font-weight: bold;
-  line-height: 60px;
+  line-height: 3vw;
   color: white;
   position: absolute;
   bottom: 5rem;
   left: 5rem;
 
-  @media (max-width: 1500px) {
-    font-size: 40px;
-    line-height: 50px;
-    bottom: 4rem;
-    left: 4rem;
-  }
-
-  @media (max-width: 1400px) {
-    font-size: 35px;
-    line-height: 45px;
-    bottom: 4rem;
-    left: 4rem;
-  }
-
-  @media (max-width: 1150px) {
-    font-size: 30px;
-    line-height: 40px;
-    bottom: 2rem;
-    left: 2rem;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 20px;
-    line-height: 30px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 16px;
-    line-height: 25px;
-    bottom: 1rem;
-    left: 1rem;
+  @media (max-width: 768px) {
+    font-size: 4vw;
+    line-height: 5vw;
+    bottom: 3rem;
+    left: 3rem;
   }
 }
 
 .black-box {
   background-color: #161616;
-  padding: 50px;
+  padding: 2.5vw;
   border-radius: $radius;
   color: var(--c-white);
-  width: 35em;
+  width: 35rem;
   @media (max-width: 1025px) {
     width: initial;
   }
-  @media (max-width: 600px) {
-    padding: 35px;
-  }
-  @media (max-width: 450px) {
-    padding: 30px;
+  @media (max-width: 768px) {
+    padding: 3.5vw;
   }
 
   .bb-title {
-    font-size: 30px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    font-size: 1.5vw;
+    margin-bottom: 4rem;
+    @apply font-normal;
     color: white;
     width: 75%;
 
-    @media (max-width: 1100px) {
-      font-size: 24px;
-      margin-bottom: 1.5rem;
-      width: 80%;
-    }
-
     @media (max-width: 1030px) {
       width: 100%;
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 600px) {
-      font-size: 16px;
+    @media (max-width: 768px) {
+      font-size: 3vw;
     }
   }
 }
