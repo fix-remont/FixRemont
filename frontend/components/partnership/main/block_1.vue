@@ -30,148 +30,107 @@ const items = ref([
 </script>
 
 <template>
-  <WBlock class="bg-orange radius-glob relative">
-    <div class="radius-glob block-image relative">
-      <SharedBreadCrumbs class="breadcrumbs" />
-      <img class="background-image" src="/images/partnership/block_1.png" alt="background" />
-      <h1 class="title-boxing">Зарабатывайте 10% комиссию с каждой сделки FIX-ремонт</h1>
+  <WBlock class="bg-image radius-glob relative">
+    <SharedBreadCrumbs class="top-10 z-10 hidden lg:absolute lg:block" />
+    <img
+      class="radius-glob md:hidden lg:z-0 lg:block"
+      src="/images/partnership/block_1.png"
+      alt="background"
+    />
+    <div class="radius-glob bg-orange block h-[40vw] lg:hidden">
+      <img
+        class="z-0 object-contain object-center"
+        src="/images/partnership/block_1_mob.png"
+        alt="background"
+      />
+      <h1 class="text-glob-md z-10 w-[26vw] text-white">
+        Зарабатывайте 10% комиссию с каждой сделки FIX-ремонт
+      </h1>
     </div>
-
-    <div class="black-box-wrap">
-      <div class="black-box">
-        <h3 class="bb-title">
-          Обеспечим ваших клиентов сервисом и услугой высшего уровня без рисков для репутации
-        </h3>
-        <NuxtLink class="orange-link"> Подробнее </NuxtLink>
-        <UButton class="register-button" :to="hrefCalculater" size="custom" block>
-          Зарегистрироваться как партнер
-        </UButton>
-      </div>
+    <h1
+      class="text-glob-md left-12 top-[32rem] z-10 w-[26vw] text-white md:hidden lg:absolute lg:block"
+    >
+      Зарабатывайте 10% комиссию с каждой сделки FIX-ремонт
+    </h1>
+    <div class="black-box right-0 top-0 w-full lg:absolute lg:z-10">
+      <h3 class="bb-title">
+        Партнерская программа от первого в России онлайн-сервиса по ремонту и строительству с
+        фиксированной ценой
+      </h3>
+      <UButton class="mt-auto" :to="hrefCalculater" size="custom" block>
+        Зарегистрироваться, как партнёр
+      </UButton>
     </div>
-
-    <div class="cards-wrapper">
-      <UCarousel class="cards" v-if="items" :items="items" :ui="{ container: 'gap-6' }">
-        <template #default="{ item }">
-          <NuxtLink
-            class="item"
-            :to="item.href"
-            @mouseover="item.hovered = true"
-            @mouseout="item.hovered = false"
-            :class="{ 'item-hovered': item.hovered }"
-            @click="item.hovered = true"
+    <div class="bottom-0 right-0 hidden w-[47vw] grid-cols-3 gap-[1vw] md:grid lg:absolute lg:z-10">
+      <NuxtLink
+        class="rounded-glob-new group relative bg-[#EFEFEF] text-white hover:bg-none"
+        v-for="item in items"
+        to="#"
+        @mouseover="item.hovered = true"
+        @mouseout="item.hovered = false"
+        :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
+        @click="item.hovered = true"
+      >
+        <div class="relative p-[2vw] pe-[2vw] lg:z-10">
+          <p
+            class="mb-[.4vw] text-[1.2vw] font-semibold leading-[1.4vw] text-black transition delay-500 ease-linear group-hover:text-white"
           >
-            <span class="title">{{ item.title }}</span>
-            <span class="text">{{ item.text }}</span>
-            <img :src="item.imgSrc" alt="img" />
-            <div class="wrap-arrow">
-              <SharedArrowHover :hovered="item.hovered" />
-            </div>
-          </NuxtLink>
-        </template>
-      </UCarousel>
+            {{ item.title }}
+          </p>
+          <p
+            class="text-[1vw] leading-[1.2vw] text-[#EFEFEF] transition delay-500 ease-linear group-hover:text-gray-300"
+          >
+            {{ item.text }}
+          </p>
+        </div>
+        <img
+          class="absolute top-0 z-0 h-full w-full object-cover opacity-0 transition delay-500 ease-linear group-hover:opacity-100"
+          :src="item.imgSrc"
+          alt="img"
+        />
+        <SharedArrowHover class="absolute bottom-[1vw] right-[1vw]" :hovered="item.hovered" />
+      </NuxtLink>
     </div>
+    <UCarousel
+      class="block md:hidden"
+      v-if="items"
+      ref="carouselRef"
+      :items="items"
+      :ui="{ container: 'gap-[2vw]' }"
+    >
+      <template #default="{ item }">
+        <NuxtLink
+          class="relative w-[40vw] overflow-hidden rounded-[4vw] text-white"
+          to="#"
+          @mouseover="item.hovered = true"
+          @mouseout="item.hovered = false"
+          :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
+          @click="item.hovered = true"
+        >
+          <div class="relative z-10 p-[4vw]">
+            <p
+              class="mb-[.4vw] pb-[3vw] text-[4vw] font-semibold leading-[3.5vw] text-white md:text-[1.2vw]"
+            >
+              {{ item.title }}
+            </p>
+            <p class="text-[3vw] leading-[3.5vw] text-white md:leading-[1.2vw]">
+              {{ item.text }}
+            </p>
+          </div>
+          <img
+            class="absolute bottom-0 top-0 z-0 h-full w-full object-cover"
+            :src="item.imgSrc"
+            alt="img"
+          />
+          <SharedArrowHover class="absolute bottom-[4vw] right-[4vw]" :hovered="true" />
+        </NuxtLink>
+      </template>
+    </UCarousel>
   </WBlock>
 </template>
 
 <style scoped lang="postcss">
 $radius: 35px;
-
-.black-box-wrap {
-  background-color: var(--c-white);
-  top: 0;
-  right: 0;
-  position: absolute;
-  padding: 2rem 2rem 5rem;
-
-  @media (max-width: 1245px) {
-    border-bottom-left-radius: $radius;
-  }
-
-  @media (max-width: 1024px) {
-    position: static;
-    padding: 1rem;
-    border-radius: 0;
-  }
-}
-
-.block-image {
-  margin-bottom: 2.5rem;
-  overflow: hidden;
-  position: relative;
-
-  @media (max-width: 1024px) {
-    margin-bottom: 0;
-  }
-}
-
-.breadcrumbs {
-  position: absolute;
-  top: 10px;
-  z-index: 10;
-
-  @media (max-width: 1024px) {
-    display: none;
-  }
-}
-
-.background-image {
-  max-height: 700px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: $radius;
-}
-
-.title-boxing {
-  font-size: 45px;
-  font-weight: bold;
-  line-height: 60px;
-  color: white;
-  position: absolute;
-  bottom: 5rem;
-  left: 5rem;
-  width: 35%;
-
-  @media (max-width: 1500px) {
-    font-size: 40px;
-    line-height: 50px;
-    bottom: 4rem;
-    left: 4rem;
-  }
-
-  @media (max-width: 1400px) {
-    font-size: 35px;
-    line-height: 45px;
-    bottom: 3rem;
-    left: 3rem;
-  }
-
-  @media (max-width: 1200px) {
-    font-size: 30px;
-    line-height: 40px;
-    bottom: 2rem;
-    left: 2rem;
-  }
-
-  @media (max-width: 1024px) {
-    font-size: 40px;
-    line-height: 60px;
-    bottom: 3rem;
-    left: 3rem;
-    width: 60%;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 20px;
-    line-height: 30px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 16px;
-    line-height: 25px;
-    bottom: 1rem;
-    left: 1rem;
-  }
-}
 
 .black-box {
   background-color: #161616;
@@ -193,141 +152,23 @@ $radius: 35px;
   }
 
   .bb-title {
-    font-size: 30px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    font-size: 1.5vw;
+    margin-bottom: 5rem;
+    @apply font-normal;
     color: white;
     width: 75%;
 
-    @media (max-width: 1200px) {
-      font-size: 24px;
-      margin-bottom: 1.5rem;
-      width: 80%;
-    }
-
     @media (max-width: 1030px) {
       width: 100%;
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 600px) {
-      font-size: 16px;
+    @media (max-width: 768px) {
+      font-size: 3vw;
     }
   }
 }
 
-.orange-link {
-  color: var(--c-orange);
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.register-button {
-  margin-top: 1rem;
-}
-
-.cards-wrapper {
-  max-width: 50.2vw;
-  background-color: var(--c-white);
-  border-top-left-radius: $radius;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  padding: 2rem 2rem 0;
-
-  @media (max-width: 1200px) {
-    padding-top: 4rem;
-    border-radius: 0;
-  }
-
-  @media (max-width: 1030px) {
-    padding-top: 6rem;
-  }
-
-  @media (max-width: 1024px) {
-    position: relative;
-    padding-top: 2rem;
-    padding-left: 0;
-    padding-right: 0;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-.cards {
-  @media (max-width: 1024px) {
-    max-width: 90vw;
-  }
-  .item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    color: white;
-    border-radius: $radius;
-    overflow: hidden;
-    transition: all 0.3s linear;
-    background-color: white;
-    width: 280px;
-    min-height: 180px;
-
-    @media (max-width: 1400px) {
-      min-height: 200px;
-    }
-
-    @media (max-width: 1200px) {
-      min-height: 220px;
-    }
-
-    @media (max-width: 800px) {
-      min-height: 130px;
-    }
-
-    .title {
-      font-weight: 500;
-      font-size: 24px;
-      margin: 25px 0 10px 25px;
-      line-height: 32px;
-      transition: all 0.3s linear;
-      color: var(--c-black);
-
-      @media (max-width: 800px) {
-        font-size: 20px;
-      }
-    }
-
-    .text {
-      width: 180px;
-      font-size: 16px;
-      font-weight: 400;
-      margin-left: 25px;
-      color: white;
-    }
-
-    img {
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
-
-    .wrap-arrow {
-      position: absolute;
-      right: 25px;
-      bottom: 25px;
-    }
-  }
-
-  .item-hovered {
-    background: none;
-
-    .title {
-      color: white;
-    }
-
-    .text {
-      color: #efefef;
-    }
-  }
+.item {
 }
 </style>

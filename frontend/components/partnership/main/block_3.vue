@@ -36,7 +36,7 @@ function onSubmit() {
 <template>
   <div class="margin-glob block">
     <div class="left">
-      <h1 class="title-glob">
+      <h1 class="text-glob-xl">
         <span class="orange">
           Спрогнозируйте свой <br />
           доход
@@ -46,15 +46,20 @@ function onSubmit() {
       <p class="subtitle-glob">В расчёт возьмём средние данные по пакетам</p>
     </div>
     <div class="right">
-      <h1 class="title-glob">
+      <h1 class="text-glob-xl">
         Итого:
         <u>{{ state.total }}</u>
         руб
       </h1>
-      <p>*расчёт ориентировочный и не несёт в себе никаких гарантий</p>
+      <p class="subtitle-glob text-[#808080]">
+        *расчёт ориентировочный и не несёт в себе никаких гарантий
+      </p>
     </div>
     <UForm class="down" :state="state" @submit.preven="onSubmit">
-      <UFormGroup name="clientsRepair" :label="labels.clientsRepair">
+      <UFormGroup name="clientsRepair">
+        <template #label>
+          <span class="text-sm font-semibold text-black">{{ labels.clientsRepair }}</span>
+        </template>
         <UInput
           class="mt-4"
           v-model="state.clientsRepair"
@@ -64,7 +69,10 @@ function onSubmit() {
         />
       </UFormGroup>
 
-      <UFormGroup name="clientsBuild" :label="labels.clientsBuild">
+      <UFormGroup name="clientsBuild">
+        <template #label>
+          <span class="text-sm font-semibold text-black">{{ labels.clientsBuild }}</span>
+        </template>
         <UInput
           class="mt-4"
           v-model="state.clientsBuild"
@@ -78,7 +86,7 @@ function onSubmit() {
         <p class="mb-4 block text-sm font-medium text-red-600" v-if="validationMessage">
           {{ validationMessage }}
         </p>
-        <SharedButton fillBlack type="submit"> Рассчитать доход </SharedButton>
+        <SharedButton fillBlack type="submit"> Рассчитать доход</SharedButton>
       </div>
     </UForm>
   </div>
@@ -90,7 +98,7 @@ function onSubmit() {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     grid-template-rows: auto auto auto;
     grid-template-columns: 1fr;
     align-items: center;
@@ -98,32 +106,25 @@ function onSubmit() {
 }
 
 .left {
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     text-align: center;
     order: 1;
   }
 }
 
 .right {
-  padding: 40px 80px;
-  border-radius: 35px;
-  border-color: var(--c-black);
-  border-style: solid;
-  border-width: 3px;
+  padding: 2.5vw 7vw;
+  border-radius: 24px;
+  border: 3px solid var(--c-black);
 
-  p {
-    margin-top: 1rem;
-    font-size: 16px;
-    color: #808080;
-  }
-
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 40px;
+    padding: 3.13vw 4.17vw;
     text-align: center;
     order: 3;
+
     h1 {
       width: 65%;
     }
@@ -133,16 +134,16 @@ function onSubmit() {
 .down {
   grid-column: span 2;
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 3vw;
   display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2vw;
   align-items: end;
+  grid-template-columns: 1fr 1fr 1fr;
 
-  @media (max-width: 800px) {
+  @media (max-width: 768px) {
     order: 2;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 2vw;
+    margin-top: 2vw;
   }
 }
 
@@ -150,5 +151,10 @@ function onSubmit() {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  button {
+    @media (max-width: 768px) {
+      padding: 15px;
+    }
+  }
 }
 </style>

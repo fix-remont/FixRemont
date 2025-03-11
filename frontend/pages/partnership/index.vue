@@ -2,7 +2,7 @@
 
 <template>
   <NuxtLayout>
-    <PartnershipMainBlock1 />
+    <!--    <PartnershipMainBlock1 />-->
     <HomeBlock2 />
     <PartnershipMainBlock2 />
     <PartnershipMainBlock3 />

@@ -44,7 +44,7 @@ const setActiveIndex = (index: number) => {
 <template>
   <div class="margin-glob block">
     <div class="left">
-      <h2 class="title-glob">
+      <h2 class="text-glob-xl">
         <span class="orange">Кому подойдёт </span>
         партнерская программа FIX-ремонт?
       </h2>
@@ -103,22 +103,26 @@ const setActiveIndex = (index: number) => {
   display: flex;
   flex-direction: row;
   align-items: center;
+  align-self: stretch;
 }
 
 .left {
   width: 50%;
+  align-self: stretch;
+
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
-  gap: 10rem;
+  justify-content: space-between;
 
   .manipulate {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 2.08vw;
 
     .subtitle {
-      font-size: 25px;
+      font-size: 2.6vw;
       font-weight: bold;
       text-decoration: underline;
     }
@@ -131,38 +135,29 @@ const setActiveIndex = (index: number) => {
 
 .right {
   width: 50%;
+  align-self: stretch;
+  min-height: 50vh;
   height: 100%;
-  border-radius: 24px;
+  border-radius: 2.5vw;
   background-color: #efefef;
-  padding: 40px;
+  padding: 4.17vw;
 
   .link-buttons {
     width: 50%;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 2.08vw;
     justify-content: space-around;
 
-    @media (max-width: 1200px) {
+    @media (max-width: 768px) {
+      width: 100%;
+      line-height: 1.67vw;
+      font-size: 1.67vw;
       flex-direction: column;
-      width: 100%;
-    }
-    a {
-      flex: 1;
-    }
-  }
-  p {
-    width: 300px;
-
-    @media (max-width: 1500px) {
-      width: 100%;
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
-
-    @media (max-width: 800px) {
-      line-height: 16px;
-      font-size: 16px;
+      gap: 1vw;
+      button {
+        font-size: 2.5vw;
+      }
     }
   }
 }
@@ -172,19 +167,18 @@ const setActiveIndex = (index: number) => {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 30px 10px;
+  padding: 0.5vw 0.7vw;
   cursor: pointer;
   color: var(--c-black);
   background: #fff;
-  border-radius: 24px;
+  border-radius: 2.5vw;
   border-color: var(--c-black);
   border-style: solid;
-  border-width: 2px;
-  font-size: 17px;
+  border-width: 0.21vw;
+  font-size: 1vw;
   font-weight: 450;
-  letter-spacing: 0.001px;
   aspect-ratio: 1 / 1;
-  width: 130px;
+  width: 7.5vw;
 
   &.active {
     background-color: var(--c-black);
@@ -192,15 +186,15 @@ const setActiveIndex = (index: number) => {
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .block {
     flex-direction: column;
   }
 
   .left {
     width: 100%;
-    gap: 5rem;
-    margin-bottom: 2rem;
+    gap: 5vw;
+    margin-bottom: 2.08vw;
     h2 {
       text-align: center;
     }
@@ -211,18 +205,16 @@ const setActiveIndex = (index: number) => {
 
   .right {
     width: 100%;
-    padding: 20px;
+    padding: 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .button-box {
-    padding: 20px 10px;
-    font-size: 14px;
-    width: 100px;
-  }
-
-  .link-buttons {
-    flex-direction: column;
-    gap: 10px;
+    padding: 4vw 4vw;
+    font-size: 2.5vw;
+    width: 20vw;
   }
 }
 </style>
