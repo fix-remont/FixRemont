@@ -1,9 +1,13 @@
 {
   "scripts": {
     "format": "prettier --write .",
-    "check": "prettier --check ."
+    "check": "prettier --check .",
+    "prepare": "husky",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "prettier": "3.4.2",
     "prettier-plugin-organize-attributes": "1.0.0",
     "prettier-plugin-tailwindcss": "0.6.9"
