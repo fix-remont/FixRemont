@@ -104,6 +104,7 @@ a {
 }
 
 .title-glob {
+  @apply underline;
   font-size: 4.2vw;
   font-weight: 600;
   line-height: 80px;

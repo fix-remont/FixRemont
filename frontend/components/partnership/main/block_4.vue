@@ -20,9 +20,10 @@ const gallery2 = Array(5).fill(carousel2[0])
 
 <template>
   <div class="margin-glob">
-    <h1 class="title-glob mb-4">
+    <h1 class="text-glob-xl mb-4">
       <span class="orange">Возьмём на себя</span>
-      организацию и выполнение работ под ключ
+      организацию <br />
+      и выполнение работ под ключ
     </h1>
     <div class="wrapper">
       <UCarousel
@@ -39,7 +40,7 @@ const gallery2 = Array(5).fill(carousel2[0])
             inactive: 'bg-[var(--c-gray)]'
           },
           arrows: {
-            wrapper: 'flex gap-2 justify-start mt-2'
+            wrapper: 'flex gap-2 justify-start'
           }
         }"
       >
@@ -55,6 +56,7 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         <template #prev="{ onClick, disabled }">
           <img
+            alt="arrow"
             :class="[
               'arrow cursor-pointer',
               'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
@@ -68,6 +70,7 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         <template #next="{ onClick, disabled }">
           <img
+            alt="arrow"
             :class="[
               'arrow cursor-pointer',
               'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
@@ -110,6 +113,7 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         <template #prev="{ onClick, disabled }">
           <img
+            alt="arrow"
             :class="[
               'arrow cursor-pointer',
               'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
@@ -123,6 +127,7 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         <template #next="{ onClick, disabled }">
           <img
+            alt="arrow"
             :class="[
               'arrow cursor-pointer',
               'h-[35px] w-[35px] sm:h-[60px] sm:w-[60px]',
@@ -165,40 +170,28 @@ const gallery2 = Array(5).fill(carousel2[0])
       .text {
         max-width: 26vw;
         position: absolute;
-        bottom: 40px;
-        left: 40px;
+        bottom: 2vw;
+        left: 2vw;
         right: 0;
-        padding: 1rem;
+        padding: 1vw;
         color: #fff;
 
         h4 {
-          margin-bottom: 12px;
-          font-size: 27px;
+          margin-bottom: 1vw;
+          font-size: 1.6vw;
           font-weight: bold;
         }
 
         p {
           font-weight: 600;
-          font-size: 18px;
+          font-size: 1vw;
         }
       }
     }
   }
 }
 
-@media (max-width: 1200px) {
-  .wrapper .carousel .item .text {
-    h4 {
-      font-size: 25px;
-    }
-
-    p {
-      font-size: 15px;
-    }
-  }
-}
-
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   h1 {
     text-align: center;
   }
@@ -222,17 +215,17 @@ const gallery2 = Array(5).fill(carousel2[0])
 
         .text {
           max-width: 85%;
-          bottom: 17px;
-          left: 17px;
-          padding: 0;
+          bottom: 2.5vw;
+          left: 2.5vw;
+          padding: 1.5vw;
 
           h4 {
             margin-bottom: 8px;
-            font-size: 18px;
+            font-size: 3vw;
           }
 
           p {
-            font-size: 15px;
+            font-size: 2vw;
           }
         }
       }
