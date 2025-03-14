@@ -52,7 +52,7 @@ const toggleShow = (index: number) => {
 <template>
   <div class="margin-glob block">
     <div class="box1">
-      <h1 class="title-glob">
+      <h1 class="text-glob-xl">
         Отвечаем на <span class="orange"> самые частые вопросы </span> наших клиентов
       </h1>
       <div class="img-container">

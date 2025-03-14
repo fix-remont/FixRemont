@@ -26,7 +26,7 @@ const items = [
 
 <template>
   <div class="margin-glob block">
-    <h1 class="title-glob">
+    <h1 class="text-glob-xl">
       Ведём блог, делимся <span class="orange"> многолетним опытом </span> и практической
       информацией
     </h1>
