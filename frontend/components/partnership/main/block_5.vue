@@ -11,101 +11,45 @@ const items = [
 
 <template>
   <div class="margin-glob">
-    <h1 class="title-glob mb-4 md:w-4/5">
+    <h1 class="text-glob-xl mb-4 md:w-4/5">
       Весь процесс сотрудничества с нами на <span class="orange">100% прозрачный</span> и
       контролируемый
     </h1>
 
-    <div class="wrapper">
-      <div class="left">
+    <div class="flex flex-col items-center justify-between gap-[1.5vw] md:flex-row md:gap-[2vw]">
+      <div class="order-2 flex w-full flex-col gap-[1.5vw] md:order-1 md:w-[65vw]">
         <div class="items">
-          <div class="item" v-for="item in items" :key="item">
+          <div
+            class="flex w-full items-start gap-[1vw] rounded-[24px] bg-white p-[2vw] md:w-[25vw] md:p-[1.5vw]"
+            v-for="item in items"
+            :key="item"
+          >
             <img class="icon" src="/images/home/checkbox_checked.svg" alt="icon" />
-            <span class="text" v-html="item"></span>
+            <span class="p-[1vw] text-lg font-semibold md:text-base" v-html="item"></span>
           </div>
         </div>
-
-        <NuxtLink :to="hrefCabinet">
-          <SharedButton> Зарегистрироваться на платформе </SharedButton>
-        </NuxtLink>
+        <UButton :to="hrefCabinet" color="white" variant="outline">
+          Зарегистрироваться на платформе
+        </UButton>
       </div>
-      <div class="imgWrapper">
-        <img class="" alt="picture" src="/images/partnership/block_5.png" draggable="false" />
+      <div class="order-1 h-full w-full md:order-2 md:w-1/2">
+        <img
+          class="h-full w-full"
+          alt="picture"
+          src="/images/partnership/block_5.png"
+          draggable="false"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-@media (max-width: 800px) {
-  h1 {
-    text-align: center;
-  }
-}
-.wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4rem;
-
-  @media (max-width: 800px) {
-    flex-direction: column;
-    gap: 2rem;
-  }
-}
-
-.left {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-
-  @media (max-width: 800px) {
-    width: 100%;
-    order: 2;
-  }
-}
-
 .items {
   grid-area: items;
   display: flex;
   flex-wrap: wrap;
-  row-gap: 30px;
-  justify-content: space-between;
-
-  .item {
-    display: flex;
-    gap: 10px;
-    font-size: 18px;
-    font-weight: 500;
-    align-items: flex-start;
-    width: 350px;
-    padding: 20px;
-    border-radius: 24px;
-
-    @media (max-width: 800px) {
-      font-size: 16px;
-      padding: 10px;
-      width: 100%;
-    }
-
-    .icon {
-    }
-
-    .text {
-      padding: 20px;
-      font-weight: 450;
-    }
-  }
-}
-
-.imgWrapper {
-  width: 50%;
-
-  @media (max-width: 800px) {
-    width: 100%;
-    order: 1;
-  }
+  row-gap: 1vw;
+  column-gap: 1vw;
 }
 </style>
