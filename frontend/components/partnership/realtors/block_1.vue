@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useViewport } from '~/composables/viewport'
 import { hrefCalculater } from '~/assets/variables'
-
-const { width } = useViewport()
 </script>
 
 <template>
@@ -28,7 +25,7 @@ const { width } = useViewport()
           Обеспечим ваших клиентов сервисом и услугой высшего уровня без рисков для репутации
         </h3>
         <NuxtLink class="orange cursor-pointer underline"> Подробнее </NuxtLink>
-        <UButton class="mt-4" :to="hrefCalculater" size="custom" block
+        <UButton class="mt-[3vw]" :to="hrefCalculater" size="custom" block
           >Зарегистрироваться как партнер</UButton
         >
       </div>
@@ -73,84 +70,51 @@ $radius: 35px;
 }
 
 .title-boxing {
-  font-size: 45px;
+  width: 43vw;
+  font-size: 2.5vw;
   font-weight: bold;
-  line-height: 60px;
+  line-height: 3vw;
   color: white;
   position: absolute;
-  bottom: 5rem;
-  left: 5rem;
-  width: 35%;
+  bottom: 2.5vw;
+  left: 2.5vw;
 
-  @media (max-width: 1500px) {
-    font-size: 40px;
-    line-height: 50px;
-    bottom: 4rem;
-    left: 4rem;
-  }
-
-  @media (max-width: 1400px) {
-    font-size: 35px;
-    line-height: 45px;
-    bottom: 3rem;
-    left: 3rem;
-  }
-
-  @media (max-width: 1200px) {
-    font-size: 30px;
-    line-height: 40px;
-    bottom: 2rem;
-    left: 2rem;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 20px;
-    line-height: 30px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 16px;
-    line-height: 25px;
-    bottom: 1rem;
-    left: 1rem;
+  @media (max-width: 768px) {
+    color: #e9e9e9;
+    font-size: 3.5vw;
+    line-height: 5vw;
+    bottom: 3vw;
+    left: 3vw;
   }
 }
 
 .black-box {
   background-color: #161616;
-  padding: 50px;
+  padding: 2.5vw;
   border-radius: $radius;
   color: var(--c-white);
-  width: 35em;
-  @media (max-width: 1024px) {
+  width: 32vw;
+  @media (max-width: 1025px) {
     width: initial;
   }
-  @media (max-width: 600px) {
-    padding: 35px;
-  }
-  @media (max-width: 450px) {
-    padding: 30px;
+  @media (max-width: 768px) {
+    padding: 3.5vw;
   }
 
   .bb-title {
-    font-size: 30px;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    font-size: 1.5vw;
+    margin-bottom: 1.5vw;
+    @apply font-semibold;
     color: white;
     width: 75%;
 
-    @media (max-width: 1200px) {
-      font-size: 24px;
-      margin-bottom: 1.5rem;
-      width: 80%;
-    }
-
     @media (max-width: 1030px) {
       width: 100%;
+      margin-bottom: 2rem;
     }
 
-    @media (max-width: 600px) {
-      font-size: 16px;
+    @media (max-width: 768px) {
+      font-size: 3vw;
     }
   }
 }

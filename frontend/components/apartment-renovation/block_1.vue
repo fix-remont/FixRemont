@@ -74,14 +74,14 @@ $radius: 35px;
   line-height: 3vw;
   color: white;
   position: absolute;
-  bottom: 5rem;
-  left: 5rem;
+  bottom: 2.5vw;
+  left: 2.5vw;
 
   @media (max-width: 768px) {
     font-size: 4vw;
     line-height: 5vw;
-    bottom: 3rem;
-    left: 3rem;
+    bottom: 3vw;
+    left: 3vw;
   }
 }
 
@@ -101,7 +101,7 @@ $radius: 35px;
   .bb-title {
     font-size: 1.5vw;
     margin-bottom: 4rem;
-    @apply font-normal;
+    @apply font-semibold;
     color: white;
     width: 75%;
 
