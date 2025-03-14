@@ -47,9 +47,9 @@ let elementContent = [
           <br />
           ремонта квартиры:
         </h2>
-        <NuxtLink :to="hrefCalculater">
-          <SharedButton> Рассчитать стоимость без посещения офиса </SharedButton>
-        </NuxtLink>
+        <UButton :to="hrefCalculater" variant="outline" color="white">
+          Рассчитать стоимость без посещения офиса
+        </UButton>
       </div>
     </div>
     <div class="right">
@@ -70,17 +70,8 @@ let elementContent = [
   justify-content: space-between;
   margin-bottom: 3rem;
 
-  @media (max-width: 1200px) {
-    gap: 8rem;
-
-    button {
-      padding: 20px;
-    }
-  }
-
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 0;
   }
 }
 
@@ -93,7 +84,7 @@ let elementContent = [
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1vw;
   position: sticky;
   top: 10px;
   align-self: flex-start;
@@ -103,7 +94,7 @@ let elementContent = [
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1.5vw;
 
   @media (max-width: 1400px) {
     .element h4 {
@@ -130,23 +121,19 @@ let elementContent = [
 }
 
 @media (max-width: 768px) {
-  .title {
-    font-size: 8vw;
-  }
-
   .left {
     width: 100%;
     top: 0;
     z-index: 1;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5vw;
 
     .wrapper {
       text-align: center;
       display: flex;
       align-items: center;
       flex-direction: column;
-      gap: 1em;
+      gap: 1vw;
 
       a {
         width: 100%;
@@ -158,9 +145,9 @@ let elementContent = [
 .element {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5vw;
   border-radius: 24px;
-  padding: 3rem;
+  padding: 2.5vw;
 
   h4 {
     width: 80%;
@@ -169,9 +156,8 @@ let elementContent = [
   }
 
   p {
-    margin-top: 1rem;
+    margin-top: 1vw;
     font-size: 1.2vw;
-    line-height: 28px;
   }
 }
 
