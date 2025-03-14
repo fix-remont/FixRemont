@@ -38,7 +38,7 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .block {
     align-items: center;
     text-align: center;
