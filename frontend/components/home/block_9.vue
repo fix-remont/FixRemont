@@ -1,190 +1,105 @@
-<script setup>
+<script setup lang="ts">
 const img = '/images/home/block_9.png'
 
-const items = [
-	{ label: 'Выбор опции', time: '1 мин', img, selected: false, text: '1 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!' },
-	{ label: 'Выбор подходящего тарифа', time: '30 мин', img, selected: false, text: '2 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!' },
-	{ label: 'Удобный выбор планировки и материала', time: '60 мин', img, selected: false, text: '3 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!' },
-	{ label: 'Проведение работ сервисом FIX-ремонт', time: '', img, selected: false, text: '4 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!' },
-	{ label: 'Получите — распишитесь!:)', time: '', img, selected: false, text: '5 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!' },
-]
+const items = ref([
+  {
+    label: 'Выбор опции',
+    time: '1 мин',
+    img,
+    selected: false,
+    text: '1 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
+  },
+  {
+    label: 'Выбор подходящего тарифа',
+    time: '30 мин',
+    img,
+    selected: false,
+    text: '2 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
+  },
+  {
+    label: 'Удобный выбор планировки и материала',
+    time: '60 мин',
+    img,
+    selected: false,
+    text: '3 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
+  },
+  {
+    label: 'Проведение работ сервисом FIX-ремонт',
+    time: '',
+    img,
+    selected: false,
+    text: '4 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
+  },
+  {
+    label: 'Получите — распишитесь!:)',
+    time: '',
+    img,
+    selected: false,
+    text: '5 Выбирайте подходящий тариф под ваш бюджет. Цена фиксированная!'
+  }
+])
 
 const currentActiveIndex = ref(0)
 
 const itemsWithSelected = computed(() => {
-	return items.map((item, index) => {
-		item.selected = index === currentActiveIndex.value
-		return item
-	})
+  return items.value.map((item, index) => {
+    item.selected = index === currentActiveIndex.value
+    return item
+  })
+})
+
+onMounted(() => {
+  const maxIndex = items.value.length - 1
+  setInterval(() => {
+    currentActiveIndex.value =
+      currentActiveIndex.value == maxIndex ? 0 : currentActiveIndex.value + 1
+  }, 3000)
 })
 </script>
 
 <template>
-	<div class="wrapper margin-glob">
-		<div class="block_1">
-			<div class="texts">
-				<div class="title">Всего <span class="orange">4 шага и 1.5 часа</span> личного времени</div>
-				<div class="text">отделяют вас от дома своей мечты</div>
-			</div>
-			<div class="tabs">
-				<div v-for="(item, index) in itemsWithSelected"
-					:class="['tab-container', { 'tab-container__selected': index == currentActiveIndex }]"
-					@click="currentActiveIndex = index">
-					<div class="card">
-						<div class="label">{{ item.label }}</div>
-						<div class="time">{{ item.time }}</div>
-					</div>
-					<div :class="currentActiveIndex == index ? 'sm_block_2__selected' : 'sm_block_2__not_selected'">
-						<img class="img" :src="items[currentActiveIndex].img" alt="img" />
-						<div class="text">{{ items[currentActiveIndex].text }}</div>
-					</div>
+  <div
+    class="margin-glob-new rounded-glob-new grid grid-cols-1 gap-[3vw] bg-[--c-black] p-[4vw] text-white md:grid-cols-2"
+  >
+    <div class="">
+      <p class="text-glob-xl">
+        Всего <span class="text-primary">4 шага и 1.5 часа</span> <br />
+        личного времени
+      </p>
+      <p class="my-[2vw] text-[3vw] font-semibold md:my-[1.5vw] md:text-[1vw]">
+        отделяют вас от дома своей мечты
+      </p>
+      <div class="flex flex-col gap-[3vw] md:gap-[1vw]">
+        <div v-for="(item, index) in itemsWithSelected" @click="currentActiveIndex = index">
+          <div
+            :class="[
+              { 'bg-white': index == currentActiveIndex },
+              'flex h-[14vw] items-center justify-between rounded-[4vw] px-[6vw] font-medium text-[#6B6B6B] ring-[.1vw] ring-[#6B6B6B] md:h-[6vw] md:rounded-[1vw] md:px-[2vw]'
+            ]"
+          >
+            <div
+              :class="[
+                { 'font-semibold text-[--c-black]': index == currentActiveIndex },
+                'text-[2.5vw] md:text-[1vw]'
+              ]"
+            >
+              {{ item.label }}
+            </div>
+            <div class="text-[2.5vw] md:text-[1vw]">{{ item.time }}</div>
+          </div>
 
-				</div>
-			</div>
-		</div>
-		<div class="block_2">
-			<img :src="items[currentActiveIndex].img" alt="img" />
-			<div class="text">{{ items[currentActiveIndex].text }}</div>
-		</div>
-	</div>
+          <div class="my-[2vw] block md:hidden" v-if="index == currentActiveIndex">
+            <img class="mb-[2vw] w-full" :src="items[currentActiveIndex].img" alt="img" />
+            <div class="text-[4vw]">{{ items[currentActiveIndex].text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden md:block">
+      <img class="mb-[2vw] w-full" :src="items[currentActiveIndex].img" alt="img" />
+      <div class="text-[2vw]">{{ items[currentActiveIndex].text }}</div>
+    </div>
+  </div>
 </template>
 
-<style scoped>
-.wrapper {
-	padding: 80px;
-	background-color: var(--c-black);
-	/* width: 100%; */
-	border-radius: 35px;
-	display: flex;
-	font-size: 10px;
-	gap: 30px;
-	color: white;
-
-	@media (max-width: 1400px) {
-		flex-direction: column;
-	}
-
-	@media (max-width: 640px) {
-		font-size: 5px;
-		padding: 14px;
-		border-radius: 10px;
-
-	}
-}
-
-.block_1 {
-	font-size: 1em;
-	width: 50%;
-
-	@media (max-width: 1400px) {
-		width: 100%;
-	}
-
-	.texts {
-		font-size: 1em;
-
-		.title {
-			font-size: 6.5em;
-			line-height: 1.2em;
-			font-weight: 600;
-			margin-bottom: 30px;
-		}
-
-		.text {
-			font-size: 2em;
-			font-weight: 500;
-			margin-bottom: 30px;
-
-			@media (max-width: 640px) {
-				font-size: 14px;
-			}
-		}
-	}
-
-	.tabs {
-		display: flex;
-		flex-direction: column;
-		gap: 15px;
-
-		.tab-container {
-			.card {
-				color: #6b6b6b;
-				border: #6b6b6b solid 1px;
-				border-radius: 20px;
-				padding: 35px;
-				display: flex;
-				justify-content: space-between;
-				font-size: 20px;
-
-				@media (max-width: 640px) {
-					font-size: 8px;
-					padding: 14px;
-					border-radius: 10px;
-
-				}
-
-				.label {
-					font-weight: 700;
-				}
-
-				.time {
-					color: #6b6b6b;
-
-				}
-			}
-
-			&__selected {
-				.card {
-					background-color: #ffffff;
-					color: var(--c-black);
-				}
-			}
-		}
-	}
-}
-
-.block_2 {
-	font-size: 1em;
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
-
-
-	@media (max-width: 1400px) {
-		width: 100%;
-	}
-
-	@media (max-width:640px) {
-		display: none;
-	}
-
-	img {
-		width: 100%;
-	}
-
-	.text {
-		font-size: 3.2em;
-		font-weight: 500;
-	}
-}
-
-.sm_block_2__not_selected {
-	display: none;
-}
-
-.sm_block_2__selected {
-	display: none;
-
-	@media (max-width:640px) {
-		display: block;
-		font-weight: 500;
-		font-size: 12px;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-}
-</style>
+<style scoped></style>

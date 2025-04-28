@@ -1,64 +1,54 @@
 <script setup lang="ts">
-import { portfolioItemsShort as items } from '~/shared/utils/data'
-
-const selectedIndex = ref(0)
-
-const tabsRow = [
-	{ label: 'Все', value: 'all', selected: false },
-	{ label: 'Ремонт квартир', value: 'appartament_renovation', selected: false },
-	{ label: 'Строительство домов', value: 'house_construction', selected: false },
+const tabs = [
+  { label: 'Все', value: 'all' },
+  { label: 'Ремонт квартир', value: 'appartament_renovation' },
+  { label: 'Строительство домов', value: 'house_construction' }
 ]
-const tabs = computed(() => {
-	return tabsRow.map((tab, index) => {
-		tab.selected = selectedIndex.value === index ? true : false
-		return tab
-	})
-})
+const selectedTabIndex = ref(0)
+const viewItemsAmount = ref(4)
+
+const items = ref([
+  { title: 'Дом из кирпича 560 м2 на Барвихе 1', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 2', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 3', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 4', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 5', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 6', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 7', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 8', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 9', imgSrc: '/images/home/block_7__1.png' },
+  { title: 'Дом из кирпича 560 м2 на Барвихе 10', imgSrc: '/images/home/block_7__1.png' }
+])
+
+const viewItems = computed(() => items.value.slice(0, viewItemsAmount.value))
+const showMore = items.value.length > viewItems.value.length
 </script>
-
 <template>
-	<div class="block margin-glob">
-		<p>Работаем одинаково хорошо, как на крупных объектах, так и в небольших квартирах</p>
-		<h1 class="title title-glob">Посмотрите на наши <span class="orange"> выполненные проекты</span></h1>
-		<div class="tabs-container">
-			<div :class="['tab', 'radius-glob', 'hover', { 'tab-selected': tab.selected }]" v-for="(tab, index) in tabs" @click="selectedIndex = index">
-				{{ tab.label }}
-			</div>
-		</div>
-	</div>
+  <WBlock>
+    <p>Работаем одинаково хорошо, как на крупных объектах, так и в небольших квартирах</p>
+    <WTitle> Посмотрите на наши <span class="orange"> выполненные проекты</span> </WTitle>
+    <SharedTabs @selected-tab="(tabIndex: number) => (selectedTabIndex = tabIndex)" :tabs="tabs" />
+
+    <div class="mb-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
+      <div class="relative" v-for="item in viewItems">
+        <img class="w-full" :src="item.imgSrc" alt="img" />
+        <div class="absolute bottom-2 left-2 sm:bottom-8 sm:left-8">
+          <h2 class="mb-1 w-[80%] text-base font-bold text-white sm:mb-5 sm:text-2xl">
+            {{ item.title }}
+          </h2>
+          <NuxtLink class="text-orange underline" to="/portfolio/test_id">Узнать цену</NuxtLink>
+        </div>
+      </div>
+    </div>
+
+    <UButton
+      v-if="showMore"
+      @click="viewItemsAmount = viewItemsAmount + 2"
+      color="white"
+      variant="outline"
+      size="custom"
+      block
+      >Показать больше</UButton
+    >
+  </WBlock>
 </template>
-
-<style scoped>
-.block {
-	.title {
-		margin-bottom: 30px;
-		@media (max-width: 640px) {
-			margin-bottom: 10px;
-		}
-	}
-	.tabs-container {
-		display: flex;
-		gap: 15px;
-		margin-bottom: 30px;
-
-		@media (max-width: 640px) {
-			gap: 5px;
-			margin-bottom: 10px;
-		}
-		.tab {
-			padding: 12px 28px;
-			color: var(--c-black);
-			background-color: white;
-
-			@media (max-width: 640px) {
-				padding: 6px 8px;
-				font-size: 10px;
-			}
-			&-selected {
-				color: white;
-				background-color: var(--c-black);
-			}
-		}
-	}
-}
-</style>

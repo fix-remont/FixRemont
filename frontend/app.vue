@@ -1,8 +1,8 @@
 <template>
-	<div id="app">
-		<NuxtPage />
-		<UNotifications />
-	</div>
+  <div id="app">
+    <NuxtPage />
+    <UNotifications />
+  </div>
 </template>
 
 <style></style>

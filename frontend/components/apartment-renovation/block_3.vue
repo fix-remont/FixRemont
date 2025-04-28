@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { hrefCalculater } from 'assets/variables'
 
 let elementContent = [
   {
@@ -15,7 +16,8 @@ let elementContent = [
   },
   {
     title: 'Постоянный контроль',
-    label: 'приходится отвлекаться от дел, бросать всё и ехать на объект без понимания, что проверять'
+    label:
+      'приходится отвлекаться от дел, бросать всё и ехать на объект без понимания, что проверять'
   },
   {
     title: 'Разборки, кто прав, а кто виноват',
@@ -27,40 +29,36 @@ let elementContent = [
   },
   {
     title: 'И в результате:',
-    label: 'несмотря на все старания и страдания, сроки и стоимость ремонта увеличиваются в 2-3 раза '
-  },
+    label:
+      'несмотря на все старания и страдания, сроки и стоимость ремонта увеличиваются в 2-3 раза '
+  }
 ]
 </script>
 
 <template>
-<div class="margin-glob block">
-  <div class="upper">
+  <div class="margin-glob upper">
     <div class="left">
       <div class="wrapper">
-        <h2 class="title">
-          <span class="orange">Избавим вас от <br/> типичных проблем </span> <br/>
+        <h2 class="text-glob-xl">
+          <span class="orange"
+            >Избавим вас от <br />
+            типичных проблем
+          </span>
+          <br />
           ремонта квартиры:
         </h2>
-        <NuxtLink>
-          <SharedButton>
-            Рассчитать стоимость без посещения офиса
-          </SharedButton>
-        </NuxtLink>
+        <UButton :to="hrefCalculater" variant="outline" color="white">
+          Рассчитать стоимость без посещения офиса
+        </UButton>
       </div>
     </div>
     <div class="right">
-      <div
-          class="element"
-          v-for="(item, index) in elementContent"
-          :key="index"
-      >
+      <div class="element" v-for="(item, index) in elementContent" :key="index">
         <h4>{{ item.title }}</h4>
         <p>{{ item.label }}</p>
       </div>
     </div>
   </div>
-  <HomeBlock5 />
-</div>
 </template>
 
 <style scoped>
@@ -71,6 +69,10 @@ let elementContent = [
   align-items: center;
   justify-content: space-between;
   margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .left {
@@ -79,16 +81,10 @@ let elementContent = [
   display: flex;
 }
 
-.title {
-  font-size: 3rem;
-  line-height: 1.25;
-  font-weight: 600;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1vw;
   position: sticky;
   top: 10px;
   align-self: flex-start;
@@ -98,50 +94,49 @@ let elementContent = [
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1.5vw;
+
+  @media (max-width: 1400px) {
+    .element h4 {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+
+    .element {
+      text-align: center;
+
+      h4 {
+        width: 100%;
+        font-size: 4vw;
+      }
+
+      p {
+        font-size: 2.8vw;
+      }
+    }
+  }
 }
 
-@media (max-width: 800px) {
-  .upper {
-    flex-direction: column;
-  }
-
-  .title {
-    font-size: 40px;
-  }
-
+@media (max-width: 768px) {
   .left {
     width: 100%;
     top: 0;
     z-index: 1;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5vw;
 
     .wrapper {
       text-align: center;
       display: flex;
       align-items: center;
       flex-direction: column;
-      gap: 1em;
+      gap: 1vw;
 
       a {
         width: 100%;
-      }
-    }
-  }
-
-  .right {
-    width: 100%;
-
-    .element {
-      text-align: center;
-      h4 {
-        width: 100%;
-        font-size: 24px;
-      }
-
-      p {
-        font-size: 16px;
       }
     }
   }
@@ -150,19 +145,19 @@ let elementContent = [
 .element {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5vw;
   border-radius: 24px;
-  padding: 3rem;
+  padding: 2.5vw;
+
   h4 {
-    width: 50%;
-    font-size: 36px;
-    line-height: 40px;
+    width: 80%;
+    font-size: 2.2vw;
     font-weight: 600;
   }
+
   p {
-    margin-top: 1rem;
-    font-size: 18px;
-    line-height: 28px;
+    margin-top: 1vw;
+    font-size: 1.2vw;
   }
 }
 

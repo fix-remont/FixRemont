@@ -1,5 +1,8 @@
 .env
 .vscode
+Vagrantfile
+.vagrant
+frontend/.npmrc
 ansible_from_rails
 frontend/.vscode
 /.venv
@@ -12,3 +15,6 @@ backend/.venv
 backend/.venv/
 backend/.idea
 backend/__pycache__
+todo.txt
+/scripts/*
+/node_modules/

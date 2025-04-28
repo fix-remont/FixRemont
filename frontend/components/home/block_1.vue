@@ -3,270 +3,153 @@ const { width } = useViewport()
 import { hrefBecomePartner, hrefCalculater } from '~/assets/variables'
 
 const items = ref([
-	{
-		id: 1,
-		title: 'Ремонт',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
-	{
-		id: 2,
-		title: 'Строительство',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
-	{
-		id: 3,
-		title: 'Партнёрская программа',
-		text: 'Без визитов на объект.Заезжайте в готовую квартире уже через 6-8 месяцев',
-		imgSrc: '/images/home/block1-img1.png',
-		hovered: false,
-	},
+  {
+    id: 1,
+    title: 'Ремонт',
+    text: 'Без визитов на объект. Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    href: '/apartment-renovation',
+    hovered: false
+  },
+  {
+    id: 2,
+    title: 'Строительство',
+    text: 'Без визитов на объект. Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    href: '/building-houses',
+    hovered: false
+  },
+  {
+    id: 3,
+    title: 'Партнёрская программа',
+    text: 'Без визитов на объект. Заезжайте в готовую квартире уже через 6-8 месяцев',
+    imgSrc: '/images/home/block1-img1.png',
+    href: hrefBecomePartner,
+    hovered: false
+  }
 ])
+
+const carouselRef = ref()
+
+onMounted(() => {
+  setInterval(() => {
+    if (!carouselRef.value) return
+
+    if (carouselRef.value.page === carouselRef.value.pages) {
+      return carouselRef.value.select(0)
+    }
+
+    carouselRef.value.next()
+  }, 3000)
+})
 </script>
 
 <template>
-	<div :class="['box', 'margin-glob']">
-		<div class="first radius-glob">
-			<img src="/images/home/tools.png" alt="tools" draggable="false" />
-			<p>Первый в России онлайн-сервис по ремонту и строительству с фиксированной стоимостью</p>
-		</div>
-		<div class="second">
-			<div class="box-buttons radius-glob">
-				<p>Воплотим вашу мечту в реальность без визитов на объект</p>
-				<div :class="['buttons']">
-					<NuxtLink :to="hrefCalculater">
-						<SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
-					</NuxtLink>
-					<NuxtLink :to="hrefBecomePartner">
-						<SharedButton>Стать партнёром</SharedButton>
-					</NuxtLink>
-				</div>
-			</div>
-			<UCarousel v-if="items" class="third" :items="items" :ui="{ container: 'gap-2' }">
-				<template #default="{ item }">
-					<div
-						@mouseover="item.hovered = true"
-						@mouseout="item.hovered = false"
-						:class="['item', { 'item-hovered': item.hovered }]"
-						@click="item.hovered = true">
-						<span :class="['title']">{{ item.title }}</span>
-						<span :class="['text']">{{ item.text }}</span>
-						<img :src="item.imgSrc" alt="img" />
-						<div :class="['wrap-arrow']">
-							<SharedArrowHover :hovered="item.hovered" />
-						</div>
-					</div>
-				</template>
-			</UCarousel>
-		</div>
-	</div>
+  <WBlockNew class="grid grid-cols-1 gap-[1.5vw] md:grid-cols-2">
+    <div class="rounded-glob-new relative">
+      <img
+        class="h-full w-full object-cover"
+        src="/images/home/tools.png"
+        alt="tools"
+        draggable="false"
+      />
+      <p
+        class="text-glob-md absolute bottom-[6vw] left-[6vw] text-white md:bottom-[4vw] md:left-[4vw]"
+      >
+        Первый в России
+        <br />
+        онлайн-сервис <br />
+        по ремонту и <br />
+        строительству <br />
+        с фиксированной <br />
+        стоимостью
+      </p>
+    </div>
+    <div class="flex flex-col gap-[1.5vw]">
+      <div
+        class="rounded-glob-new flex flex-grow flex-col bg-[--c-black] p-[5vw] text-white md:p-[2vw]"
+      >
+        <p
+          class="mb-[5vw] text-[4vw] font-medium leading-[5vw] md:mb-0 md:text-[1.6vw] md:leading-[2.1vw]"
+        >
+          Воплотим вашу
+          <br class="hidden md:block" />
+          мечту в реальность
+          <br class="hidden md:block" />
+          без визитов на
+          <br class="hidden md:block" />
+          объект
+        </p>
+        <div class="mt-auto grid grid-cols-2 gap-[1vw]">
+          <UButton :to="hrefCalculater">Отлайн калькулятор</UButton>
+          <UButton :to="hrefBecomePartner" variant="outline" color="white">Стать партнёром</UButton>
+        </div>
+      </div>
+      <div class="hidden grid-cols-3 gap-[1vw] md:grid">
+        <NuxtLink
+          class="rounded-glob-new group relative bg-[#EFEFEF] text-white hover:bg-none"
+          v-for="item in items"
+          to="#"
+          @mouseover="item.hovered = true"
+          @mouseout="item.hovered = false"
+          :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
+          @click="item.hovered = true"
+        >
+          <div class="relative z-10 p-[2vw] pe-[2vw]">
+            <p
+              class="mb-[.4vw] text-[1.2vw] font-semibold leading-[1.4vw] text-black transition delay-500 ease-linear group-hover:text-white"
+            >
+              {{ item.title }}
+            </p>
+            <p
+              class="text-[1vw] leading-[1.2vw] text-[#EFEFEF] transition delay-500 ease-linear group-hover:text-gray-300"
+            >
+              {{ item.text }}
+            </p>
+          </div>
+          <img
+            class="absolute top-0 z-0 h-full w-full object-cover opacity-0 transition delay-500 ease-linear group-hover:opacity-100"
+            :src="item.imgSrc"
+            alt="img"
+          />
+          <SharedArrowHover class="absolute bottom-[1vw] right-[1vw]" :hovered="item.hovered" />
+        </NuxtLink>
+      </div>
+      <UCarousel
+        class="block md:hidden"
+        v-if="items"
+        ref="carouselRef"
+        :items="items"
+        :ui="{ container: 'gap-[2vw]' }"
+      >
+        <template #default="{ item }">
+          <NuxtLink
+            class="relative w-[40vw] overflow-hidden rounded-[4vw] text-white"
+            to="#"
+            @mouseover="item.hovered = true"
+            @mouseout="item.hovered = false"
+            :class="['item', { 'item-hovered': item.hovered }, 'cursor-pointer']"
+            @click="item.hovered = true"
+          >
+            <div class="relative z-10 p-[4vw]">
+              <p
+                class="mb-[.4vw] pb-[3vw] text-[4vw] font-semibold leading-[3.5vw] text-white md:text-[1.2vw]"
+              >
+                {{ item.title }}
+              </p>
+              <p class="text-[3vw] leading-[3.5vw] text-white md:leading-[1.2vw]">
+                {{ item.text }}
+              </p>
+            </div>
+            <img
+              class="absolute bottom-0 top-0 z-0 h-full w-full object-cover"
+              :src="item.imgSrc"
+              alt="img"
+            />
+            <SharedArrowHover class="absolute bottom-[4vw] right-[4vw]" :hovered="true" />
+          </NuxtLink>
+        </template>
+      </UCarousel>
+    </div>
+  </WBlockNew>
 </template>
-
-<style scoped>
-.box {
-	display: flex;
-	gap: 20px;
-	@media (max-width: 1100px) {
-		flex-direction: column;
-		gap: 15px;
-	}
-}
-.first {
-	width: 50%;
-	position: relative;
-	height: 785px;
-	display: flex;
-	overflow: hidden;
-	@media (max-width: 1100px) {
-		width: 100%;
-		background-color: #f9af15;
-		height: 290px;
-	}
-	/* @media (max-width: 1500px) {
-	}
-	@media (max-width: 640px) {
-		height: 245px;
-		overflow: visible;
-	} */
-	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: right center;
-		@media (max-width: 1500px) {
-			width: auto;
-			margin-left: auto;
-		}
-		@media (max-width: 640px) {
-			height: 245px;
-		}
-	}
-	p {
-		position: absolute;
-		bottom: 75px;
-		left: 75px;
-
-		line-height: 60px;
-		font-size: 45px;
-		font-weight: 500;
-		color: white;
-		width: 400px;
-
-		@media (max-width: 1840px) {
-			font-size: 40px;
-			width: 350px;
-		}
-		@media (max-width: 1500px) {
-			font-size: 30px;
-			width: 60%;
-			bottom: 35px;
-		}
-		@media (max-width: 1000px) {
-			font-size: 24px;
-			width: 41vw;
-			line-height: 19px;
-			bottom: 26px;
-			left: 26px;
-		}
-		@media (max-width: 1000px) {
-			font-size: 16px;
-		}
-	}
-}
-.second {
-	width: 50%;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	@media (max-width: 1100px) {
-		width: 100%;
-	}
-	.box-buttons {
-		background-color: var(--c-black);
-		padding: 45px;
-		color: white;
-		font-size: 32px;
-		font-weight: 500;
-		line-height: 42px;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		flex-grow: 1;
-
-		@media (max-width: 1100px) {
-			padding: 25px;
-		}
-
-		.buttons {
-			display: flex;
-			gap: 20px;
-
-			@media (max-width: 1460px) {
-				flex-direction: column;
-			}
-			a {
-				flex: 1;
-			}
-		}
-		p {
-			width: 300px;
-
-			@media (max-width: 1500px) {
-				width: 100%;
-				font-size: 20px;
-				margin-bottom: 30px;
-			}
-
-			@media (max-width: 800px) {
-				line-height: 16px;
-				font-size: 16px;
-			}
-		}
-	}
-
-	.third {
-		.static-slides {
-			width: 890px;
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 20px;
-			height: 100%;
-			flex-grow: 1;
-
-			@media (max-width: 1500px) {
-				width: 100%;
-				gap: 0;
-				display: flex;
-				justify-content: space-between;
-			}
-		}
-
-		.item {
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			color: white;
-			border-radius: 35px;
-			overflow: hidden;
-			transition: all 1s linear;
-			background-color: white;
-			/* background-color: var(--c-black); */
-
-			width: 280px;
-			@media (max-width: 1500px) {
-			}
-
-			/* @media (max-width: 1000px) {
-				width: initial;
-				} */
-
-			.title {
-				font-weight: 500;
-				font-size: 24px;
-				margin: 25px 0 10px 25px;
-				line-height: 32px;
-				transition: all 1s linear;
-				color: var(--c-black);
-			}
-
-			.text {
-				width: 180px;
-				font-size: 16px;
-				font-weight: 400;
-				margin-left: 25px;
-				color: white;
-			}
-
-			img {
-				position: absolute;
-				z-index: -1;
-				width: 100%;
-				height: 100%;
-			}
-
-			.wrap-arrow {
-				position: absolute;
-				right: 25px;
-				bottom: 25px;
-			}
-		}
-
-		.item-hovered {
-			background: none;
-			/* background: #efefef; */
-
-			.title {
-				color: white;
-				/* color: var(--c-black); */
-			}
-
-			.text {
-				color: #efefef;
-			}
-		}
-	}
-}
-</style>

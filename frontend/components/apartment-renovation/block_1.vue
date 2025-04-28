@@ -1,133 +1,118 @@
 <script setup lang="ts">
 import { useViewport } from '~/composables/viewport'
-import Bread_crumbs from '~/components/_shared/bread_crumbs.vue'
 import { hrefCalculater } from '~/assets/variables'
 
-const imagePath = '/images/apartment-renovation/block_1.png'
 const { width } = useViewport()
-
-// defineProps<{
-//   header1: string,
-//   header2: string,
-//   imagePath: string,
-//   link_href: string,
-// }>()
 </script>
 
 <template>
-	<div class="margin-glob block">
-		<div class="upper">
-			<img :src="imagePath" alt="background" />
-			<div class="crumb-container">
-				<Bread_crumbs />
-			</div>
-			<div class="content">
-				<h1 class="title-glob header">
-					Ремотн квартир
-					<br />
-					под ключ по готовым
-					<br />
-					проектам и с
-					<br />
-					фиксированной ценой
-				</h1>
-			</div>
-			<div class="box-wrapper">
-				<div class="black-box">
-					<h2>
-						Заселитесь в
-						<br />
-						квартиру мечты с
-						<br />
-						мебелью в течение
-						<br />
-						3-х месяцев
-					</h2>
-					<NuxtLink :to="hrefCalculater">
-						<SharedButton fillOrange> Онлайн-калькулятор </SharedButton>
-					</NuxtLink>
-				</div>
-			</div>
-		</div>
-		<HomeBlock2 />
-	</div>
+  <WBlock class="relative">
+    <div class="radius-glob relative mb-10 overflow-hidden lg:mb-0">
+      <SharedBreadCrumbs class="top-10 z-10 hidden lg:absolute lg:block" />
+      <img
+        class="radius-glob max-h-[700px] w-full object-cover"
+        src="/images/apartment-renovation/block_1.png"
+        alt="background"
+      />
+      <h1 class="title-boxing">
+        Ремотн квартир
+        <br />
+        под ключ по готовым
+        <br />
+        проектам и с
+        <br />
+        фиксированной ценой
+      </h1>
+    </div>
+
+    <div
+      class="black-box-wrap bottom-0 right-0 block w-full pl-0 pt-0 lg:absolute lg:w-[initial] lg:pl-8 lg:pt-8"
+    >
+      <div class="black-box w-full">
+        <h3 class="bb-title">Заселитесь в квартиру мечты с мебелью в течение 3-х месяцев</h3>
+        <UButton class="mt-auto" :to="hrefCalculater" size="custom" block
+          >Отлайн калькулятор</UButton
+        >
+      </div>
+    </div>
+  </WBlock>
 </template>
 
 <style scoped lang="postcss">
 $radius: 35px;
-.upper {
-	position: relative;
+
+.black-box-wrap {
+  background-color: var(--c-white);
+  border-radius: $radius 0 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 35px 35px var(--c-white);
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+  &::before {
+    bottom: 0;
+    left: -70px;
+  }
+  &::after {
+    right: 0;
+    top: -70px;
+  }
 }
 
-.content {
-	position: absolute;
-	bottom: 0;
-	margin-bottom: 5%;
-	left: 100px;
-}
+.title-boxing {
+  font-size: 2.5vw;
+  font-weight: bold;
+  line-height: 3vw;
+  color: white;
+  position: absolute;
+  bottom: 2.5vw;
+  left: 2.5vw;
 
-.header {
-	font-size: 50px;
-	font-weight: 600;
-	color: white;
-	line-height: 70px;
-	letter-spacing: 0.1px;
-	@media (max-width: 1500px) {
-		font-size: 40px;
-	}
-}
-
-.box-wrapper {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	background-color: white;
-	padding-left: 20px;
-	padding-top: 20px;
-	border-radius: 20px 0 0;
-
-	&::before,
-	&::after {
-		content: '';
-		position: absolute;
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		box-shadow: 15px 15px white;
-	}
-	&::before {
-		bottom: 0;
-		left: -40px;
-	}
-	&::after {
-		right: 0;
-		top: -40px;
-	}
+  @media (max-width: 768px) {
+    font-size: 4vw;
+    line-height: 5vw;
+    bottom: 3vw;
+    left: 3vw;
+  }
 }
 
 .black-box {
-	background-color: #161616;
-	padding: 50px;
-	border-radius: $radius;
-	color: white;
-	width: 35em;
-	h2 {
-		font-size: 25px;
-		font-weight: 500;
-		line-height: 40px;
-		margin-bottom: 100px;
-		@media (max-width: 1500px) {
-			font-size: 30px;
-		}
-	}
-}
+  background-color: #161616;
+  padding: 2.5vw;
+  border-radius: $radius;
+  color: var(--c-white);
+  width: 35rem;
+  @media (max-width: 1025px) {
+    width: initial;
+  }
+  @media (max-width: 768px) {
+    padding: 3.5vw;
+  }
 
-.crumb-container {
-	position: absolute;
-	display: inline-block;
-	top: 0;
-	left: 0;
-	padding: 20px;
-	z-index: 1;
+  .bb-title {
+    font-size: 1.5vw;
+    margin-bottom: 4rem;
+    @apply font-semibold;
+    color: white;
+    width: 75%;
+
+    @media (max-width: 1030px) {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 3vw;
+    }
+  }
 }
 </style>

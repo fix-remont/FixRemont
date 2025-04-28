@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { hrefLogo, hrefTg, hrefWatsapp, hrefPhone, labelPhone, hrefSelfPolitic } from '~/assets/variables'
+import {
+  hrefLogo,
+  hrefTg,
+  hrefWatsapp,
+  hrefPhone,
+  labelPhone,
+  hrefSelfPolitic
+} from '~/assets/variables'
 
 const props = defineProps<{
-	footerWithoutMargin?: boolean
+  footerWithoutMargin?: boolean
 }>()
 
 const marginTop = ref('auto')
@@ -10,125 +17,77 @@ if (props.footerWithoutMargin) marginTop.value = '0'
 </script>
 
 <template>
-	<footer :class="['footer']" :style="{ marginTop }">
-		<NuxtLink :to="hrefLogo">
-			<img src="/icons/logo-for-black.svg" :class="['hover', 'logo']" alt="logo" />
-		</NuxtLink>
+  <footer
+    class="flex flex-col items-center justify-between gap-[5vw] rounded-t-[8vw] bg-[--c-black] px-[2.2vw] py-[12vw] text-[4vw] font-medium text-white md:flex-row md:gap-0 md:rounded-t-[1.5vw] md:py-[2.2vw] md:text-[.7vw]"
+    :style="{ marginTop }"
+  >
+    <NuxtLink :to="hrefLogo">
+      <img src="/icons/logo-for-black.svg" :class="['hover', 'w-[34vw] md:w-[6vw]']" alt="logo" />
+    </NuxtLink>
 
-		<p class="low-lvl-info">Первый онлайн-сервис по ремонту и строительству <span style="font-weight: 800">с фикс стоимостью</span></p>
+    <p class="line-clamp-[1vw] text-center text-[4vw] md:block md:text-[.8vw]">
+      Первый онлайн-сервис по <br class="hidden md:block" />
+      ремонту и строительству <br class="hidden md:block" />
+      <b>с фикс стоимостью</b>
+    </p>
 
-		<p style="text-align: center">Copyright 2024. Все права защищены</p>
+    <p>Copyright 2024. Все права защищены</p>
 
-		<a :class="['politic', 'hover']" :href="hrefSelfPolitic">Политика конфиденциальности</a>
+    <a :class="['text-primary underline', 'hover']" :href="hrefSelfPolitic"
+      >Политика конфиденциальности</a
+    >
 
-		<address class="social">
-			<p class="text">
-				Напишите нам,<br />
-				мы сейчас онлайн
-			</p>
-			<a :href="hrefWatsapp">
-				<img src="/icons/watsapp.svg" :class="['hover', 'icon']" alt="watsapp" />
-			</a>
-			<a :href="hrefTg">
-				<img src="/icons/telegram.svg" :class="['hover', 'icon']" alt="watsapp" />
-			</a>
-		</address>
+    <address class="flex items-center gap-[2vw] rounded-[1vw] pe-[1vw] ps-[2vw] md:gap-[.5vw]">
+      <p class="with_point text">
+        Напишите нам,<br />
+        мы сейчас онлайн
+      </p>
+      <a :href="hrefWatsapp">
+        <img
+          src="/icons/watsapp.svg"
+          :class="['hover', 'h-[12vw] w-[12vw] md:h-[3vw] md:w-[3vw]']"
+          alt="watsapp"
+        />
+      </a>
+      <a :href="hrefTg">
+        <img
+          src="/icons/telegram.svg"
+          :class="['hover', 'h-[12vw] w-[12vw] md:h-[3vw] md:w-[3vw]']"
+          alt="watsapp"
+        />
+      </a>
+    </address>
 
-		<div class="working-mode">
-			<img src="/icons/clock.svg" :class="['icon']" alt="phone" />
-			<p>Звоните Пн-Вс: 8:30 - 19:00</p>
-		</div>
+    <div class="flex items-center gap-[.3vw]">
+      <img class="" src="/icons/clock.svg" alt="phone" />
+      <p>Звоните Пн-Вс: 8:30 - 19:00</p>
+    </div>
 
-		<div class="phone">
-			<img src="/icons/phone.svg" :class="['icon']" alt="phone" />
-			<a :class="['hover']" :href="hrefPhone">{{ labelPhone }}</a>
-		</div>
-	</footer>
+    <div class="flex items-center gap-[.3vw]">
+      <img class="" src="/icons/phone.svg" alt="phone" />
+      <a :class="['hover']" :href="hrefPhone">{{ labelPhone }}</a>
+    </div>
+  </footer>
 </template>
 
-<style>
-.footer {
-	/* margin-top: v-bind(marginTop); */
-	color: white;
-	background-color: var(--c-black);
-	display: grid;
-	grid-template-columns: repeat(7, auto);
-	justify-content: space-between;
-	align-items: center;
-	padding: 50px;
-	border-radius: 25px 25px 0 0;
-
-	@media (max-width: 1740px) {
-		display: flex;
-		flex-wrap: wrap;
-		row-gap: 30px;
-		column-gap: 80px;
-		justify-content: center;
-		/* grid-template-columns: repeat(4, auto);
-		grid-template-rows: repeat(2, auto); */
-	}
-}
-
-.low-lvl-info {
-	font-weight: 500;
-	width: 215px;
-	line-height: 18px;
-}
-
-.politic {
-	color: #f9af15;
-	text-decoration: underline;
-}
-.social {
-	display: flex;
-	align-items: center;
-	/* justify-content: space-between; */
-	gap: 10px;
-	padding-left: 20px;
-	font-weight: 500;
-	font-size: 14px;
-
-	.text {
-		text-decoration: none;
-		font-style: normal;
-		position: relative;
-
-		&::before {
-			content: '';
-			width: 5px;
-			height: 5px;
-			border-radius: 50%;
-			background-color: #43c460;
-			position: absolute;
-			left: -13px;
-			top: 20px;
-		}
-	}
-
-	.icon {
-		width: 40px;
-		height: 40px;
-	}
-}
-
-.working-mode {
-	display: flex;
-	gap: 8px;
-	font-weight: 500;
-	font-size: 15px;
-	align-items: center;
-}
-
-.icon {
-	width: 17px;
-	height: 17px;
-}
-
-.phone {
-	font-size: 17px;
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	font-weight: 500;
+<style scoped>
+.with_point {
+  position: relative;
+  &::before {
+    content: '';
+    width: 0.3vw;
+    height: 0.3vw;
+    border-radius: 50%;
+    background-color: #43c460;
+    position: absolute;
+    left: -1vw;
+    top: 1vw;
+    @media (max-width: 768px) {
+      width: 2vw;
+      height: 2vw;
+      left: -6vw;
+      top: 5.5vw;
+    }
+  }
 }
 </style>
